@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Across Africa — A Thousand Unforgettable Stories</title>
+<title>See Africa — A Thousand Unforgettable Stories</title>
 <meta name="description" content="Africa isn't one destination. It's a thousand unforgettable stories — curated safaris, culture, and journeys across the continent." />
 
 <!-- Fonts: Clash Display (headline) + General Sans (body/UI) -->
@@ -17,8 +17,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <!-- Lenis smooth scroll -->
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
-<!-- Three.js -->
-<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
 
 <style>
   :root{
@@ -109,16 +107,6 @@
     font-size: 0.7rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.5);
   }
 
-  /* Particle canvas */
-  #particles-canvas{
-    position:absolute; inset:0;
-    width:100%; height:100%;
-    z-index:2;
-    mix-blend-mode: screen;
-    opacity: 0.55;
-    pointer-events:none;
-  }
-
   /* Nav */
   .nav{
     position: fixed; top:0; left:0; right:0; z-index: 100;
@@ -199,16 +187,18 @@
   .hero-overlay{
     position:absolute; inset:0; z-index:1;
     background:
-      linear-gradient(180deg, rgba(11,11,13,0.55) 0%, rgba(11,11,13,0.25) 30%, rgba(11,11,13,0.55) 68%, rgba(11,11,13,0.94) 100%),
-      radial-gradient(120% 90% at 15% 15%, rgba(223,173,84,0.16), transparent 55%);
+      linear-gradient(180deg, rgba(11,11,13,0.30) 0%, rgba(11,11,13,0.08) 32%, rgba(11,11,13,0.30) 66%, rgba(11,11,13,0.72) 100%);
   }
 
   .hero-content{
     position:relative; z-index:3;
     flex:1;
-    display:flex; flex-direction:column; justify-content:center;
-    padding: 0 var(--space-5);
-    max-width: 1100px;
+    width:100%;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    padding: 0 var(--space-4);
+    max-width: 820px;
+    margin: 0 auto;
   }
   .eyebrow{
     font-size: 0.78rem;
@@ -216,18 +206,18 @@
     text-transform: uppercase;
     color: var(--gold-light);
     margin: 0 0 var(--space-3);
-    display:flex; align-items:center; gap: var(--space-2);
+    display:flex; align-items:center; justify-content:center; gap: var(--space-2);
     opacity:0;
   }
-  .eyebrow::before{
+  .eyebrow::before, .eyebrow::after{
     content:''; width: 34px; height:1px; background: var(--gold);
   }
 
   .headline{
     font-family: var(--font-display);
-    font-weight: 600;
-    font-size: clamp(2.1rem, 6vw, 5rem);
-    line-height: 1.08;
+    font-weight: 500;
+    font-size: clamp(2rem, 5.4vw, 4.4rem);
+    line-height: 1.14;
     letter-spacing: -0.01em;
     margin: 0 0 var(--space-4);
   }
@@ -240,7 +230,7 @@
   }
 
   .hero-actions{
-    display:flex; align-items:center; gap: var(--space-4);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap: var(--space-3);
     opacity:0;
   }
   .cta-btn{
@@ -248,7 +238,7 @@
     display:inline-flex; align-items:center; gap:10px;
     padding: 17px 30px;
     border-radius: 999px;
-    font-weight:600; font-size:0.92rem; letter-spacing:0.02em;
+    font-weight:500; font-size:0.92rem; letter-spacing:0.02em;
     color: var(--ink);
     background: linear-gradient(100deg, var(--gold-light), var(--gold));
     box-shadow: 0 10px 30px -8px rgba(223,173,84,0.55);
@@ -289,13 +279,6 @@
     0%{ top:-100%; } 60%{ top:100%; } 100%{ top:100%; }
   }
 
-  .frame-corner{
-    position:absolute; z-index:3; width:26px; height:26px;
-    border-color: rgba(223,173,84,0.55); opacity:0;
-  }
-  .frame-corner.tl{ top: 100px; left: var(--space-5); border-top:1px solid; border-left:1px solid; }
-  .frame-corner.br{ bottom: 90px; left: var(--space-5); border-bottom:1px solid; border-right:1px solid; width:14px; height:14px; }
-
   /* Next section stub — placeholder for what comes after the hero */
   .next-teaser{
     position:relative; z-index:2;
@@ -316,7 +299,6 @@
     .nav-links{ display:none; }
     .nav-toggle{ display:block; }
     .hero-content{ padding: 0 var(--space-3); }
-    .frame-corner{ display:none; }
     .scroll-cue{ right: var(--space-3); }
   }
 
@@ -330,13 +312,13 @@
 <a href="#next" class="skip-link">Skip to content</a>
 
 <div id="preloader" aria-hidden="true">
-  <p class="preloader-mark">ACROSS <span>AFRICA</span></p>
+  <p class="preloader-mark">SEE <span>AFRICA</span></p>
   <div class="preloader-bar"></div>
   <p class="preloader-pct">Loading the journey</p>
 </div>
 
 <header class="nav" id="siteNav">
-  <a href="#" class="nav-logo">ACROSS <em>AFRICA</em></a>
+  <a href="#" class="nav-logo">SEE <em>AFRICA</em></a>
   <ul class="nav-links">
     <li><a href="#">Home</a></li>
     <li><a href="#">Explore Africa</a></li>
@@ -361,11 +343,7 @@
         <source src="https://raw.githubusercontent.com/Emekaeluem/See-Africa-1/main/images/video.mp4" type="video/mp4" />
       </video>
     </div>
-    <canvas id="particles-canvas" aria-hidden="true"></canvas>
     <div class="hero-overlay"></div>
-
-    <div class="frame-corner tl"></div>
-    <div class="frame-corner br"></div>
 
     <div class="hero-content">
       <p class="eyebrow">A continent of contrasts</p>
@@ -432,14 +410,10 @@
 
       tl.to('.eyebrow', { opacity: 1, y: 0, duration: 0.8 }, 0)
         .from('.eyebrow', { y: 14, duration: 0.8 }, 0)
-        .to('.headline .line-inner', {
-            y: '0%', duration: 1.1, stagger: 0.12, ease: 'power4.out'
-          }, 0.15)
         .fromTo('.headline .line-inner', { y: '110%' }, { y: '0%', duration: 1.1, stagger: 0.12, ease: 'power4.out' }, 0.15)
         .to('.hero-actions', { opacity: 1, duration: 0.8 }, 0.75)
         .from('.hero-actions', { y: 16, duration: 0.8 }, 0.75)
-        .to('.scroll-cue', { opacity: 1, duration: 0.8 }, 1.0)
-        .to('.frame-corner', { opacity: 1, duration: 1 }, 0.6);
+        .to('.scroll-cue', { opacity: 1, duration: 0.8 }, 1.0);
 
       /* Subtle parallax + fade on scroll out of hero */
       gsap.to('.hero-video', {
@@ -469,70 +443,6 @@
       });
     }
 
-    /* ---------- Three.js golden dust particles ---------- */
-    if (window.THREE && !reduceMotion) {
-      const canvas = document.getElementById('particles-canvas');
-      const hero = document.querySelector('.hero');
-      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(50, 1, 1, 1000);
-      camera.position.z = 60;
-
-      const COUNT = 220;
-      const positions = new Float32Array(COUNT * 3);
-      const speeds = new Float32Array(COUNT);
-      for (let i = 0; i < COUNT; i++) {
-        positions[i * 3] = (Math.random() - 0.5) * 140;
-        positions[i * 3 + 1] = (Math.random() - 0.5) * 90;
-        positions[i * 3 + 2] = (Math.random() - 0.5) * 60;
-        speeds[i] = 0.05 + Math.random() * 0.12;
-      }
-      const geo = new THREE.BufferGeometry();
-      geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-      const material = new THREE.PointsMaterial({
-        color: 0xdfad54,
-        size: 0.6,
-        transparent: true,
-        opacity: 0.85,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false
-      });
-      const points = new THREE.Points(geo, material);
-      scene.add(points);
-
-      let mouseX = 0, mouseY = 0;
-      window.addEventListener('mousemove', (e) => {
-        mouseX = (e.clientX / window.innerWidth - 0.5);
-        mouseY = (e.clientY / window.innerHeight - 0.5);
-      });
-
-      function resize() {
-        const w = hero.clientWidth, h = hero.clientHeight;
-        renderer.setSize(w, h);
-        camera.aspect = w / h;
-        camera.updateProjectionMatrix();
-      }
-      resize();
-      window.addEventListener('resize', resize);
-
-      function animate() {
-        requestAnimationFrame(animate);
-        const pos = geo.attributes.position.array;
-        for (let i = 0; i < COUNT; i++) {
-          pos[i * 3 + 1] += speeds[i] * 0.05;
-          if (pos[i * 3 + 1] > 45) pos[i * 3 + 1] = -45;
-        }
-        geo.attributes.position.needsUpdate = true;
-        camera.position.x += (mouseX * 6 - camera.position.x) * 0.02;
-        camera.position.y += (-mouseY * 4 - camera.position.y) * 0.02;
-        camera.lookAt(scene.position);
-        renderer.render(scene, camera);
-      }
-      animate();
-    }
   });
 </script>
 </body>
