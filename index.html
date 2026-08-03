@@ -521,7 +521,13 @@
   .explore-visual{
     position:relative;
     width: min(460px, 74vw);
-    aspect-ratio: 1 / 1;
+    flex-shrink:0;
+  }
+  .explore-visual::before{
+    content:'';
+    display:block;
+    width:100%;
+    padding-top:100%; /* locks the box to a true 1:1 square at any width */
   }
   .explore-ring{
     position:absolute; inset:-32px;
@@ -533,8 +539,7 @@
   @keyframes ringSpin{ to{ transform:rotate(360deg); } }
 
   .explore-video-frame{
-    position:relative;
-    width:100%; height:100%;
+    position:absolute; inset:0;
     border-radius:28px;
     overflow:hidden;
     animation: framePulse 6s ease-in-out infinite;
@@ -550,6 +555,9 @@
     margin-top: var(--space-5);
     font-size:0.92rem; letter-spacing:0.02em;
     color: rgba(255,255,255,0.6);
+  }
+  .explore-section .cta-btn{
+    margin-top: var(--space-4);
   }
 
   @media (max-width: 640px){
@@ -580,7 +588,18 @@
 
   @media (max-width: 860px){
     .nav{ padding: var(--space-2) var(--space-3); }
-    .nav-links{ display:none; }
+    .nav-links{
+      position:absolute; top:100%; left:0; right:0;
+      flex-direction:column; align-items:flex-start; gap: var(--space-3);
+      background: rgba(11,11,13,0.94);
+      backdrop-filter: blur(18px) saturate(140%);
+      padding: var(--space-4);
+      border-bottom: 1px solid rgba(223,173,84,0.18);
+      max-height:0; overflow:hidden; opacity:0;
+      transition: max-height 0.4s var(--ease-premium), opacity 0.3s ease;
+    }
+    .nav-links.open{ max-height:360px; opacity:1; }
+    .nav-links a{ font-size:0.9rem; }
     .nav-toggle{ display:block; }
     .hero-content{ padding: 0 var(--space-3); }
     .scroll-cue{ right: var(--space-3); }
@@ -719,6 +738,10 @@
     </div>
 
     <p class="explore-caption">Choose your next African destination.</p>
+    <a href="#" class="cta-btn">
+      <span>Explore Destinations</span>
+      <i data-lucide="arrow-right"></i>
+    </a>
   </section>
 </main>
 
@@ -752,6 +775,21 @@
     };
     window.addEventListener('scroll', onScroll);
     onScroll();
+
+    /* ---------- Mobile nav toggle ---------- */
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    if (navToggle && navLinks) {
+      const setOpen = (open) => {
+        navLinks.classList.toggle('open', open);
+        navToggle.setAttribute('aria-expanded', String(open));
+        navToggle.innerHTML = open ? '<i data-lucide="x"></i>' : '<i data-lucide="menu"></i>';
+        if (window.lucide) lucide.createIcons();
+      };
+      navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.addEventListener('click', () => setOpen(!navLinks.classList.contains('open')));
+      navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+    }
 
     /* ---------- GSAP hero entrance ---------- */
     if (window.gsap) {
@@ -812,7 +850,7 @@
       .to('.belief-chip', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.1 }, 0.7);
 
       /* Explore Africa section reveal */
-      gsap.set('.explore-eyebrow, .explore-heading, .explore-quote, .explore-caption', { opacity: 0, y: 22 });
+      gsap.set('.explore-eyebrow, .explore-heading, .explore-quote, .explore-caption, .explore-section .cta-btn', { opacity: 0, y: 22 });
       gsap.set('.explore-visual', { opacity: 0, scale: 0.9 });
       gsap.set('.explore-ring', { opacity: 0 });
 
@@ -822,20 +860,22 @@
       .to('.explore-eyebrow, .explore-heading, .explore-quote', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.15 }, 0)
       .to('.explore-visual', { opacity: 1, scale: 1, duration: 1, ease: 'power3.out' }, 0.3)
       .to('.explore-ring', { opacity: 1, duration: 1.2, ease: 'power2.out' }, 0.45)
-      .to('.explore-caption', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 0.9);
+      .to('.explore-caption', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 0.9)
+      .to('.explore-section .cta-btn', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 1.05);
     }
 
-    /* ---------- Magnetic button ---------- */
-    const ctaBtn = document.querySelector('.cta-btn');
-    if (ctaBtn && window.gsap && !reduceMotion) {
-      ctaBtn.addEventListener('mousemove', (e) => {
-        const r = ctaBtn.getBoundingClientRect();
-        const x = e.clientX - r.left - r.width / 2;
-        const y = e.clientY - r.top - r.height / 2;
-        gsap.to(ctaBtn, { x: x * 0.3, y: y * 0.5, duration: 0.4, ease: 'power3.out' });
-      });
-      ctaBtn.addEventListener('mouseleave', () => {
-        gsap.to(ctaBtn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.4)' });
+    /* ---------- Magnetic buttons ---------- */
+    if (window.gsap && !reduceMotion) {
+      document.querySelectorAll('.cta-btn').forEach((ctaBtn) => {
+        ctaBtn.addEventListener('mousemove', (e) => {
+          const r = ctaBtn.getBoundingClientRect();
+          const x = e.clientX - r.left - r.width / 2;
+          const y = e.clientY - r.top - r.height / 2;
+          gsap.to(ctaBtn, { x: x * 0.3, y: y * 0.5, duration: 0.4, ease: 'power3.out' });
+        });
+        ctaBtn.addEventListener('mouseleave', () => {
+          gsap.to(ctaBtn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.4)' });
+        });
       });
     }
 
