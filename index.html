@@ -91,18 +91,34 @@
     color: var(--white);
   }
   .preloader-mark span{ color: var(--gold); }
-  .preloader-bar{
-    width: min(220px, 40vw); height:1px;
-    background: rgba(255,255,255,0.14);
-    position:relative; overflow:hidden;
+  .preloader-flight{
+    position:relative;
+    width: min(240px, 55vw);
+    height: 32px;
+    overflow: visible;
   }
-  .preloader-bar::after{
-    content:''; position:absolute; inset:0;
+  .flight-line{
+    position:absolute; left:0; right:0; top:50%;
+    height:1px; transform: translateY(-50%);
+    background-image: linear-gradient(90deg, rgba(255,255,255,0.16) 0 6px, transparent 6px 12px);
+    background-size: 12px 1px; background-repeat: repeat-x;
+  }
+  .flight-progress{
+    position:absolute; left:0; top:50%; height:1px; width:0;
+    transform: translateY(-50%);
     background: var(--gold);
-    transform: scaleX(0); transform-origin:left;
-    animation: loadbar 1.6s var(--ease-premium) forwards;
+    animation: flightProgress 1.7s var(--ease-premium) forwards;
   }
-  @keyframes loadbar{ to{ transform: scaleX(1); } }
+  @keyframes flightProgress{ to{ width:100%; } }
+  .plane-icon{
+    position:absolute; top:50%; left:0;
+    width:22px; height:22px;
+    color: var(--gold);
+    transform: translate(-50%, -50%) rotate(90deg);
+    filter: drop-shadow(0 3px 6px rgba(223,173,84,0.45));
+    animation: planeFly 1.7s var(--ease-premium) forwards;
+  }
+  @keyframes planeFly{ from{ left:0%; } to{ left:100%; } }
   .preloader-pct{
     font-size: 0.7rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.5);
   }
@@ -295,7 +311,13 @@
 
 <div id="preloader" aria-hidden="true">
   <p class="preloader-mark">SEE <span>AFRICA</span></p>
-  <div class="preloader-bar"></div>
+  <div class="preloader-flight">
+    <div class="flight-line"></div>
+    <div class="flight-progress"></div>
+    <svg class="plane-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+      <path d="M22 16v-2l-8.5-5V3.5c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5V9L2 14v2l8.5-2.5V19L8 20.5V22l4-1 4 1v-1.5L13.5 19v-5.5L22 16z"/>
+    </svg>
+  </div>
   <p class="preloader-pct">Loading the journey</p>
 </div>
 
