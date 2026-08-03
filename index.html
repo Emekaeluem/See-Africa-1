@@ -280,8 +280,10 @@
   /* About section — glassmorphism card on white */
   .about-section{
     position:relative;
+    min-height:100svh;
+    display:flex; align-items:center; justify-content:center;
     background: var(--white);
-    padding: var(--space-8) var(--space-5);
+    padding: var(--space-6) var(--space-5);
     overflow:hidden;
     isolation:isolate;
   }
@@ -369,6 +371,92 @@
   }
   .about-punch em{
     font-style:normal; color: var(--bronze); font-weight:600;
+  }
+
+  /* Belief & Promise section — gold, fading in from the white About section */
+  .belief-section{
+    position:relative;
+    min-height: 100svh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    padding: var(--space-8) var(--space-5);
+    background: linear-gradient(180deg, var(--white) 0%, var(--gold) 14%, var(--gold) 100%);
+    overflow:hidden;
+    isolation:isolate;
+  }
+  .belief-pattern{
+    position:absolute; inset:0; z-index:0;
+    width:100%; height:100%;
+    opacity:0.16;
+  }
+  .belief-pattern path{ vector-effect:non-scaling-stroke; }
+
+  .belief-content{
+    position:relative; z-index:1;
+    max-width: 720px;
+    display:flex; flex-direction:column; align-items:center; gap: var(--space-4);
+  }
+  .belief-block{
+    display:flex; flex-direction:column; align-items:center; gap: var(--space-2);
+  }
+  .belief-eyebrow{
+    font-size:0.76rem; letter-spacing:0.24em; text-transform:uppercase;
+    color: rgba(11,11,13,0.68); font-weight:600; margin:0;
+  }
+  .belief-quote{
+    font-family: var(--font-display);
+    font-weight:400; font-style:italic;
+    font-size: clamp(1.25rem, 2.6vw, 1.85rem);
+    line-height:1.42;
+    color: var(--ink);
+    margin:0;
+    max-width: 620px;
+  }
+  .belief-text{
+    font-size:0.98rem; line-height:1.7;
+    color: rgba(11,11,13,0.75);
+    margin:0; max-width:520px;
+  }
+  .belief-divider{
+    position:relative;
+    width:64px; height:1px;
+    background: rgba(11,11,13,0.35);
+    transform: scaleX(0);
+  }
+  .belief-divider::before{
+    content:''; position:absolute; left:50%; top:50%;
+    width:6px; height:6px;
+    background: var(--ink);
+    transform: translate(-50%,-50%) rotate(45deg);
+  }
+  .belief-actions{
+    display:flex; align-items:center; justify-content:center; flex-wrap:wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+  }
+  .belief-btn{
+    padding: 15px 28px; border-radius:999px;
+    font-size:0.86rem; font-weight:500; letter-spacing:0.02em;
+    transition: background 0.35s var(--ease-premium), color 0.35s var(--ease-premium), transform 0.35s var(--ease-premium), box-shadow 0.35s var(--ease-premium);
+  }
+  .belief-btn.primary{
+    background: var(--ink); color: var(--white);
+  }
+  .belief-btn.primary:hover{
+    background:#000; transform: translateY(-2px);
+    box-shadow: 0 14px 28px -12px rgba(11,11,13,0.55);
+  }
+  .belief-btn.ghost{
+    border:1px solid rgba(11,11,13,0.4); color: var(--ink); background:transparent;
+  }
+  .belief-btn.ghost:hover{
+    background: rgba(11,11,13,0.08); transform: translateY(-2px);
+  }
+
+  @media (max-width: 640px){
+    .belief-section{ padding: var(--space-6) var(--space-4); }
+    .belief-actions{ flex-direction:column; width:100%; }
+    .belief-btn{ width:100%; text-align:center; }
   }
 
   @media (max-width: 900px){
@@ -474,6 +562,34 @@
       </div>
     </div>
   </section>
+
+  <section id="belief" class="belief-section" aria-label="Our Belief and Promise">
+    <svg class="belief-pattern" viewBox="0 0 64 64" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <path pathLength="1"
+        d="M32 2 C40 2 47 6 50 12 C53 17 52 22 55 26 C58 30 57 34 54 37 C52 40 53 44 50 47 C47 52 45 56 40 60 C37 62 34 61 32 58 C28 53 29 49 25 45 C20 41 17 40 15 35 C13 30 16 27 13 22 C11 17 7 15 10 11 C13 7 18 8 21 12 C24 16 27 10 32 2 Z"
+        fill="none" stroke="var(--ink)" stroke-width="0.6" stroke-dasharray="1" stroke-dashoffset="1" />
+    </svg>
+
+    <div class="belief-content">
+      <div class="belief-block">
+        <h2 class="belief-eyebrow">Our Belief</h2>
+        <p class="belief-quote">"Africa is not a destination to be consumed. She is a conversation to be joined."</p>
+      </div>
+
+      <div class="belief-divider" aria-hidden="true"></div>
+
+      <div class="belief-block">
+        <h2 class="belief-eyebrow">Our Promise</h2>
+        <p class="belief-text">Every experience we design is intentional. Every detail is considered. Every journey we curate is shaped by one question:</p>
+        <p class="belief-quote">"What will this person carry home that they could not have found anywhere else?"</p>
+      </div>
+
+      <div class="belief-actions">
+        <a href="#" class="belief-btn primary">Meet the Team</a>
+        <a href="#" class="belief-btn ghost">Our Story</a>
+      </div>
+    </div>
+  </section>
 </main>
 
 <script>
@@ -552,6 +668,16 @@
         ease: 'none',
         scrollTrigger: { trigger: '.about-section', start: 'top bottom', end: 'bottom top', scrub: true }
       });
+
+      /* Belief & Promise section reveal */
+      gsap.set('.belief-content > *', { opacity: 0, y: 24 });
+
+      gsap.timeline({
+        scrollTrigger: { trigger: '.belief-section', start: 'top 70%', toggleActions: 'play none none none' }
+      })
+      .to('.belief-content > *', { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.16 }, 0)
+      .to('.belief-divider', { scaleX: 1, duration: 0.8, ease: 'power3.out' }, 0.3)
+      .to('.belief-pattern path', { strokeDashoffset: 0, duration: 2.4, ease: 'power2.inOut' }, 0.1);
     }
 
     /* ---------- Magnetic button ---------- */
