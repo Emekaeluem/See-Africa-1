@@ -189,6 +189,9 @@
     overflow:hidden;
     isolation: isolate;
   }
+  @media (max-height: 560px){
+    .hero{ height:auto; min-height:100svh; padding-top:70px; padding-bottom:24px; }
+  }
   .hero-media{
     position:absolute; inset:0; z-index:0;
     background: linear-gradient(160deg, #1c1710 0%, var(--ink) 60%);
@@ -598,8 +601,9 @@
       max-height:0; overflow:hidden; opacity:0;
       transition: max-height 0.4s var(--ease-premium), opacity 0.3s ease;
     }
-    .nav-links.open{ max-height:360px; opacity:1; }
+    .nav-links.open{ max-height:440px; opacity:1; }
     .nav-links a{ font-size:0.9rem; }
+    .nav-links .nav-cta{ margin-top:4px; align-self:stretch; text-align:center; }
     .nav-toggle{ display:block; }
     .hero-content{ padding: 0 var(--space-3); }
     .scroll-cue{ right: var(--space-3); }
@@ -729,16 +733,38 @@
   .country-arrow:hover{ background: var(--gold); color: var(--ink); border-color: var(--gold); }
 
   @media (max-width: 860px){
-    .country-slide{ grid-template-columns: 1fr; grid-template-rows: 40% 60%; }
+    .country-slide{ grid-template-columns: 1fr; grid-template-rows: 38% 62%; }
     .country-slide-media-overlay{ background: linear-gradient(180deg, rgba(11,11,13,0) 60%, rgba(11,11,13,0.5) 100%); }
-    .country-slide-content{ padding: var(--space-5) var(--space-4) calc(var(--space-5) + 60px); }
-    .country-controls-bar{ left:0; padding: 0 var(--space-4); }
-    .country-slide-number{ top:var(--space-3); right:var(--space-4); font-size:3.4rem; }
+    .country-slide-content{
+      padding: var(--space-4) var(--space-4) calc(var(--space-4) + 56px);
+      overflow-y:auto;
+    }
+    .country-slide-flag{ margin-bottom: var(--space-2); }
+    .country-slide-name{ font-size: clamp(1.5rem, 5.5vw, 2.1rem); }
+    .country-slide-tagline{ margin-bottom: var(--space-3); }
+    .country-slide-quote{
+      margin-bottom: var(--space-2);
+      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+    }
+    .country-slide-desc{
+      margin-bottom: var(--space-3);
+      display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+    }
+    .country-controls-bar{ left:0; padding: 0 var(--space-4); bottom: var(--space-3); }
+    .country-slide-number{ top:var(--space-2); right:var(--space-4); font-size:3rem; }
   }
 
   @media (max-width: 480px){
     .country-arrows{ gap:8px; }
     .country-arrow{ width:44px; height:44px; }
+    .country-slide{ grid-template-rows: 34% 66%; }
+    .country-slide-desc{ -webkit-line-clamp:2; }
+  }
+
+  @media (max-height: 560px){
+    .country-slide{ grid-template-columns: 1fr 1fr; grid-template-rows: none; }
+    .country-slide-content{ padding: var(--space-3) var(--space-5) calc(var(--space-3) + 56px); overflow-y:auto; }
+    .country-slide-desc{ -webkit-line-clamp:2; }
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -771,8 +797,8 @@
     <li><a href="#">Experiences</a></li>
     <li><a href="#">Invest</a></li>
     <li><a href="#">Contact</a></li>
+    <li><a href="#" class="nav-cta">Reserve Your Seat</a></li>
   </ul>
-  <a href="#" class="nav-cta">Reserve Your Seat</a>
   <button class="nav-toggle" aria-label="Open menu">
     <i data-lucide="menu"></i>
   </button>
