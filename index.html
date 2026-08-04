@@ -921,6 +921,133 @@
     .experience-desc{ -webkit-line-clamp:4; font-size:0.82rem; }
   }
 
+  /* Voices From the Journey — editorial zigzag testimonials */
+  .voices-section{
+    position:relative;
+    min-height:100svh;
+    display:flex; flex-direction:column; justify-content:center;
+    background: var(--ivory);
+    padding: var(--space-8) var(--space-5);
+    overflow:hidden;
+    isolation:isolate;
+  }
+  .voices-blob{
+    position:absolute; z-index:0; border-radius:50%;
+    filter: blur(100px); pointer-events:none;
+  }
+  .voices-blob.a{
+    width:420px; height:420px; top:-140px; right:-140px;
+    background: radial-gradient(circle at 40% 40%, rgba(223,173,84,0.28), rgba(223,173,84,0) 70%);
+    animation: blobDrift 19s ease-in-out infinite;
+  }
+  .voices-blob.b{
+    width:380px; height:380px; bottom:-120px; left:-140px;
+    background: radial-gradient(circle at 60% 60%, rgba(156,74,44,0.18), rgba(156,74,44,0) 70%);
+    animation: blobDrift 22s ease-in-out infinite reverse;
+  }
+
+  .voices-intro{
+    position:relative; z-index:1;
+    text-align:center; max-width:640px; margin:0 auto var(--space-8);
+  }
+  .voices-heading{
+    font-family: var(--font-display); font-weight:600;
+    font-size: clamp(1.9rem, 3.4vw, 2.9rem);
+    color: var(--ink); margin:0 0 var(--space-3);
+  }
+  .voices-quote{
+    font-style:italic; color: var(--bronze);
+    font-size: clamp(1.05rem, 1.7vw, 1.3rem);
+    margin:0 0 var(--space-2);
+  }
+  .voices-subtext{
+    font-size:0.85rem; letter-spacing:0.14em; text-transform:uppercase;
+    color: rgba(11,11,13,0.45); font-weight:600; margin:0;
+  }
+
+  .voice-stories{
+    position:relative; z-index:1;
+    max-width:1180px; margin:0 auto; width:100%;
+  }
+  .voice-story{
+    display:grid; grid-template-columns: 0.85fr 1.15fr;
+    gap: var(--space-6);
+    align-items:center;
+    margin-bottom: var(--space-8);
+  }
+  .voice-story.reverse{ grid-template-columns: 1.15fr 0.85fr; }
+  .voice-story.reverse .voice-portrait{ order:2; }
+  .voice-story.reverse .voice-content{ order:1; }
+
+  .voice-portrait{
+    position:relative;
+    border-radius: 28px;
+    overflow:hidden;
+    box-shadow: 0 40px 80px -35px rgba(11,11,13,0.28);
+  }
+  .voice-portrait::before{ content:''; display:block; padding-top:118%; }
+  .voice-portrait img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+    transform: scale(1.1);
+  }
+
+  .voice-content{ position:relative; }
+  .voice-label{
+    font-size:0.74rem; letter-spacing:0.18em; text-transform:uppercase;
+    color: var(--bronze); font-weight:700; margin:0 0 var(--space-2);
+  }
+  .voice-quote-mark{
+    position:absolute; top:-46px; left:-6px; z-index:0;
+    font-family: var(--font-display); font-weight:700;
+    font-size:7rem; line-height:1;
+    color: rgba(223,173,84,0.18);
+    pointer-events:none; user-select:none;
+  }
+  .voice-story.reverse .voice-quote-mark{ left:auto; right:-6px; }
+  .voice-quote{
+    position:relative; z-index:1;
+    font-family: var(--font-display); font-weight:500; font-style:italic;
+    font-size: clamp(1.25rem, 2vw, 1.65rem);
+    line-height:1.4; color: var(--ink);
+    margin:0 0 var(--space-3);
+  }
+  .voice-attribution{
+    position:relative; z-index:1;
+    font-weight:600; color: var(--bronze); font-size:0.92rem;
+    margin:0 0 var(--space-3);
+  }
+  .voice-text{
+    position:relative; z-index:1;
+    color: rgba(11,11,13,0.66); line-height:1.75; font-size:0.96rem;
+    max-width:440px; margin:0;
+  }
+
+  .voices-cta{
+    position:relative; z-index:1;
+    text-align:center; max-width:600px; margin: var(--space-4) auto 0;
+  }
+  .voices-cta p{
+    font-family: var(--font-display); font-style:italic;
+    font-size: clamp(1.15rem, 1.9vw, 1.5rem);
+    color: var(--ink); margin:0 0 var(--space-4);
+  }
+  .voices-cta-actions{
+    display:flex; gap: var(--space-3); justify-content:center; flex-wrap:wrap;
+  }
+
+  @media (max-width: 860px){
+    .voices-section{ padding-top: 120px; }
+    .voice-story, .voice-story.reverse{
+      grid-template-columns: 1fr; gap: var(--space-4); margin-bottom: var(--space-6);
+    }
+    .voice-story.reverse .voice-portrait{ order:1; }
+    .voice-story.reverse .voice-content{ order:2; }
+    .voice-portrait::before{ padding-top:80%; }
+    .voice-quote-mark{ font-size:5rem; top:-32px; }
+    .voice-story.reverse .voice-quote-mark{ right:auto; left:-6px; }
+    .voice-text{ max-width:100%; }
+  }
+
   @media (prefers-reduced-motion: reduce){
     *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
     .country-progress-seg.active .fill{ animation-play-state: paused !important; }
@@ -1080,6 +1207,27 @@
       <p class="experiences-quote">"Africa does not offer experiences. It offers transformations."</p>
     </div>
     <div class="experience-panels" id="experiencePanels"></div>
+  </section>
+
+  <section id="voices" class="voices-section" aria-label="Voices From the Journey">
+    <div class="voices-blob a" aria-hidden="true"></div>
+    <div class="voices-blob b" aria-hidden="true"></div>
+
+    <div class="voices-intro">
+      <h2 class="voices-heading">Voices From the Journey</h2>
+      <p class="voices-quote">"The best souvenirs are the ones you cannot pack."</p>
+      <p class="voices-subtext">Real people. Real moments. Real Africa.</p>
+    </div>
+
+    <div class="voice-stories" id="voiceStories"></div>
+
+    <div class="voices-cta">
+      <p>"Your story is waiting. We will help you find it."</p>
+      <div class="voices-cta-actions">
+        <a href="#" class="belief-btn primary">Read More Stories</a>
+        <a href="#" class="belief-btn ghost">Share Your Journey</a>
+      </div>
+    </div>
   </section>
 </main>
 
@@ -1277,6 +1425,32 @@
       experiencePanelsReady = true;
     }
 
+    /* ---------- Voices From the Journey ---------- */
+    const VOICE_IMG_BASE = 'https://raw.githubusercontent.com/Emekaeluem/See-Africa-1/main/images/';
+    const VOICES = [
+      { image:`david.jpeg`, quote:`I came to invest. I stayed because I felt something I had not felt in years.`, attribution:`David O., CEO, London`, text:`David arrived in Kigali for three days of meetings. He extended his stay to three weeks. He is now building a boutique hotel on the shores of Lake Kivu.` },
+      { image:`amara.jpeg`, quote:`The gorilla looked at me. Just looked. And something in me was never the same.`, attribution:`Amara J., Creative Director, New York`, text:`Amara booked the December Expedition on impulse. She returned six months later — this time with her daughter.` },
+      { image:`kofi.jpeg`, quote:`I thought I was going to see Africa. I did not expect Africa to see me.`, attribution:`Dr. Kofi A., Physician, Toronto`, text:`Three countries. Twelve days. One decision: to bring his entire family the following year.` }
+    ];
+
+    const voiceStoriesWrap = document.getElementById('voiceStories');
+    if (voiceStoriesWrap) {
+      voiceStoriesWrap.innerHTML = VOICES.map((v, i) => `
+        <div class="voice-story${i % 2 === 1 ? ' reverse' : ''}">
+          <div class="voice-portrait">
+            <img src="${VOICE_IMG_BASE}${v.image}" alt="${v.attribution}" loading="lazy" />
+          </div>
+          <div class="voice-content">
+            <span class="voice-quote-mark" aria-hidden="true">&ldquo;</span>
+            <p class="voice-label">Featured Story #${i + 1}</p>
+            <p class="voice-quote">"${v.quote}"</p>
+            <p class="voice-attribution">— ${v.attribution}</p>
+            <p class="voice-text">${v.text}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+
     /* ---------- Nav scroll state ---------- */
     const nav = document.getElementById('siteNav');
     const onScroll = () => {
@@ -1391,6 +1565,40 @@
       })
       .to('.experiences-heading, .experiences-quote', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.12 }, 0)
       .to('.experience-panel', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.08 }, 0.2);
+
+      /* Voices From the Journey reveal */
+      gsap.set('.voices-heading, .voices-quote, .voices-subtext', { opacity: 0, y: 20 });
+      gsap.to('.voices-heading, .voices-quote, .voices-subtext', {
+        opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.1,
+        scrollTrigger: { trigger: '.voices-section', start: 'top 75%', toggleActions: 'play none none none' }
+      });
+
+      document.querySelectorAll('.voice-story').forEach((story) => {
+        const img = story.querySelector('.voice-portrait img');
+        const mark = story.querySelector('.voice-quote-mark');
+        const texts = story.querySelectorAll('.voice-label, .voice-quote, .voice-attribution, .voice-text');
+        gsap.set(img, { scale: 1.18 });
+        gsap.set(mark, { opacity: 0 });
+        gsap.set(texts, { opacity: 0, y: 22 });
+
+        gsap.timeline({
+          scrollTrigger: { trigger: story, start: 'top 78%', toggleActions: 'play none none none' }
+        })
+        .to(img, { scale: 1.1, duration: 1.3, ease: 'power3.out' }, 0)
+        .to(mark, { opacity: 1, duration: 1, ease: 'power2.out' }, 0.1)
+        .to(texts, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.1 }, 0.15);
+
+        gsap.to(img, {
+          yPercent: 6, ease: 'none',
+          scrollTrigger: { trigger: story, start: 'top bottom', end: 'bottom top', scrub: true }
+        });
+      });
+
+      gsap.set('.voices-cta p, .voices-cta-actions', { opacity: 0, y: 20 });
+      gsap.to('.voices-cta p, .voices-cta-actions', {
+        opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.12,
+        scrollTrigger: { trigger: '.voices-cta', start: 'top 85%', toggleActions: 'play none none none' }
+      });
     }
 
     /* ---------- Magnetic buttons ---------- */
