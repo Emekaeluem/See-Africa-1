@@ -933,7 +933,7 @@
     <div class="explore-visual">
       <div class="explore-ring" aria-hidden="true"></div>
       <div class="explore-video-frame">
-        <video autoplay muted loop playsinline aria-hidden="true">
+        <video autoplay muted loop playsinline preload="metadata" aria-hidden="true">
           <source src="https://raw.githubusercontent.com/Emekaeluem/See-Africa-1/main/images/video2.mp4" type="video/mp4" />
         </video>
       </div>
@@ -965,10 +965,13 @@
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     /* ---------- Preloader ---------- */
+    // Gate this on a short fixed timer, not window.load — window.load would wait for
+    // every video on the page (hero + explore + up to 10 country-carousel videos),
+    // which is slow on mobile networks and made the loading screen drag on.
     const preloader = document.getElementById('preloader');
-    window.addEventListener('load', () => {
-      setTimeout(() => preloader.classList.add('done'), 900);
-    });
+    if (preloader) {
+      setTimeout(() => preloader.classList.add('done'), 650);
+    }
 
     /* ---------- Lenis smooth scroll ---------- */
     let lenis;
@@ -1000,7 +1003,7 @@
     const renderCountrySlide = (c, i) => `
       <div class="country-slide" data-index="${i}">
         <div class="country-slide-media">
-          ${c.video ? `<video autoplay muted loop playsinline aria-hidden="true"><source src="${COUNTRY_VIDEO_BASE}${c.video}" type="video/mp4" /></video>` : ''}
+          ${c.video ? `<video autoplay muted loop playsinline preload="metadata" aria-hidden="true"><source src="${COUNTRY_VIDEO_BASE}${c.video}" type="video/mp4" /></video>` : ''}
           <div class="country-slide-media-overlay"></div>
         </div>
         <div class="country-slide-content">
