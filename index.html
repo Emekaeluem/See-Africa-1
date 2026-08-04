@@ -1065,39 +1065,68 @@
     z-index:0;
   }
 
-  .footer-top{
+  .footer-invite{
     position:relative; z-index:1;
-    display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-start;
-    gap: var(--space-6);
-    max-width:1300px; margin:0 auto;
+    text-align:center; max-width:720px; margin:0 auto;
     padding-bottom: var(--space-6);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
   }
-  .footer-brand{ max-width:380px; }
-  .footer-logo{
+  .footer-kicker{
     font-family: var(--font-display); font-weight:600;
-    font-size:1.2rem; letter-spacing:0.16em;
-    margin: 0 0 var(--space-3);
+    font-size:0.85rem; letter-spacing:0.22em;
+    color: var(--gold); margin:0 0 var(--space-3);
   }
-  .footer-logo em{ font-style:normal; color: var(--gold); }
-  .footer-tagline{
-    font-family: var(--font-display); font-style:italic; font-weight:400;
-    font-size:1.1rem; color: var(--gold-light); margin:0;
+  .footer-invite h2{
+    font-family: var(--font-display); font-weight:500; font-style:italic;
+    font-size: clamp(1.5rem, 3.2vw, 2.4rem);
+    color: var(--white); margin:0; line-height:1.25;
   }
 
-  .footer-nav h4{
+  .footer-columns{
+    position:relative; z-index:1;
+    max-width:1300px; margin:0 auto;
+    display:grid; grid-template-columns: 1.2fr 1fr 1fr 1fr;
+    gap: var(--space-5);
+    padding: var(--space-6) 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .footer-col h4{
     font-size:0.72rem; letter-spacing:0.16em; text-transform:uppercase;
     color: var(--gold-light); font-weight:700; margin:0 0 var(--space-3);
   }
-  .footer-nav ul{
+  .footer-col ul{
     list-style:none; margin:0; padding:0;
     display:flex; flex-direction:column; gap: var(--space-2);
   }
-  .footer-nav a{
+  .footer-col a{
     color: rgba(255,255,255,0.68); font-size:0.9rem;
     transition: color 0.3s ease;
   }
-  .footer-nav a:hover{ color: var(--gold); }
+  .footer-col a:hover{ color: var(--gold); }
+
+  .footer-contact-item{
+    display:flex; align-items:center; gap:10px;
+    color: rgba(255,255,255,0.68); font-size:0.9rem;
+    margin-bottom: var(--space-2);
+  }
+  .footer-contact-item svg{ width:16px; height:16px; color: var(--gold); flex-shrink:0; }
+  .footer-contact-item a{ color:inherit; transition: color 0.3s ease; }
+  .footer-contact-item a:hover{ color: var(--gold); }
+
+  .footer-handle{
+    font-weight:600; color: var(--white); font-size:0.9rem;
+    margin:0 0 var(--space-3);
+  }
+  .footer-socials{ display:flex; gap:10px; }
+  .footer-social{
+    width:38px; height:38px; border-radius:50%;
+    border:1px solid rgba(255,255,255,0.22);
+    display:flex; align-items:center; justify-content:center;
+    color: rgba(255,255,255,0.75);
+    transition: background 0.3s var(--ease-premium), color 0.3s var(--ease-premium), border-color 0.3s var(--ease-premium);
+  }
+  .footer-social svg{ width:16px; height:16px; }
+  .footer-social:hover{ background: var(--gold); color: var(--ink); border-color: var(--gold); }
 
   .footer-bottom{
     position:relative; z-index:1;
@@ -1113,10 +1142,18 @@
   .footer-legal a{ color: rgba(255,255,255,0.48); transition: color 0.3s ease; }
   .footer-legal a:hover{ color: var(--gold); }
   .footer-legal .dot{ opacity:0.5; }
+  .footer-tagline{
+    font-family: var(--font-display); font-style:italic;
+    color: var(--gold-light); font-size:0.88rem; margin:0;
+  }
+
+  @media (max-width: 900px){
+    .footer-columns{ grid-template-columns: 1fr 1fr; }
+  }
 
   @media (max-width: 640px){
     .site-footer{ padding: var(--space-6) var(--space-4) var(--space-4); }
-    .footer-top{ flex-direction:column; gap: var(--space-5); }
+    .footer-columns{ grid-template-columns: 1fr; gap: var(--space-5); }
     .footer-bottom{ flex-direction:column; align-items:flex-start; }
   }
 
@@ -1306,31 +1343,64 @@
 <footer class="site-footer">
   <span class="footer-watermark" aria-hidden="true">SEE AFRICA</span>
 
-  <div class="footer-top">
-    <div class="footer-brand">
-      <p class="footer-logo">SEE <em>AFRICA</em></p>
-      <p class="footer-tagline">"See Africa. Feel Everything."</p>
-    </div>
+  <div class="footer-invite">
+    <p class="footer-kicker">SEE AFRICA</p>
+    <h2>"The continent is calling. Will you answer?"</h2>
+  </div>
 
-    <nav class="footer-nav" aria-label="Footer">
+  <div class="footer-columns">
+    <div class="footer-col">
       <h4>Explore</h4>
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Explore Africa</a></li>
+        <li><a href="#">Discover Africa</a></li>
         <li><a href="#">Experiences</a></li>
+        <li><a href="#">December Expedition</a></li>
         <li><a href="#">Invest</a></li>
-        <li><a href="#">Contact</a></li>
       </ul>
-    </nav>
+    </div>
+
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">Residency</a></li>
+        <li><a href="#">Stories</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Partner With Us</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p class="footer-contact-item">
+        <i data-lucide="mail"></i>
+        <a href="mailto:hello@seeafrica.com">hello@seeafrica.com</a>
+      </p>
+      <p class="footer-contact-item">
+        <i data-lucide="phone"></i>
+        <a href="tel:+10000000000">+1 (000) 000-0000</a>
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Follow</h4>
+      <p class="footer-handle">@SeeAfrica</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+        <a href="#" class="footer-social" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
+        <a href="#" class="footer-social" aria-label="YouTube"><i data-lucide="youtube"></i></a>
+      </div>
+    </div>
   </div>
 
   <div class="footer-bottom">
-    <p>© 2026 See Africa. All rights reserved.</p>
     <div class="footer-legal">
+      <p style="margin:0;">© 2026 See Africa. All rights reserved.</p>
+      <span class="dot">•</span>
       <a href="#">Privacy Policy</a>
       <span class="dot">•</span>
       <a href="#">Terms of Use</a>
     </div>
+    <p class="footer-tagline">"See Africa. Feel Everything."</p>
   </div>
 </footer>
 
@@ -1704,9 +1774,9 @@
       });
 
       /* Footer reveal */
-      gsap.set('.footer-brand, .footer-nav, .footer-bottom', { opacity: 0, y: 16 });
-      gsap.to('.footer-brand, .footer-nav, .footer-bottom', {
-        opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.1,
+      gsap.set('.footer-invite, .footer-col, .footer-bottom', { opacity: 0, y: 16 });
+      gsap.to('.footer-invite, .footer-col, .footer-bottom', {
+        opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.08,
         scrollTrigger: { trigger: '.site-footer', start: 'top 90%', toggleActions: 'play none none none' }
       });
     }
