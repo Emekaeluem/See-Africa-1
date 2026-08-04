@@ -661,12 +661,18 @@
     color: rgba(11,11,13,0.06);
     line-height:1; pointer-events:none; user-select:none;
   }
-  .country-slide-flag{ font-size:2.1rem; line-height:1; margin-bottom: var(--space-3); display:block; }
+  .country-slide-flag{
+    display:inline-block;
+    font-size:0.72em; line-height:1;
+    margin-right:12px;
+    vertical-align:-0.06em;
+  }
   .country-slide-name{
     font-family: var(--font-display); font-weight:600;
     font-size: clamp(2rem, 3.4vw, 3.1rem);
     color: var(--ink); margin:0 0 6px; line-height:1.1;
     max-width:520px;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
   }
   .country-slide-tagline{
     font-family: var(--font-display); font-weight:400; font-style:italic;
@@ -733,13 +739,21 @@
   .country-arrow:hover{ background: var(--gold); color: var(--ink); border-color: var(--gold); }
 
   @media (max-width: 860px){
-    .country-slide{ grid-template-columns: 1fr; grid-template-rows: 38% 62%; }
-    .country-slide-media-overlay{ background: linear-gradient(180deg, rgba(11,11,13,0) 60%, rgba(11,11,13,0.5) 100%); }
+    .country-slide{ display:flex; flex-direction:column; }
+    .country-slide-media{
+      position:relative;
+      flex:0 0 auto;
+      margin: var(--space-4) var(--space-4) 0;
+      border-radius:20px;
+      box-shadow: 0 24px 50px -22px rgba(11,11,13,0.4);
+    }
+    .country-slide-media::before{ content:''; display:block; padding-top:100%; }
+    .country-slide-media-overlay{ background: linear-gradient(180deg, rgba(11,11,13,0.08) 0%, rgba(11,11,13,0) 30%, rgba(11,11,13,0.28) 100%); }
     .country-slide-content{
-      padding: var(--space-4) var(--space-4) calc(var(--space-4) + 56px);
+      flex:1; min-height:0;
+      padding: var(--space-4);
       overflow-y:auto;
     }
-    .country-slide-flag{ margin-bottom: var(--space-2); }
     .country-slide-name{ font-size: clamp(1.5rem, 5.5vw, 2.1rem); }
     .country-slide-tagline{ margin-bottom: var(--space-3); }
     .country-slide-quote{
@@ -750,20 +764,25 @@
       margin-bottom: var(--space-3);
       display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
     }
-    .country-controls-bar{ left:0; padding: 0 var(--space-4); bottom: var(--space-3); }
-    .country-slide-number{ top:var(--space-2); right:var(--space-4); font-size:3rem; }
+    .country-slide-number{ display:none; }
+    /* Moved into the active slide's content (right after the CTA) by JS, so it sits close to the button */
+    .country-controls-bar{
+      position:static; left:auto; right:auto; bottom:auto;
+      padding:0; margin-top: var(--space-3);
+    }
   }
 
   @media (max-width: 480px){
     .country-arrows{ gap:8px; }
     .country-arrow{ width:44px; height:44px; }
-    .country-slide{ grid-template-rows: 34% 66%; }
     .country-slide-desc{ -webkit-line-clamp:2; }
   }
 
   @media (max-height: 560px){
-    .country-slide{ grid-template-columns: 1fr 1fr; grid-template-rows: none; }
-    .country-slide-content{ padding: var(--space-3) var(--space-5) calc(var(--space-3) + 56px); overflow-y:auto; }
+    .country-slide{ flex-direction:row; }
+    .country-slide-media{ flex:0 0 42%; margin: var(--space-3); }
+    .country-slide-media::before{ padding-top:0; }
+    .country-slide-content{ padding: var(--space-3) var(--space-4); overflow-y:auto; }
     .country-slide-desc{ -webkit-line-clamp:2; }
   }
 
@@ -966,8 +985,7 @@
         </div>
         <div class="country-slide-content">
           <span class="country-slide-number" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
-          <span class="country-slide-flag">${c.flag}</span>
-          <h2 class="country-slide-name">${c.name}</h2>
+          <h2 class="country-slide-name"><span class="country-slide-flag">${c.flag}</span>${c.name}</h2>
           <p class="country-slide-tagline">${c.tagline}</p>
           <p class="country-slide-highlight">Location Highlight: ${c.highlight}</p>
           <p class="country-slide-quote">"${c.quote}"</p>
@@ -993,9 +1011,22 @@
       const segs = Array.from(progressEl.querySelectorAll('.country-progress-seg'));
       const prevBtn = carousel.querySelector('.country-arrow.prev');
       const nextBtn = carousel.querySelector('.country-arrow.next');
+      const controlsBar = carousel.querySelector('.country-controls-bar');
       const total = slides.length;
       let current = 0;
       let timer = null;
+
+      // On mobile the arrows/progress bar move into the active slide's content flow,
+      // right after the CTA button, so they sit close to it instead of pinned far below.
+      const isMobileControls = () => window.matchMedia('(max-width: 860px)').matches;
+      const placeControlsBar = () => {
+        const content = slides[current].querySelector('.country-slide-content');
+        if (isMobileControls()) {
+          if (controlsBar.parentElement !== content) content.appendChild(controlsBar);
+        } else if (controlsBar.parentElement !== carousel) {
+          carousel.appendChild(controlsBar);
+        }
+      };
 
       const animateSlideText = (slide) => {
         if (!window.gsap) return;
@@ -1017,6 +1048,7 @@
             fill.style.animation = '';
           }
         });
+        placeControlsBar();
         animateSlideText(slides[current]);
       };
 
@@ -1031,6 +1063,11 @@
       nextBtn.addEventListener('click', () => { goTo(current + 1); restartAutoplay(); });
       carousel.addEventListener('mouseenter', () => clearInterval(timer));
       carousel.addEventListener('mouseleave', () => startAutoplay());
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(placeControlsBar, 150);
+      });
 
       goTo(0);
       startAutoplay();
