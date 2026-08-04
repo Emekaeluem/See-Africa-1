@@ -605,127 +605,145 @@
     .scroll-cue{ right: var(--space-3); }
   }
 
-  /* Country Cards — two auto-scrolling rows of horizontal cards */
+  /* Country Cards — bold full-bleed split-slide carousel */
   .country-section{
     position:relative;
     min-height:100svh;
-    display:flex; flex-direction:column; justify-content:center;
-    background: var(--white);
-    padding: var(--space-7) 0;
+    display:flex;
+    background: var(--ink);
     overflow:hidden;
   }
-  .country-heading-row{
-    max-width:1300px; margin:0 auto;
-    width:100%;
-    padding: 0 var(--space-5);
-    margin-bottom: var(--space-5);
-  }
-  .country-heading{
-    font-family: var(--font-display); font-weight:600;
-    font-size: clamp(1.7rem, 2.8vw, 2.4rem);
-    color: var(--ink);
-    margin:0;
-    letter-spacing:-0.01em;
-  }
-
-  .marquee-row{
+  .country-carousel{
     position:relative;
     width:100%;
-    overflow:hidden;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
-    mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
+    min-height:100svh;
   }
-  .marquee-row + .marquee-row{ margin-top: var(--space-4); }
-  .marquee-track{
-    display:flex; align-items:stretch;
-    width:max-content;
-    animation: marqueeLeft 46s linear infinite;
-    padding: var(--space-2) 0;
+  .country-slide{
+    position:absolute; inset:0;
+    display:grid; grid-template-columns:1fr 1fr;
+    opacity:0; visibility:hidden;
+    transition: opacity 1.1s var(--ease-premium);
+    pointer-events:none;
   }
-  .marquee-set{
-    display:flex; align-items:stretch;
-    gap: var(--space-4);
-    padding-right: var(--space-4);
-  }
-  .marquee-track.reverse{ animation-name: marqueeRight; }
-  .marquee-row:hover .marquee-track{ animation-play-state:paused; }
-
-  @keyframes marqueeLeft{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
-  @keyframes marqueeRight{ from{ transform:translateX(-50%); } to{ transform:translateX(0); } }
-
-  .country-card{
-    flex:0 0 auto;
-    display:flex; flex-direction:row;
-    width: clamp(460px, 38vw, 560px);
-    height: 240px;
-    background: var(--white);
-    border-radius:20px;
-    overflow:hidden;
-    border:1px solid rgba(11,11,13,0.08);
-    box-shadow: 0 24px 50px -32px rgba(11,11,13,0.28);
-  }
-  .country-media{
+  .country-slide.active{
+    opacity:1; visibility:visible; pointer-events:auto;
     position:relative;
-    width:210px; height:100%; flex-shrink:0;
+  }
+
+  .country-slide-media{
+    position:relative; overflow:hidden;
     background: linear-gradient(160deg, var(--ink), var(--bronze));
   }
-  .country-media video{
+  .country-slide-media video{
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
   }
-  .country-media-overlay{
+  .country-slide-media-overlay{
     position:absolute; inset:0;
-    background: linear-gradient(180deg, rgba(11,11,13,0) 65%, rgba(11,11,13,0.32) 100%);
+    background: linear-gradient(90deg, rgba(11,11,13,0) 55%, rgba(11,11,13,0.4) 100%);
   }
 
-  .country-body{
-    flex:1; min-width:0;
-    padding: var(--space-4);
-    display:flex; flex-direction:column; justify-content:center; gap:7px;
+  .country-slide-content{
+    position:relative;
+    background: var(--ink);
+    color: var(--white);
+    display:flex; flex-direction:column; justify-content:center;
+    padding: var(--space-8) var(--space-6) calc(var(--space-8) + 60px);
+    overflow:hidden;
   }
-  .country-flag{ font-size:1.15rem; line-height:1; }
-  .country-name{
+  .country-slide-number{
+    position:absolute; top: var(--space-5); right: var(--space-6);
+    font-family: var(--font-display); font-weight:700;
+    font-size: clamp(4.5rem, 9vw, 7.5rem);
+    color: rgba(255,255,255,0.05);
+    line-height:1; pointer-events:none; user-select:none;
+  }
+  .country-slide-flag{ font-size:2.1rem; line-height:1; margin-bottom: var(--space-3); display:block; }
+  .country-slide-name{
     font-family: var(--font-display); font-weight:600;
-    font-size:1rem; line-height:1.25; color:var(--ink);
-    margin:0;
+    font-size: clamp(2rem, 3.4vw, 3.1rem);
+    color: var(--white); margin:0 0 6px; line-height:1.1;
+    max-width:520px;
   }
-  .country-highlight{
-    font-size:0.62rem; letter-spacing:0.11em; text-transform:uppercase;
-    color: var(--bronze); font-weight:700;
+  .country-slide-tagline{
+    font-family: var(--font-display); font-weight:400; font-style:italic;
+    font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    color: var(--gold-light); margin:0 0 var(--space-4);
   }
-  .country-quote{
-    font-style:italic; font-size:0.82rem; line-height:1.4; color: var(--ink);
-    margin:0;
-    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  .country-slide-highlight{
+    font-size:0.76rem; letter-spacing:0.16em; text-transform:uppercase;
+    color: var(--gold-light); font-weight:700; margin:0 0 var(--space-2);
   }
-  .country-desc{
-    font-size:0.78rem; line-height:1.5; color: rgba(11,11,13,0.58);
-    margin:0;
-    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  .country-slide-quote{
+    font-style:italic; font-size: clamp(0.98rem, 1.2vw, 1.12rem); line-height:1.55;
+    color: rgba(255,255,255,0.85); margin:0 0 var(--space-3);
+    max-width:460px;
+    border-left:2px solid var(--gold); padding-left: var(--space-3);
   }
-  .country-cta{
-    margin-top:2px;
-    display:inline-flex; align-items:center; gap:6px;
-    font-size:0.74rem; font-weight:600; letter-spacing:0.02em;
-    color: var(--ink);
-    padding-bottom:1px;
-    border-bottom:1px solid rgba(11,11,13,0.25);
+  .country-slide-desc{
+    font-size:0.95rem; line-height:1.75; color: rgba(255,255,255,0.58);
+    margin:0 0 var(--space-5); max-width:440px;
+  }
+  .country-slide-cta{
     align-self:flex-start;
-    transition: border-color 0.3s ease, color 0.3s ease;
+    padding:16px 30px; border-radius:999px;
+    background: linear-gradient(100deg, var(--gold-light), var(--gold));
+    color: var(--ink); font-weight:600; font-size:0.92rem;
+    display:inline-flex; align-items:center; gap:8px;
+    box-shadow: 0 14px 32px -10px rgba(223,173,84,0.55);
+    transition: transform 0.35s var(--ease-premium), box-shadow 0.35s var(--ease-premium);
   }
-  .country-cta svg{ width:12px; height:12px; transition: transform 0.3s var(--ease-premium); }
-  .country-cta:hover{ border-color: var(--gold); color: var(--bronze); }
-  .country-cta:hover svg{ transform: translateX(3px); }
+  .country-slide-cta svg{ width:16px; height:16px; transition: transform 0.3s var(--ease-premium); }
+  .country-slide-cta:hover{ transform: translateY(-2px); box-shadow: 0 18px 38px -8px rgba(223,173,84,0.7); }
+  .country-slide-cta:hover svg{ transform: translateX(3px); }
 
-  @media (max-width: 640px){
-    .country-heading-row{ padding: 0 var(--space-4); }
-    .country-card{ width: 84vw; height:auto; min-height:180px; }
-    .country-media{ width:130px; }
-    .country-name{ font-size:0.92rem; }
+  .country-controls-bar{
+    position:absolute; left:50%; right:0; bottom: var(--space-5); z-index:10;
+    padding: 0 var(--space-6);
+    display:flex; align-items:center; gap: var(--space-4);
+  }
+  .country-progress{
+    flex:1; display:flex; gap:6px;
+  }
+  .country-progress-seg{
+    flex:1; height:3px; border-radius:2px;
+    background: rgba(255,255,255,0.18);
+    overflow:hidden; position:relative;
+  }
+  .country-progress-seg .fill{
+    position:absolute; inset:0; width:0%;
+    background: var(--gold);
+  }
+  .country-progress-seg.done .fill{ width:100%; }
+  .country-progress-seg.active .fill{ animation: segFill linear forwards; animation-duration: var(--autoplay-ms, 6500ms); }
+  @keyframes segFill{ from{ width:0%; } to{ width:100%; } }
+
+  .country-arrows{ display:flex; gap: var(--space-2); flex-shrink:0; }
+  .country-arrow{
+    width:50px; height:50px; border-radius:50%; flex-shrink:0;
+    border:1px solid rgba(255,255,255,0.3);
+    color: var(--white); background:transparent; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition: background 0.3s var(--ease-premium), color 0.3s var(--ease-premium), border-color 0.3s var(--ease-premium);
+  }
+  .country-arrow svg{ width:19px; height:19px; }
+  .country-arrow:hover{ background: var(--gold); color: var(--ink); border-color: var(--gold); }
+
+  @media (max-width: 860px){
+    .country-slide{ grid-template-columns: 1fr; grid-template-rows: 40% 60%; }
+    .country-slide-media-overlay{ background: linear-gradient(180deg, rgba(11,11,13,0) 60%, rgba(11,11,13,0.5) 100%); }
+    .country-slide-content{ padding: var(--space-5) var(--space-4) calc(var(--space-5) + 60px); }
+    .country-controls-bar{ left:0; padding: 0 var(--space-4); }
+    .country-slide-number{ top:var(--space-3); right:var(--space-4); font-size:3.4rem; }
+  }
+
+  @media (max-width: 480px){
+    .country-arrows{ gap:8px; }
+    .country-arrow{ width:44px; height:44px; }
   }
 
   @media (prefers-reduced-motion: reduce){
     *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
-    .marquee-track{ animation-play-state: paused !important; }
+    .country-progress-seg.active .fill{ animation-play-state: paused !important; }
   }
 </style>
 </head>
@@ -863,18 +881,16 @@
     </a>
   </section>
 
-  <section id="countries-1" class="country-section" aria-label="Country Cards">
-    <div class="country-heading-row">
-      <h2 class="country-heading">Country Cards</h2>
-    </div>
-    <div class="marquee-row">
-      <div class="marquee-track" id="countryTrackA"></div>
-    </div>
-  </section>
-
-  <section id="countries-2" class="country-section" aria-label="More Country Cards">
-    <div class="marquee-row">
-      <div class="marquee-track reverse" id="countryTrackB"></div>
+  <section id="countries" class="country-section" aria-label="Country Cards">
+    <div class="country-carousel" id="countryCarousel">
+      <!-- slides injected by JS -->
+      <div class="country-controls-bar">
+        <div class="country-progress" id="countryProgress"></div>
+        <div class="country-arrows">
+          <button class="country-arrow prev" aria-label="Previous country"><i data-lucide="arrow-left"></i></button>
+          <button class="country-arrow next" aria-label="Next country"><i data-lucide="arrow-right"></i></button>
+        </div>
+      </div>
     </div>
   </section>
 </main>
@@ -916,33 +932,82 @@
       { flag:'🇧🇼', name:`Botswana`, tagline:`Silence Is a Luxury Here`, highlight:`Okavango Delta & Chobe National Park`, quote:`The world's largest inland delta. And almost no one there.`, desc:`The Okavango Delta floods every year — an ancient miracle that turns desert into waterway, waterway into paradise. Mokoro canoes. Elephant crossings. Lions at dusk. True, uninterrupted wilderness.`, cta:`Explore Botswana`, video:`botswana.mp4` }
     ];
 
-    const renderCountryCard = (c) => `
-      <div class="country-card">
-        <div class="country-media">
+    const renderCountrySlide = (c, i) => `
+      <div class="country-slide" data-index="${i}">
+        <div class="country-slide-media">
           ${c.video ? `<video autoplay muted loop playsinline aria-hidden="true"><source src="${COUNTRY_VIDEO_BASE}${c.video}" type="video/mp4" /></video>` : ''}
-          <div class="country-media-overlay"></div>
+          <div class="country-slide-media-overlay"></div>
         </div>
-        <div class="country-body">
-          <span class="country-flag">${c.flag}</span>
-          <p class="country-name">${c.name} — ${c.tagline}</p>
-          <p class="country-highlight">Location Highlight: ${c.highlight}</p>
-          <p class="country-quote">"${c.quote}"</p>
-          <p class="country-desc">${c.desc}</p>
-          <a href="#" class="country-cta"><span>${c.cta}</span><i data-lucide="arrow-right"></i></a>
+        <div class="country-slide-content">
+          <span class="country-slide-number" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
+          <span class="country-slide-flag">${c.flag}</span>
+          <h2 class="country-slide-name">${c.name}</h2>
+          <p class="country-slide-tagline">${c.tagline}</p>
+          <p class="country-slide-highlight">Location Highlight: ${c.highlight}</p>
+          <p class="country-slide-quote">"${c.quote}"</p>
+          <p class="country-slide-desc">${c.desc}</p>
+          <a href="#" class="country-slide-cta"><span>${c.cta}</span><i data-lucide="arrow-right"></i></a>
         </div>
       </div>
     `;
 
-    const trackA = document.getElementById('countryTrackA');
-    const trackB = document.getElementById('countryTrackB');
-    if (trackA && trackB) {
-      const rowA = COUNTRIES.slice(0, 5);
-      const rowB = COUNTRIES.slice(5, 10);
-      // Each row's cards are duplicated once, wrapped in equal-width .marquee-set groups,
-      // so the marquee can loop seamlessly at exactly -50% with no jump at the seam.
-      trackA.innerHTML = `<div class="marquee-set">${rowA.map(renderCountryCard).join('')}</div><div class="marquee-set">${rowA.map(renderCountryCard).join('')}</div>`;
-      trackB.innerHTML = `<div class="marquee-set">${rowB.map(renderCountryCard).join('')}</div><div class="marquee-set">${rowB.map(renderCountryCard).join('')}</div>`;
+    const carousel = document.getElementById('countryCarousel');
+    if (carousel) {
+      const AUTOPLAY_MS = 6500;
+      carousel.style.setProperty('--autoplay-ms', AUTOPLAY_MS + 'ms');
+
+      carousel.insertAdjacentHTML('afterbegin', COUNTRIES.map(renderCountrySlide).join(''));
+
+      const progressEl = document.getElementById('countryProgress');
+      progressEl.innerHTML = COUNTRIES.map(() => `<div class="country-progress-seg"><div class="fill"></div></div>`).join('');
+
       if (window.lucide) lucide.createIcons();
+
+      const slides = Array.from(carousel.querySelectorAll('.country-slide'));
+      const segs = Array.from(progressEl.querySelectorAll('.country-progress-seg'));
+      const prevBtn = carousel.querySelector('.country-arrow.prev');
+      const nextBtn = carousel.querySelector('.country-arrow.next');
+      const total = slides.length;
+      let current = 0;
+      let timer = null;
+
+      const animateSlideText = (slide) => {
+        if (!window.gsap) return;
+        const els = slide.querySelectorAll('.country-slide-flag, .country-slide-name, .country-slide-tagline, .country-slide-highlight, .country-slide-quote, .country-slide-desc, .country-slide-cta');
+        gsap.fromTo(els, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.07, delay: 0.2 });
+      };
+
+      const goTo = (index) => {
+        current = (index + total) % total;
+        slides.forEach((s, i) => s.classList.toggle('active', i === current));
+        segs.forEach((seg, i) => {
+          seg.classList.toggle('done', i < current);
+          seg.classList.toggle('active', i === current);
+          // Restart the CSS fill animation cleanly on the newly active segment
+          if (i === current) {
+            const fill = seg.querySelector('.fill');
+            fill.style.animation = 'none';
+            void fill.offsetWidth;
+            fill.style.animation = '';
+          }
+        });
+        animateSlideText(slides[current]);
+      };
+
+      const startAutoplay = () => {
+        if (reduceMotion) return;
+        clearInterval(timer);
+        timer = setInterval(() => goTo(current + 1), AUTOPLAY_MS);
+      };
+      const restartAutoplay = () => { startAutoplay(); };
+
+      prevBtn.addEventListener('click', () => { goTo(current - 1); restartAutoplay(); });
+      nextBtn.addEventListener('click', () => { goTo(current + 1); restartAutoplay(); });
+      carousel.addEventListener('mouseenter', () => clearInterval(timer));
+      carousel.addEventListener('mouseleave', () => startAutoplay());
+
+      goTo(0);
+      startAutoplay();
     }
 
     /* ---------- Nav scroll state ---------- */
@@ -1041,20 +1106,12 @@
       .to('.explore-caption', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 0.9)
       .to('.explore-section .cta-btn', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 1.05);
 
-      /* Country Cards reveal */
-      gsap.set('#countries-1 .country-heading', { opacity: 0, y: 20 });
-      gsap.set('.country-card', { opacity: 0, y: 30 });
-
-      gsap.timeline({
-        scrollTrigger: { trigger: '#countries-1', start: 'top 75%', toggleActions: 'play none none none' }
-      })
-      .to('#countries-1 .country-heading', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 0)
-      .to('#countries-1 .country-card', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.05 }, 0.15);
-
-      gsap.timeline({
-        scrollTrigger: { trigger: '#countries-2', start: 'top 80%', toggleActions: 'play none none none' }
-      })
-      .to('#countries-2 .country-card', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.05 }, 0);
+      /* Country Cards — controls bar reveal (slide text animates itself via goTo()) */
+      gsap.set('.country-controls-bar', { opacity: 0, y: 16 });
+      gsap.to('.country-controls-bar', {
+        opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+        scrollTrigger: { trigger: '.country-section', start: 'top 70%', toggleActions: 'play none none none' }
+      });
     }
 
     /* ---------- Magnetic buttons ---------- */
