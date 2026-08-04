@@ -610,7 +610,7 @@
     position:relative;
     min-height:100svh;
     display:flex;
-    background: var(--ink);
+    background: var(--cream);
     overflow:hidden;
   }
   .country-carousel{
@@ -639,13 +639,13 @@
   }
   .country-slide-media-overlay{
     position:absolute; inset:0;
-    background: linear-gradient(90deg, rgba(11,11,13,0) 55%, rgba(11,11,13,0.4) 100%);
+    background: linear-gradient(180deg, rgba(11,11,13,0.1) 0%, rgba(11,11,13,0) 25%, rgba(11,11,13,0) 78%, rgba(11,11,13,0.16) 100%);
   }
 
   .country-slide-content{
     position:relative;
-    background: var(--ink);
-    color: var(--white);
+    background: radial-gradient(circle at 88% 6%, rgba(223,173,84,0.32), rgba(223,173,84,0) 42%), var(--cream);
+    color: var(--ink);
     display:flex; flex-direction:column; justify-content:center;
     padding: var(--space-8) var(--space-6) calc(var(--space-8) + 60px);
     overflow:hidden;
@@ -654,33 +654,33 @@
     position:absolute; top: var(--space-5); right: var(--space-6);
     font-family: var(--font-display); font-weight:700;
     font-size: clamp(4.5rem, 9vw, 7.5rem);
-    color: rgba(255,255,255,0.05);
+    color: rgba(11,11,13,0.06);
     line-height:1; pointer-events:none; user-select:none;
   }
   .country-slide-flag{ font-size:2.1rem; line-height:1; margin-bottom: var(--space-3); display:block; }
   .country-slide-name{
     font-family: var(--font-display); font-weight:600;
     font-size: clamp(2rem, 3.4vw, 3.1rem);
-    color: var(--white); margin:0 0 6px; line-height:1.1;
+    color: var(--ink); margin:0 0 6px; line-height:1.1;
     max-width:520px;
   }
   .country-slide-tagline{
     font-family: var(--font-display); font-weight:400; font-style:italic;
     font-size: clamp(1.05rem, 1.6vw, 1.3rem);
-    color: var(--gold-light); margin:0 0 var(--space-4);
+    color: var(--bronze); margin:0 0 var(--space-4);
   }
   .country-slide-highlight{
     font-size:0.76rem; letter-spacing:0.16em; text-transform:uppercase;
-    color: var(--gold-light); font-weight:700; margin:0 0 var(--space-2);
+    color: var(--bronze); font-weight:700; margin:0 0 var(--space-2);
   }
   .country-slide-quote{
     font-style:italic; font-size: clamp(0.98rem, 1.2vw, 1.12rem); line-height:1.55;
-    color: rgba(255,255,255,0.85); margin:0 0 var(--space-3);
+    color: rgba(11,11,13,0.8); margin:0 0 var(--space-3);
     max-width:460px;
     border-left:2px solid var(--gold); padding-left: var(--space-3);
   }
   .country-slide-desc{
-    font-size:0.95rem; line-height:1.75; color: rgba(255,255,255,0.58);
+    font-size:0.95rem; line-height:1.75; color: rgba(11,11,13,0.62);
     margin:0 0 var(--space-5); max-width:440px;
   }
   .country-slide-cta{
@@ -689,11 +689,11 @@
     background: linear-gradient(100deg, var(--gold-light), var(--gold));
     color: var(--ink); font-weight:600; font-size:0.92rem;
     display:inline-flex; align-items:center; gap:8px;
-    box-shadow: 0 14px 32px -10px rgba(223,173,84,0.55);
+    box-shadow: 0 14px 32px -10px rgba(223,173,84,0.45);
     transition: transform 0.35s var(--ease-premium), box-shadow 0.35s var(--ease-premium);
   }
   .country-slide-cta svg{ width:16px; height:16px; transition: transform 0.3s var(--ease-premium); }
-  .country-slide-cta:hover{ transform: translateY(-2px); box-shadow: 0 18px 38px -8px rgba(223,173,84,0.7); }
+  .country-slide-cta:hover{ transform: translateY(-2px); box-shadow: 0 18px 38px -8px rgba(223,173,84,0.6); }
   .country-slide-cta:hover svg{ transform: translateX(3px); }
 
   .country-controls-bar{
@@ -706,7 +706,7 @@
   }
   .country-progress-seg{
     flex:1; height:3px; border-radius:2px;
-    background: rgba(255,255,255,0.18);
+    background: rgba(11,11,13,0.14);
     overflow:hidden; position:relative;
   }
   .country-progress-seg .fill{
@@ -720,8 +720,8 @@
   .country-arrows{ display:flex; gap: var(--space-2); flex-shrink:0; }
   .country-arrow{
     width:50px; height:50px; border-radius:50%; flex-shrink:0;
-    border:1px solid rgba(255,255,255,0.3);
-    color: var(--white); background:transparent; cursor:pointer;
+    border:1px solid rgba(11,11,13,0.25);
+    color: var(--ink); background:transparent; cursor:pointer;
     display:flex; align-items:center; justify-content:center;
     transition: background 0.3s var(--ease-premium), color 0.3s var(--ease-premium), border-color 0.3s var(--ease-premium);
   }
