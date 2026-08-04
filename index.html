@@ -605,6 +605,130 @@
     .scroll-cue{ right: var(--space-3); }
   }
 
+  /* Country Cards — classic, executive carousel on white */
+  .country-section{
+    position:relative;
+    min-height:100svh;
+    display:flex; flex-direction:column; justify-content:center;
+    background: var(--white);
+    padding: var(--space-8) 0;
+    overflow:hidden;
+  }
+  .country-heading-row{
+    max-width:1300px; margin:0 auto;
+    width:100%;
+    padding: 0 var(--space-5);
+    display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap;
+    gap: var(--space-3);
+    margin-bottom: var(--space-5);
+  }
+  .country-heading{
+    font-family: var(--font-display); font-weight:600;
+    font-size: clamp(1.7rem, 2.8vw, 2.4rem);
+    color: var(--ink);
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  .country-controls{
+    display:flex; align-items:center; gap: var(--space-3);
+  }
+  .country-counter{
+    font-family: var(--font-display);
+    font-size:0.85rem; letter-spacing:0.03em;
+    color: rgba(11,11,13,0.45);
+    min-width:64px;
+  }
+  .country-arrow{
+    width:44px; height:44px; border-radius:50%; flex-shrink:0;
+    border:1px solid rgba(11,11,13,0.22);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--ink); background:transparent; cursor:pointer;
+    transition: background 0.3s var(--ease-premium), color 0.3s var(--ease-premium), border-color 0.3s var(--ease-premium);
+  }
+  .country-arrow svg{ width:18px; height:18px; }
+  .country-arrow:hover:not(:disabled){ background:var(--ink); color:var(--white); border-color:var(--ink); }
+  .country-arrow:disabled{ opacity:0.3; cursor:default; }
+
+  .country-track{
+    display:flex; gap: var(--space-4);
+    overflow-x:auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    padding: var(--space-2) var(--space-5) var(--space-4);
+    max-width:1300px; margin:0 auto;
+  }
+  .country-track::-webkit-scrollbar{ display:none; }
+
+  .country-card{
+    scroll-snap-align:start;
+    flex: 0 0 clamp(270px, 28vw, 340px);
+    background: var(--white);
+    border-radius:22px;
+    overflow:hidden;
+    border:1px solid rgba(11,11,13,0.08);
+    box-shadow: 0 30px 60px -35px rgba(11,11,13,0.28);
+    display:flex; flex-direction:column;
+  }
+  .country-media{
+    position:relative; width:100%;
+    background: linear-gradient(160deg, var(--ink), var(--bronze));
+  }
+  .country-media::before{ content:''; display:block; padding-top:125%; }
+  .country-media video{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  }
+  .country-media-overlay{
+    position:absolute; inset:0;
+    background: linear-gradient(180deg, rgba(11,11,13,0) 40%, rgba(11,11,13,0.78) 100%);
+  }
+  .country-flag-title{
+    position:absolute; left:0; right:0; bottom:0; z-index:1;
+    padding: var(--space-3);
+    color:var(--white);
+  }
+  .country-flag{ font-size:1.5rem; line-height:1; display:block; margin-bottom:6px; }
+  .country-name{
+    font-family: var(--font-display); font-weight:600;
+    font-size:1.08rem; line-height:1.28;
+  }
+
+  .country-body{
+    padding: var(--space-4);
+    display:flex; flex-direction:column; gap: var(--space-2); flex:1;
+  }
+  .country-highlight{
+    font-size:0.68rem; letter-spacing:0.13em; text-transform:uppercase;
+    color: var(--bronze); font-weight:700;
+  }
+  .country-quote{
+    font-style:italic; font-size:0.92rem; line-height:1.5; color: var(--ink);
+    margin:0;
+  }
+  .country-desc{
+    font-size:0.87rem; line-height:1.65; color: rgba(11,11,13,0.6);
+    margin:0; flex:1;
+  }
+  .country-cta{
+    margin-top: var(--space-2);
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:0.8rem; font-weight:600; letter-spacing:0.02em;
+    color: var(--ink);
+    padding-bottom:2px;
+    border-bottom:1px solid rgba(11,11,13,0.25);
+    align-self:flex-start;
+    transition: border-color 0.3s ease, color 0.3s ease;
+  }
+  .country-cta svg{ width:14px; height:14px; transition: transform 0.3s var(--ease-premium); }
+  .country-cta:hover{ border-color: var(--gold); color: var(--bronze); }
+  .country-cta:hover svg{ transform: translateX(3px); }
+
+  @media (max-width: 640px){
+    .country-heading-row{ padding: 0 var(--space-4); }
+    .country-track{ padding: var(--space-2) var(--space-4) var(--space-4); }
+    .country-card{ flex-basis: 78vw; }
+  }
+
   @media (prefers-reduced-motion: reduce){
     *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
   }
@@ -743,6 +867,18 @@
       <i data-lucide="arrow-right"></i>
     </a>
   </section>
+
+  <section id="countries" class="country-section" aria-label="Country Cards">
+    <div class="country-heading-row">
+      <h2 class="country-heading">Country Cards</h2>
+      <div class="country-controls">
+        <span class="country-counter" id="countryCounter">01 / 10</span>
+        <button class="country-arrow prev" aria-label="Previous country"><i data-lucide="arrow-left"></i></button>
+        <button class="country-arrow next" aria-label="Next country"><i data-lucide="arrow-right"></i></button>
+      </div>
+    </div>
+    <div class="country-track" id="countryTrack"></div>
+  </section>
 </main>
 
 <script>
@@ -766,6 +902,70 @@
 
     /* ---------- Lucide icons ---------- */
     if (window.lucide) lucide.createIcons();
+
+    /* ---------- Country Cards carousel ---------- */
+    const COUNTRY_VIDEO_BASE = 'https://raw.githubusercontent.com/Emekaeluem/See-Africa-1/main/images/';
+    const COUNTRIES = [
+      { flag:'🇷🇼', name:`Rwanda`, tagline:`Land of a Thousand Hills`, highlight:`Volcanoes National Park`, quote:`Where the mist never fully lifts — and neither does the memory.`, desc:`Trek through cloud forest to meet mountain gorillas face to face. Rwanda doesn't just show you nature — it stays with you.`, cta:`Explore Rwanda`, video:`rwanda.mp4` },
+      { flag:'🇰🇪', name:`Kenya`, tagline:`Where the Earth Still Breathes`, highlight:`Maasai Mara National Reserve`, quote:`Two million wildebeest cannot be wrong.`, desc:`The Great Migration thundering across golden grass. A Maasai warrior still against the wind. This is the Africa you always imagined — only louder.`, cta:`Explore Kenya`, video:`kenya.mp4` },
+      { flag:'🇹🇿', name:`Tanzania`, tagline:`Where Giants Roam and Islands Dream`, highlight:`Serengeti National Park & Zanzibar Archipelago`, quote:`From the roof of Africa to the edge of the Indian Ocean — all in one breath.`, desc:`Stand on the Ngorongoro crater rim. Watch elephants move like slow thunder across the Serengeti. Then lose yourself in Stone Town's spice-scented streets on Zanzibar. Africa, complete.`, cta:`Explore Tanzania`, video:`zanzibar.mp4` },
+      { flag:'🇳🇬', name:`Nigeria`, tagline:`The Heartbeat of Africa`, highlight:`Calabar Carnival & Lagos Waterfront`, quote:`The loudest silence in Africa is the moment before Lagos speaks.`, desc:`Two hundred million stories, one irresistible energy. From the thunder of Calabar Carnival — Africa's largest street party — to Lagos on New Year's Eve, Nigeria doesn't just celebrate. It erupts.`, cta:`Explore Nigeria`, video:`nigeria.mp4` },
+      { flag:'🇬🇭', name:`Ghana`, tagline:`The Gateway of the Ancestors`, highlight:`Cape Coast Castle & Kakum National Park`, quote:`Some journeys are not about where you're going. They're about where you came from.`, desc:`Walk the shores where history turned, inside Cape Coast Castle. Then climb 30 metres above the forest floor on Kakum's canopy walk — and remember: you're still here. That's extraordinary.`, cta:`Explore Ghana`, video:`ghana.mp4` },
+      { flag:'🇿🇦', name:`South Africa`, tagline:`The Rainbow at the Edge of the World`, highlight:`Cape Town & Kruger National Park`, quote:`Two oceans meet here. So do two worlds.`, desc:`Table Mountain rising through cloud. Penguins on Boulders Beach. The Big Five at dusk in Kruger. Golden, unhurried winelands in Stellenbosch. South Africa isn't one thing — it's everything, compressed.`, cta:`Explore South Africa`, video:null },
+      { flag:'🇿🇲', name:`Zambia`, tagline:`The Real Africa, Unfiltered`, highlight:`Victoria Falls (Mosi-oa-Tunya)`, quote:`The smoke that thunders. You will hear it before you see it.`, desc:`One of the seven natural wonders of the world — and on the Zambia side, you feel every bit of it. Walk the knife-edge bridge. Swim in Devil's Pool. Let the spray drench you.`, cta:`Explore Zambia`, video:`zambia.mp4` },
+      { flag:'🇬🇲', name:`The Gambia`, tagline:`Africa in Miniature`, highlight:`Kachikally Crocodile Pool & River Gambia National Park`, quote:`Small country. Infinite soul.`, desc:`The Gambia River cuts through lush forest like a silver thread. Chimpanzees, sacred crocodile pools, birdlife to rival any continent — and a warmth that'll make you question everything you thought you were chasing.`, cta:`Explore The Gambia`, video:`gambia.mp4` },
+      { flag:'🇨🇲', name:`Cameroon`, tagline:`Africa in One Country`, highlight:`Mount Cameroon & Waza National Park`, quote:`They say Cameroon is Africa in miniature. They are not wrong.`, desc:`An active volcano you can climb. Rainforest gorillas. Sahel in the north, Atlantic coast in the south. Desert, forest, mountain, ocean — all inside one border.`, cta:`Explore Cameroon`, video:`cameroon.mp4` },
+      { flag:'🇧🇼', name:`Botswana`, tagline:`Silence Is a Luxury Here`, highlight:`Okavango Delta & Chobe National Park`, quote:`The world's largest inland delta. And almost no one there.`, desc:`The Okavango Delta floods every year — an ancient miracle that turns desert into waterway, waterway into paradise. Mokoro canoes. Elephant crossings. Lions at dusk. True, uninterrupted wilderness.`, cta:`Explore Botswana`, video:`botswana.mp4` }
+    ];
+
+    const countryTrack = document.getElementById('countryTrack');
+    if (countryTrack) {
+      countryTrack.innerHTML = COUNTRIES.map(c => `
+        <div class="country-card">
+          <div class="country-media">
+            ${c.video ? `<video autoplay muted loop playsinline aria-hidden="true"><source src="${COUNTRY_VIDEO_BASE}${c.video}" type="video/mp4" /></video>` : ''}
+            <div class="country-media-overlay"></div>
+            <div class="country-flag-title">
+              <span class="country-flag">${c.flag}</span>
+              <span class="country-name">${c.name} — ${c.tagline}</span>
+            </div>
+          </div>
+          <div class="country-body">
+            <p class="country-highlight">Location Highlight: ${c.highlight}</p>
+            <p class="country-quote">"${c.quote}"</p>
+            <p class="country-desc">${c.desc}</p>
+            <a href="#" class="country-cta"><span>${c.cta}</span><i data-lucide="arrow-right"></i></a>
+          </div>
+        </div>
+      `).join('');
+      if (window.lucide) lucide.createIcons();
+
+      const prevBtn = document.querySelector('.country-arrow.prev');
+      const nextBtn = document.querySelector('.country-arrow.next');
+      const counterEl = document.getElementById('countryCounter');
+      const cards = Array.from(countryTrack.querySelectorAll('.country-card'));
+      const total = cards.length;
+
+      const stepWidth = () => {
+        const gap = parseFloat(getComputedStyle(countryTrack).columnGap || '0');
+        return cards[0].getBoundingClientRect().width + gap;
+      };
+      const updateControls = () => {
+        const maxScroll = countryTrack.scrollWidth - countryTrack.clientWidth - 2;
+        prevBtn.disabled = countryTrack.scrollLeft <= 2;
+        nextBtn.disabled = countryTrack.scrollLeft >= maxScroll;
+        let idx = 0, minDist = Infinity;
+        cards.forEach((c, i) => {
+          const dist = Math.abs(c.offsetLeft - countryTrack.scrollLeft);
+          if (dist < minDist) { minDist = dist; idx = i; }
+        });
+        counterEl.textContent = String(idx + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+      };
+      prevBtn.addEventListener('click', () => countryTrack.scrollBy({ left: -stepWidth(), behavior: 'smooth' }));
+      nextBtn.addEventListener('click', () => countryTrack.scrollBy({ left: stepWidth(), behavior: 'smooth' }));
+      countryTrack.addEventListener('scroll', () => window.requestAnimationFrame(updateControls));
+      updateControls();
+    }
 
     /* ---------- Nav scroll state ---------- */
     const nav = document.getElementById('siteNav');
@@ -862,6 +1062,17 @@
       .to('.explore-ring', { opacity: 1, duration: 1.2, ease: 'power2.out' }, 0.45)
       .to('.explore-caption', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 0.9)
       .to('.explore-section .cta-btn', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 1.05);
+
+      /* Country Cards reveal */
+      gsap.set('.country-heading, .country-controls', { opacity: 0, y: 20 });
+      gsap.set('.country-card', { opacity: 0, y: 30 });
+
+      gsap.timeline({
+        scrollTrigger: { trigger: '.country-section', start: 'top 75%', toggleActions: 'play none none none' }
+      })
+      .to('.country-heading', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 0)
+      .to('.country-controls', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, 0.1)
+      .to('.country-card', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.08 }, 0.2);
     }
 
     /* ---------- Magnetic buttons ---------- */
