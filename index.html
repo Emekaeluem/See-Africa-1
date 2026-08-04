@@ -583,10 +583,30 @@
   }
 
   @media (max-width: 900px){
-    .about-card{ grid-template-columns: 1fr; }
-    .about-media{ min-height: 280px; }
+    .about-section{ padding: var(--space-4) var(--space-4); }
+    .about-card{ grid-template-columns: 1fr; max-height:none; }
+    .about-media{ min-height: 150px; max-height:150px; }
     .about-media::after{ background: linear-gradient(180deg, transparent 55%, rgba(255,255,255,0.6) 100%); }
-    .about-content{ padding: var(--space-5) var(--space-4); }
+    .about-content{
+      padding: var(--space-4);
+      gap: var(--space-2);
+      max-height: calc(100svh - 150px - var(--space-4) * 2);
+      overflow-y:auto;
+    }
+    .about-heading{ font-size: clamp(1.25rem, 4.6vw, 1.6rem); }
+    .about-quote{
+      font-size:0.92rem;
+      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+    }
+    .about-body{ display:flex; flex-direction:column; gap:6px; }
+    .about-body p{
+      font-size:0.86rem; line-height:1.55;
+      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+    }
+    .about-punch{
+      font-size:0.9rem; margin-top: var(--space-1); padding-top: var(--space-2);
+      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+    }
   }
 
   @media (max-width: 860px){
