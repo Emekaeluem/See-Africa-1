@@ -1,1347 +1,260 @@
 
-/* ==============================================
-   CALABAR CARNIVAL 2026
-   COMPLETE CSS — THREE SECTIONS
-============================================== */
+/* ============================================
+   CALABAR CARNIVAL
+   BRAND TYPOGRAPHY + SECTION 3 REDESIGN
+============================================ */
+
+/* CLASH DISPLAY FONT — ENTIRE WEBSITE */
+
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&display=swap');
 
 :root {
-  --purple: #150721;
-  --purple-mid: #250D40;
-  --green: #60ED85;
-  --yellow: #FFD247;
-  --gold: #F5BC4A;
-  --white: #FFFFFF;
-  --ice: #D6EDF2;
-  --ink: #173D52;
-  --display: "Outfit", sans-serif;
-  --body: "DM Sans", sans-serif;
-  --serif: "Playfair Display", Georgia, serif;
-  --ease: cubic-bezier(.16,1,.3,1);
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 80px;
-}
-
-body {
-  margin: 0;
-  background: var(--purple);
-  color: white;
-  font-family: var(--body);
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-
-body.menu-open,
-body.dialog-open {
-  overflow: hidden;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button {
-  font: inherit;
-  cursor: pointer;
-}
-
-button:focus-visible,
-a:focus-visible {
-  outline: 2px solid var(--yellow);
-  outline-offset: 4px;
-}
-
-.skip-link {
-  position: fixed;
-  top: -100px;
-  left: 12px;
-  z-index: 1000;
-  padding: 12px 18px;
-  background: var(--yellow);
-  color: var(--purple);
-}
-
-.skip-link:focus {
-  top: 12px;
-}
-
-/* ==============================================
-   NAVIGATION
-============================================== */
-
-.site-header {
-  position: fixed;
-  inset: 0 0 auto;
-  z-index: 100;
-  background: rgba(18,7,31,.55);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
-  backdrop-filter: blur(18px) saturate(140%);
-  transition: background .35s ease, box-shadow .35s ease;
-}
-
-.site-header.scrolled,
-.site-header.menu-active {
-  background: rgba(16,5,29,.90);
-  box-shadow: 0 12px 35px rgba(0,0,0,.17);
-}
-
-.nav-container {
-  width: min(100% - 80px,1400px);
-  height: 84px;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 28px;
-}
-
-.brand-logo {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-}
-
-.brand-mark {
-  display: flex;
-  width: 37px;
-  height: 37px;
-  color: var(--yellow);
-}
-
-.brand-mark svg {
-  width: 100%;
-  height: 100%;
-}
-
-.brand-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1;
-}
-
-.brand-text strong {
-  font-family: var(--display);
-  font-size: 22px;
-  font-weight: 900;
-  letter-spacing: -.055em;
-}
-
-.brand-text small {
-  margin-top: 6px;
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: .17em;
-  color: rgba(255,255,255,.75);
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: clamp(20px,3vw,44px);
-}
-
-.nav-link {
-  font-size: 13px;
-  font-weight: 600;
-  color: rgba(255,255,255,.82);
-  transition: color .3s ease;
-}
-
-.nav-link:hover,
-.nav-link.active {
-  color: var(--yellow);
-}
-
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.nav-book-btn {
-  min-height: 44px;
-  padding: 12px 26px;
-  border: 0;
-  border-radius: 30px;
-  background: var(--yellow);
-  color: #1A0A2B;
-  font-size: 12px;
-  font-weight: 800;
-  transition: background .3s ease, transform .3s ease;
-}
-
-.nav-book-btn:hover {
-  background: var(--green);
-  transform: translateY(-2px);
-}
-
-.menu-toggle {
-  display: none;
-  width: 40px;
-  height: 40px;
-  padding: 8px;
-  border: 0;
-  background: transparent;
-  flex-direction: column;
-  justify-content: center;
-  gap: 7px;
-}
-
-.menu-toggle span {
-  width: 100%;
-  height: 2px;
-  background: white;
-  transition: transform .3s ease;
-}
-
-.menu-toggle[aria-expanded="true"] span:first-child {
-  transform: translateY(4.5px) rotate(45deg);
-}
-
-.menu-toggle[aria-expanded="true"] span:last-child {
-  transform: translateY(-4.5px) rotate(-45deg);
-}
-
-/* Light section navigation contrast */
-
-.site-header.on-light-section {
-  background: rgba(19,52,68,.84);
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
-}
-
-/* ==============================================
-   SECTION 1 — VIDEO HERO
-============================================== */
-
-.carnival-hero {
-  position: relative;
-  isolation: isolate;
-  height: 100svh;
-  min-height: 650px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  background: var(--purple);
-}
-
-.hero-media {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: #170B23;
-}
-
-.hero-video {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  inset: 0;
-  object-fit: cover;
-  object-position: center;
-}
-
-.video-overlay {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(7,3,13,.4),
-      rgba(7,3,13,.38) 35%,
-      rgba(7,3,13,.48) 70%,
-      rgba(7,3,13,.74)
-    ),
-    rgba(20,7,31,.12);
-}
-
-.hero-container {
-  width: min(100% - 48px,1100px);
-  margin: auto;
-  padding: 115px 0 100px;
-  position: relative;
-  z-index: 2;
-}
-
-.hero-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.hero-eyebrow {
-  margin: 0 0 22px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .23em;
-  color: #FFDC88;
-}
-
-.hero-title {
-  margin: 0;
-  font-family: var(--display);
-  font-size: clamp(48px,6.2vw,96px);
-  font-weight: 800;
-  line-height: 1.06;
-  letter-spacing: -.06em;
-  text-wrap: balance;
-}
-
-.hero-title span {
-  display: block;
-}
-
-.hero-title em {
-  color: var(--gold);
-  font-style: normal;
-}
-
-.hero-description {
-  max-width: 660px;
-  margin: 22px 0 0;
-  font-size: clamp(14px,1.3vw,17px);
-  line-height: 1.75;
-  color: rgba(255,255,255,.89);
-  text-wrap: pretty;
-}
-
-.hero-buttons {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 14px;
-  margin-top: 30px;
-}
-
-.btn {
-  min-height: 55px;
-  min-width: 190px;
-  padding: 15px 26px;
-  border-radius: 40px;
-  font-size: 13px;
-  font-weight: 700;
-  transition: background .3s ease, color .3s ease, transform .3s ease;
-}
-
-.btn-primary {
-  border: 1px solid var(--gold);
-  background: var(--gold);
-  color: #17071E;
-}
-
-.btn-primary:hover {
-  background: #FFDC88;
-  transform: translateY(-2px);
-}
-
-.btn-secondary {
-  border: 1px solid rgba(255,255,255,.7);
-  background: rgba(255,255,255,.08);
-  color: white;
-  backdrop-filter: blur(9px);
-}
-
-.btn-secondary:hover {
-  background: white;
-  color: var(--purple);
-  transform: translateY(-2px);
-}
-
-.hero-bottom {
-  position: absolute;
-  z-index: 5;
-  left: max(45px,calc((100vw - 1400px)/2));
-  right: max(45px,calc((100vw - 1400px)/2));
-  bottom: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.discover-more {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.discover-more span {
-  font-size: 18px;
-}
-
-.sound-button {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  padding: 10px 15px;
-  border: 1px solid rgba(255,255,255,.4);
-  border-radius: 30px;
-  background: rgba(12,5,22,.24);
-  color: white;
-  backdrop-filter: blur(10px);
-  font-size: 12px;
-  font-weight: 600;
-}
-
-.sound-button:hover {
-  background: rgba(255,255,255,.14);
-}
-
-/* ==============================================
-   SECTION 2 — PURPLE HOSPITALITY
-   ONLY TWO CONTENT BLOCKS
-============================================== */
-
-.hospitality-section {
-  position: relative;
-  isolation: isolate;
-  min-height: 100svh;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  background:
-    radial-gradient(ellipse at 75% 55%,#48216A 0%,#2A1045 42%,transparent 70%),
-    linear-gradient(120deg,#160727,#250D40 55%,#170725);
-}
-
-.hospitality-atmosphere {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 85% 10%,rgba(96,237,133,.13),transparent 35%),
-    radial-gradient(circle at 100% 90%,rgba(255,210,71,.12),transparent 38%);
-}
-
-.hospitality-image-area {
-  position: absolute;
-  inset: 0 0 0 auto;
-  width: 60%;
-  z-index: 1;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  pointer-events: none;
-}
-
-.hospitality-image-glow {
-  position: absolute;
-  right: 8%;
-  bottom: 4%;
-  width: 78%;
-  height: 78%;
-  border-radius: 50%;
-  background: radial-gradient(ellipse,rgba(96,237,133,.16),rgba(155,53,203,.23) 42%,transparent 74%);
-  filter: blur(40px);
-}
-
-.hospitality-image-float {
-  position: relative;
-  z-index: 2;
-  height: 94%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  animation: carnivalGirlFloat 6s ease-in-out infinite;
-}
-
-.hospitality-girl {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: bottom center;
-  filter: drop-shadow(-18px 14px 35px rgba(0,0,0,.25));
-}
-
-@keyframes carnivalGirlFloat {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-13px); }
-}
-
-.hospitality-image-shade {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  background: linear-gradient(
-    90deg,
-    #180829 0%,
-    rgba(24,8,41,.96) 26%,
-    rgba(24,8,41,.68) 48%,
-    rgba(24,8,41,.12) 78%,
-    transparent
-  );
-}
-
-.hospitality-layout {
-  position: relative;
-  z-index: 3;
-  width: min(100% - 100px,1400px);
-  margin: auto;
-  padding: 105px 0 35px;
-}
-
-.hospitality-content {
-  width: min(54%,690px);
-}
-
-.hospitality-statement {
-  margin: 0;
-  font-family: var(--display);
-  font-size: clamp(36px,4.9vw,76px);
-  line-height: 1.09;
-  letter-spacing: -.055em;
-  font-weight: 800;
-  text-wrap: balance;
-}
-
-.hospitality-statement strong {
-  display: block;
-  margin-top: 12px;
-  color: var(--yellow);
-  font-weight: 900;
-}
-
-.hospitality-notice {
-  max-width: 540px;
-  margin: 32px 0 0;
-  font-size: clamp(14px,1.3vw,18px);
-  line-height: 1.8;
-  color: rgba(255,255,255,.80);
-}
-
-.hospitality-notice strong {
-  display: block;
-  margin-bottom: 8px;
-  color: var(--green);
-  font-family: var(--display);
-  font-size: clamp(22px,2.2vw,34px);
-  line-height: 1.25;
-}
-
-/* ==============================================
-   SECTION 3 — ICE BLUE CARNIVAL SHOWCASE
-   REFERENCE-INSPIRED EDITORIAL COMPOSITION
-============================================== */
+  --display: "Clash Display", sans-serif;
+  --body: "Clash Display", sans-serif;
+
+  --carnival-deep-green: #073F33;
+  --carnival-green: #56EF83;
+  --carnival-yellow: #FFD247;
+  --carnival-cream: #FFF5D8;
+}
+
+/* APPLY BRAND FONT GLOBALLY */
+
+html,
+body,
+button,
+input,
+select,
+textarea,
+a,
+p,
+span,
+strong,
+small,
+label,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Clash Display", sans-serif;
+}
+
+/* ============================================
+   SECTION 3 — DEEP GREEN BACKGROUND
+============================================ */
 
 .carnival-scale-section {
   position: relative;
-  isolation: isolate;
-  height: 100svh;
-  min-height: 720px;
-  overflow: hidden;
-  color: #173D52;
 
   background:
     radial-gradient(
-      ellipse at 53% 52%,
-      #E5F6F9 0%,
-      #C9E5EC 46%,
-      #A9D1DE 100%
+      ellipse at 65% 40%,
+      rgba(24,116,82,.52) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 10% 85%,
+      rgba(41,143,87,.22) 0%,
+      transparent 50%
+    ),
+    linear-gradient(
+      120deg,
+      #042E27 0%,
+      #073F33 45%,
+      #09503F 100%
     );
+
+  color: #FFFFFF;
 }
 
-/* Oversized background typography */
+/* OVERSIZED BACKGROUND TEXT */
 
 .scale-background-word {
-  position: absolute;
-  z-index: 0;
-  left: 50%;
-  top: 22%;
-  width: max-content;
-  transform: translateX(-50%);
-  font-family: var(--serif);
-  font-size: clamp(155px,24vw,450px);
-  font-weight: 500;
-  line-height: .95;
+  font-family: "Clash Display", sans-serif;
+  font-weight: 700;
+  color: rgba(255,255,255,.095);
   letter-spacing: -.075em;
-  color: rgba(255,255,255,.42);
-  user-select: none;
-  pointer-events: none;
 }
 
-/* Soft lighting */
-
-.scale-light {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-}
+/* ATMOSPHERIC LIGHTING */
 
 .scale-light-one {
-  z-index: 0;
-  width: 550px;
-  height: 550px;
-  left: -260px;
-  bottom: -280px;
-  background: rgba(255,255,255,.25);
-  filter: blur(80px);
+  background: rgba(86,239,131,.15);
 }
 
 .scale-light-two {
-  z-index: 0;
-  width: 520px;
-  height: 520px;
-  right: -180px;
-  top: -180px;
-  background: rgba(255,210,71,.19);
-  filter: blur(85px);
+  background: rgba(255,210,71,.15);
 }
 
-/* Hero mask composition */
-
-.scale-mask-stage {
-  position: absolute;
-  z-index: 2;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-}
+/* ============================================
+   LARGE CENTRAL FLOATING MASK
+============================================ */
 
 .scale-mask-glow {
-  position: absolute;
-  width: min(72vw,850px);
-  height: min(72vw,850px);
-  border-radius: 50%;
   background:
     radial-gradient(
       circle,
-      rgba(255,255,255,.72),
-      rgba(121,205,224,.24) 47%,
-      transparent 76%
+      rgba(86,239,131,.20) 0%,
+      rgba(255,210,71,.09) 40%,
+      transparent 72%
     );
-  filter: blur(38px);
-}
 
-.scale-mask-floating {
-  position: absolute;
-  top: 10%;
-  left: 31%;
-  width: 59%;
-  height: 85%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: scaleMaskFloat 7s ease-in-out infinite;
+  filter: blur(45px);
 }
 
 .scale-mask-image {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
   filter:
-    drop-shadow(0 35px 45px rgba(19,56,85,.22))
-    drop-shadow(0 0 30px rgba(255,255,255,.20));
+    drop-shadow(0 35px 48px rgba(0,0,0,.30))
+    drop-shadow(0 0 35px rgba(86,239,131,.12));
 }
 
-@keyframes scaleMaskFloat {
-  0%,100% {
-    transform: translateY(0) rotate(-2deg);
-  }
-  50% {
-    transform: translateY(-15px) rotate(1deg);
-  }
-}
-
-/* Left editorial heading */
-
-.scale-heading-area {
-  position: absolute;
-  z-index: 4;
-  top: 34%;
-  left: max(50px,calc((100vw - 1400px)/2));
-  width: min(39%,540px);
-}
+/* ============================================
+   HEADLINE
+============================================ */
 
 .scale-eyebrow {
-  margin: 0 0 18px;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: .22em;
-  color: #39768D;
+  color: var(--carnival-yellow);
+  font-family: "Clash Display", sans-serif;
+  font-weight: 600;
 }
 
 .scale-heading {
-  margin: 0;
-  font-family: var(--serif);
-  font-size: clamp(38px,4.2vw,70px);
-  font-weight: 600;
-  line-height: 1.13;
-  letter-spacing: -.053em;
-  color: #12364C;
+  color: #FFFFFF;
+  font-family: "Clash Display", sans-serif;
+  font-weight: 700;
+  letter-spacing: -.055em;
 }
 
 .scale-heading span {
-  color: #137A91;
+  color: var(--carnival-green);
 }
 
 .scale-heading em {
-  display: block;
-  margin-top: 7px;
-  font-size: .71em;
+  color: var(--carnival-yellow);
+  font-family: "Clash Display", sans-serif;
   font-style: normal;
-  font-weight: 500;
-  color: #295A73;
+  font-weight: 600;
 }
 
 .scale-description {
-  margin: 19px 0 0;
-  font-size: clamp(13px,1.1vw,16px);
-  line-height: 1.65;
-  color: rgba(27,68,89,.76);
+  color: rgba(255,255,255,.78);
+  font-family: "Clash Display", sans-serif;
 }
 
-/* Statistics glass row */
-
-.scale-stats {
-  position: absolute;
-  z-index: 6;
-  bottom: 38px;
-  left: max(50px,calc((100vw - 1400px)/2));
-  right: max(50px,calc((100vw - 1400px)/2));
-
-  display: grid;
-  grid-template-columns: repeat(4,minmax(0,1fr)) minmax(0,1.5fr);
-  gap: 12px;
-  align-items: stretch;
-}
+/* ============================================
+   GLASSMORPHISM STATISTIC CARDS
+============================================ */
 
 .scale-stat-card {
-  position: relative;
-  min-width: 0;
-  min-height: 158px;
-  padding: 21px 17px;
+  background: rgba(255,255,255,.09);
 
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  border: 1px solid rgba(255,255,255,.20);
 
-  border: 1px solid rgba(255,255,255,.50);
-  border-radius: 20px;
-
-  background: rgba(255,255,255,.27);
-  backdrop-filter: blur(25px) saturate(130%);
-  -webkit-backdrop-filter: blur(25px) saturate(130%);
+  backdrop-filter: blur(22px) saturate(130%);
+  -webkit-backdrop-filter: blur(22px) saturate(130%);
 
   box-shadow:
-    0 10px 45px rgba(38,99,121,.07),
-    inset 0 1px 0 rgba(255,255,255,.55);
+    0 15px 45px rgba(0,0,0,.12),
+    inset 0 1px 0 rgba(255,255,255,.10);
 
   transition:
-    transform .4s var(--ease),
+    transform .4s ease,
     background .4s ease;
 }
 
 .scale-stat-card:hover {
-  transform: translateY(-7px);
-  background: rgba(255,255,255,.47);
+  background: rgba(255,255,255,.16);
+  transform: translateY(-6px);
 }
+
+/* STATISTIC NUMBERS */
 
 .scale-stat-number {
-  font-family: var(--display);
-  font-size: clamp(35px,3.1vw,52px);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -.07em;
-  color: #176D89;
+  color: var(--carnival-yellow);
+  font-family: "Clash Display", sans-serif;
+  font-weight: 700;
 }
 
+/* STATISTIC LABELS */
+
 .scale-stat-title {
-  margin-top: 6px;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: .13em;
-  color: #24556A;
+  color: var(--carnival-green);
+  font-family: "Clash Display", sans-serif;
+  font-weight: 600;
 }
 
 .scale-stat-card p {
-  margin: 9px 0 0;
-  font-size: clamp(10px,.85vw,12px);
-  line-height: 1.5;
-  color: #315A6C;
+  color: rgba(255,255,255,.82);
+  font-family: "Clash Display", sans-serif;
 }
 
+/* FINAL HIGHLIGHTS CARD */
+
 .scale-program-card {
-  background: rgba(255,255,255,.75);
-  border-color: rgba(255,255,255,.80);
+  background: rgba(255,210,71,.94);
+  border-color: rgba(255,210,71,.65);
+}
+
+.scale-program-card:hover {
+  background: #FFE188;
 }
 
 .scale-program-heading {
-  font-family: var(--display);
-  font-size: clamp(17px,1.6vw,24px);
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -.035em;
-  color: #146E83;
+  color: #073F33;
+  font-family: "Clash Display", sans-serif;
+  font-weight: 700;
 }
 
 .scale-program-card p {
-  font-size: clamp(11px,.9vw,13px);
-  color: #355767;
+  color: #174B3B;
 }
 
-/* Minimal vertical detail */
+/* SIDE TEXT */
 
 .scale-side-label {
-  position: absolute;
-  z-index: 5;
-  top: 29%;
-  right: 25px;
-  writing-mode: vertical-rl;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: .22em;
-  color: rgba(23,61,82,.48);
+  color: rgba(255,255,255,.52);
+  font-family: "Clash Display", sans-serif;
 }
 
-/* ==============================================
-   BOOKING DIALOG
-============================================== */
-
-.booking-dialog {
-  width: min(92%,520px);
-  max-height: 86dvh;
-  margin: auto;
-  padding: 0;
-  overflow-y: auto;
-  background: #1C0D2A;
-  color: white;
-  border: 1px solid rgba(245,188,74,.25);
-  border-radius: 12px;
-  box-shadow: 0 30px 100px rgba(0,0,0,.6);
-}
-
-.booking-dialog::backdrop {
-  background: rgba(5,2,10,.78);
-  backdrop-filter: blur(8px);
-}
-
-.dialog-inner {
-  position: relative;
-  padding: 36px 32px;
-}
-
-.dialog-close {
-  position: absolute;
-  top: 14px;
-  right: 20px;
-  border: none;
-  background: none;
-  color: white;
-  font-size: 30px;
-}
-
-.dialog-eyebrow {
-  color: var(--yellow);
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: .14em;
-}
-
-.dialog-inner h2 {
-  margin: 14px 0 12px;
-  font-family: var(--display);
-  font-size: clamp(28px,5vw,39px);
-  letter-spacing: -.05em;
-}
-
-.dialog-description {
-  font-size: 13px;
-  line-height: 1.7;
-  color: rgba(255,255,255,.72);
-}
-
-.booking-options {
-  display: grid;
-  gap: 9px;
-  margin-top: 24px;
-}
-
-.booking-option {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 6px;
-  width: 100%;
-  padding: 15px 18px;
-  background: rgba(255,255,255,.05);
-  color: white;
-  border: 1px solid rgba(255,255,255,.13);
-  border-radius: 6px;
-  text-align: left;
-}
-
-.booking-option:hover,
-.booking-option.selected {
-  background: rgba(96,237,133,.1);
-  border-color: var(--green);
-}
-
-.booking-option strong {
-  font-size: 13px;
-}
-
-.booking-option small {
-  color: rgba(255,255,255,.68);
-  font-size: 11px;
-}
-
-.dialog-note {
-  margin: 20px 0 0;
-  font-size: 11px;
-  line-height: 1.7;
-  color: rgba(255,255,255,.63);
-}
-
-/* ==============================================
-   LAPTOPS / SMALLER DESKTOPS
-============================================== */
-
-@media (max-width:1200px) {
-
-  .scale-heading-area {
-    left: 35px;
-    width: 44%;
-  }
-
-  .scale-stats {
-    left: 30px;
-    right: 30px;
-    gap: 9px;
-  }
-
-  .scale-stat-card {
-    padding: 17px 13px;
-  }
-
-  .scale-mask-floating {
-    left: 35%;
-    width: 63%;
-  }
-
-}
-
-/* ==============================================
-   TABLETS
-============================================== */
-
-@media (max-width:900px) {
-
-  .nav-container {
-    width: calc(100% - 45px);
-    height: 76px;
-  }
-
-  .nav-links {
-    position: fixed;
-    top: 76px;
-    left: 0;
-    right: 0;
-
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-
-    max-height: 0;
-    padding: 0 25px;
-    overflow: hidden;
-    opacity: 0;
-    visibility: hidden;
-
-    background: rgba(17,6,30,.98);
-    backdrop-filter: blur(22px);
-
-    transition:
-      max-height .4s ease,
-      padding .3s ease,
-      opacity .3s ease,
-      visibility .3s ease;
-  }
-
-  .nav-links.open {
-    max-height: 300px;
-    padding: 15px 25px 25px;
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .nav-link {
-    padding: 14px 0;
-  }
-
-  .menu-toggle {
-    display: flex;
-  }
-
-  .hospitality-content {
-    width: 65%;
-  }
-
-  .scale-background-word {
-    font-size: 29vw;
-  }
-
-  .scale-heading-area {
-    width: 47%;
-    top: 30%;
-  }
-
-  .scale-heading {
-    font-size: clamp(35px,4.8vw,53px);
-  }
-
-  .scale-stats {
-    grid-template-columns: repeat(5,minmax(0,1fr));
-  }
-
-  .scale-stat-card {
-    min-height: 147px;
-    border-radius: 15px;
-  }
-
-}
-
-/* ==============================================
-   MOBILE
-============================================== */
+/* ============================================
+   MOBILE OPTIMISATION
+============================================ */
 
 @media (max-width:640px) {
 
-  .nav-container {
-    width: calc(100% - 32px);
-    height: 70px;
-    gap: 12px;
-  }
-
-  .nav-links {
-    top: 70px;
-  }
-
-  .brand-logo {
-    gap: 7px;
-  }
-
-  .brand-mark {
-    width: 29px;
-    height: 29px;
-  }
-
-  .brand-text strong {
-    font-size: 17px;
-  }
-
-  .brand-text small {
-    font-size: 6px;
-  }
-
-  .nav-actions {
-    gap: 8px;
-  }
-
-  .nav-book-btn {
-    min-height: 37px;
-    padding: 10px 14px;
-    font-size: 10px;
-  }
-
-  /* VIDEO HERO */
-
-  .carnival-hero {
-    height: 100svh;
-    min-height: 630px;
-  }
-
-  .hero-container {
-    width: calc(100% - 36px);
-    padding: 90px 0;
-  }
-
-  .hero-eyebrow {
-    font-size: 9px;
-    letter-spacing: .1em;
-    margin-bottom: 17px;
-  }
-
-  .hero-title {
-    font-size: clamp(40px,10.1vw,65px);
-    line-height: 1.1;
-  }
-
-  .hero-description {
-    margin-top: 18px;
-    font-size: 12px;
-    line-height: 1.7;
-  }
-
-  .hero-buttons {
-    margin-top: 23px;
-    gap: 10px;
-  }
-
-  .btn {
-    min-height: 47px;
-    min-width: 0;
-    padding: 12px 17px;
-    font-size: 11px;
-  }
-
-  .hero-bottom {
-    left: 20px;
-    right: 20px;
-    bottom: 20px;
-  }
-
-  .discover-more,
-  .sound-button {
-    font-size: 10px;
-  }
-
-  /* HOSPITALITY */
-
-  .hospitality-section {
-    min-height: 100svh;
-  }
-
-  .hospitality-image-area {
-    width: 100%;
-    right: -15%;
-    opacity: .7;
-  }
-
-  .hospitality-image-shade {
+  .carnival-scale-section {
     background:
+      radial-gradient(
+        ellipse at 70% 24%,
+        rgba(24,116,82,.40),
+        transparent 60%
+      ),
       linear-gradient(
-        90deg,
-        rgba(21,7,33,.94),
-        rgba(21,7,33,.79) 48%,
-        rgba(21,7,33,.38)
+        160deg,
+        #042E27 0%,
+        #073F33 55%,
+        #09503F 100%
       );
   }
 
-  .hospitality-layout {
-    width: calc(100% - 38px);
-    padding: 100px 0 35px;
-  }
-
-  .hospitality-content {
-    width: 100%;
-    max-width: 450px;
-  }
-
-  .hospitality-statement {
-    font-size: clamp(37px,9vw,58px);
-  }
-
-  .hospitality-notice {
-    max-width: 390px;
-    margin-top: 25px;
-    font-size: 13px;
-  }
-
-  .hospitality-notice strong {
-    font-size: 23px;
-  }
-
-  /* SECTION 3 */
-
-  .carnival-scale-section {
-    min-height: 850px;
-    height: auto;
-    padding: 100px 0 28px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-
   .scale-background-word {
-    top: 19%;
-    font-size: 32vw;
-    opacity: .9;
-  }
-
-  .scale-mask-stage {
-    top: 70px;
-    bottom: auto;
-    height: 480px;
-  }
-
-  .scale-mask-floating {
-    top: 0;
-    left: 14%;
-    width: 86%;
-    height: 100%;
-    opacity: .93;
-  }
-
-  .scale-mask-glow {
-    width: 100%;
-    height: 90%;
-  }
-
-  .scale-heading-area {
-    position: relative;
-    top: auto;
-    left: auto;
-    z-index: 5;
-    width: calc(100% - 38px);
-    margin: 0 auto;
-    padding-top: 230px;
-  }
-
-  .scale-eyebrow {
-    font-size: 9px;
-    margin-bottom: 12px;
+    color: rgba(255,255,255,.075);
   }
 
   .scale-heading {
-    font-size: clamp(40px,10.4vw,63px);
-    line-height: 1.08;
-  }
-
-  .scale-heading em {
-    font-size: .75em;
-  }
-
-  .scale-description {
-    font-size: 12px;
-    margin-top: 14px;
-  }
-
-  .scale-stats {
-    position: relative;
-    bottom: auto;
-    left: auto;
-    right: auto;
-    width: calc(100% - 38px);
-    margin: 36px auto 0;
-
-    grid-template-columns: repeat(2,minmax(0,1fr));
-    gap: 10px;
+    color: #FFFFFF;
+    font-family: "Clash Display", sans-serif;
   }
 
   .scale-stat-card {
-    min-height: 137px;
-    border-radius: 14px;
-    padding: 17px;
-  }
-
-  .scale-stat-number {
-    font-size: 39px;
-  }
-
-  .scale-stat-title {
-    font-size: 9px;
-  }
-
-  .scale-stat-card p {
-    font-size: 11px;
+    background: rgba(255,255,255,.09);
+    border-color: rgba(255,255,255,.17);
   }
 
   .scale-program-card {
-    grid-column: 1 / -1;
-    min-height: 110px;
-  }
-
-  .scale-program-heading {
-    font-size: 21px;
-  }
-
-  .scale-side-label {
-    display: none;
-  }
-
-  .dialog-inner {
-    padding: 34px 22px;
-  }
-
-}
-
-@media (max-width:380px) {
-
-  .brand-text strong {
-    font-size: 15px;
-  }
-
-  .hero-title {
-    font-size: 9.8vw;
-  }
-
-  .hero-buttons {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .btn {
-    width: 100%;
-  }
-
-  .hospitality-statement {
-    font-size: 9vw;
-  }
-
-  .scale-heading {
-    font-size: 10vw;
-  }
-
-}
-
-/* ==============================================
-   SHORT SCREENS
-============================================== */
-
-@media (max-height:740px) and (min-width:641px) {
-
-  .carnival-scale-section {
-    min-height: 720px;
-  }
-
-  .scale-heading-area {
-    top: 28%;
-  }
-
-  .scale-stats {
-    bottom: 22px;
-  }
-
-  .scale-stat-card {
-    min-height: 135px;
-  }
-
-}
-
-/* ==============================================
-   REDUCED MOTION
-============================================== */
-
-@media (prefers-reduced-motion:reduce) {
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: .01ms !important;
-    scroll-behavior: auto !important;
+    background: rgba(255,210,71,.94);
   }
 
 }
