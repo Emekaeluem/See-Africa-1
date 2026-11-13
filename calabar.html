@@ -1,66 +1,41 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#100719">
+  <meta name="theme-color" content="#19072F">
 
   <title>Calabar Carnival 2026 | The Beat Calls. Answer It.</title>
 
-  <meta name="description" content="Experience Calabar Carnival 2026. Thirty-one days of colour, music, culture, dance and unforgettable celebration. Book your experience and build your package.">
+  <meta name="description"
+    content="Experience Calabar Carnival 2026. Book verified hospitality access from ₦150,000 per person.">
 
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <!-- Dedicated Carnival Stylesheet -->
   <link rel="stylesheet" href="calabar.css">
 </head>
 
 <body>
 
-  <!-- ACCESSIBILITY -->
-  <a href="#main" class="skip-link">
-    Skip to content
-  </a>
-
-  <!-- PAGE INTRO -->
-  <div class="page-loader" id="pageLoader" aria-hidden="true">
-    <div class="loader-content">
-      <div class="loader-wordmark">
-        CALABAR<span>.</span>
-      </div>
-      <span class="loader-line"></span>
-      <p>THE BEAT IS CALLING</p>
-    </div>
-  </div>
-
-  <!-- HEADER -->
+  <!-- NAVIGATION -->
   <header class="site-header" id="siteHeader">
 
-    <nav class="nav-container" aria-label="Main navigation">
+    <nav class="navbar">
 
-      <!-- BRAND -->
-      <a href="#home" class="brand-logo" aria-label="Calabar Carnival Home">
+      <a href="#home" class="brand" aria-label="Calabar Carnival Home">
+        <span class="brand-symbol">✳</span>
 
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 50 50" fill="none">
-            <path d="M25 3L30.5 18.5L46 13L35 25L46 37L30.5 31.5L25 47L19.5 31.5L4 37L15 25L4 13L19.5 18.5L25 3Z" fill="currentColor"/>
-            <circle cx="25" cy="25" r="6" fill="#1B0B23"/>
-          </svg>
-        </span>
-
-        <span class="brand-text">
+        <span class="brand-name">
           <strong>CALABAR</strong>
           <small>CARNIVAL & FESTIVALS</small>
         </span>
-
       </a>
 
-      <!-- DESKTOP NAVIGATION -->
       <div class="nav-links" id="navLinks">
         <a href="#home" class="nav-link active">Home</a>
         <a href="#experience" class="nav-link">Experience</a>
@@ -68,30 +43,25 @@
         <a href="#about" class="nav-link">About</a>
       </div>
 
-      <!-- NAV ACTIONS -->
       <div class="nav-actions">
 
-        <span class="nav-year">
-          DECEMBER <strong>2026</strong>
-        </span>
+        <span class="nav-edition">DECEMBER <b>2026</b></span>
 
-        <button type="button" class="nav-book-btn" data-booking="Seat">
+        <button type="button" class="nav-book" data-booking="Seat">
           BOOK NOW
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M5 19L19 5M7 5H19V17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <span>↗</span>
         </button>
 
-        <button
+        <button type="button"
           class="menu-toggle"
           id="menuToggle"
-          type="button"
           aria-label="Open menu"
           aria-controls="navLinks"
-          aria-expanded="false"
-        >
+          aria-expanded="false">
+
           <span></span>
           <span></span>
+
         </button>
 
       </div>
@@ -100,269 +70,252 @@
 
   </header>
 
-  <!-- MAIN CONTENT -->
-  <main id="main">
+  <main>
 
-    <!-- HERO SECTION -->
-    <section class="carnival-hero" id="home" aria-label="Calabar Carnival 2026">
+    <!-- EXECUTIVE CARNIVAL HERO -->
+    <section class="carnival-hero" id="home">
 
-      <!-- VIDEO BACKGROUND -->
-      <div class="hero-media">
+      <!-- BACKGROUND DECORATIONS -->
+      <div class="hero-glow glow-left" aria-hidden="true"></div>
+      <div class="hero-glow glow-right" aria-hidden="true"></div>
 
-        <video
-          id="heroVideo"
-          class="hero-video"
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="metadata"
-          aria-hidden="true"
-          disablepictureinpicture
-          disableremoteplayback
-        >
-          <source src="images/calabar-carnival.mp4" type="video/mp4">
-        </video>
+      <div class="hero-orbit orbit-one" aria-hidden="true"></div>
+      <div class="hero-orbit orbit-two" aria-hidden="true"></div>
 
-        <div class="video-tint"></div>
-        <div class="video-gradient"></div>
-        <div class="video-vignette"></div>
+      <div class="hero-pattern" aria-hidden="true"></div>
 
-      </div>
+      <div class="hero-particles" id="heroParticles" aria-hidden="true"></div>
 
-      <!-- DECORATIVE ELEMENTS -->
-      <div class="hero-grain" aria-hidden="true"></div>
-
-      <span class="corner-text corner-left" aria-hidden="true">
-        AFRICA'S CELEBRATION OF CULTURE
-      </span>
-
-      <span class="corner-text corner-right" aria-hidden="true">
-        04°57′ N — 08°20′ E
-      </span>
-
-      <!-- HERO CONTENT -->
       <div class="hero-container">
 
+        <!-- LEFT CONTENT -->
         <div class="hero-content">
 
-          <!-- EYEBROW -->
-          <div class="hero-eyebrow hero-animate">
-
+          <div class="hero-eyebrow reveal">
             <span class="eyebrow-line"></span>
 
             <span>CARNIVAL CALABAR & FESTIVALS 2026</span>
-
-            <span class="eyebrow-line"></span>
-
           </div>
 
-          <!-- MAIN HEADLINE -->
-          <h1 class="hero-title">
+          <h1 class="hero-title reveal">
 
-            <span class="title-line">
-              <span class="title-inner">
-                The Beat
-              </span>
-            </span>
+            <span class="heading-white">The Beat</span>
 
-            <span class="title-line title-second">
-              <span class="title-inner">
-                Calls<span class="title-period">.</span>
-              </span>
-            </span>
+            <span class="heading-green">Calls<span class="heading-yellow">.</span></span>
 
-            <span class="title-line title-final">
-              <span class="title-inner">
-                Answer <em>it.</em>
-              </span>
+            <span class="heading-yellow heading-last">
+              Answer <em>it.</em>
             </span>
 
           </h1>
 
-          <!-- SUBTITLE -->
-          <div class="hero-description hero-animate">
+          <p class="hero-description reveal">
+            Thirty-one days of colour, music, culture, dance and
+            unforgettable celebration. Come to Calabar for the parade,
+            the performances, the people and the full festival experience.
+          </p>
 
-            <span class="description-rule"></span>
+          <!-- BOOKING BUTTONS -->
+          <div class="hero-actions reveal">
+
+            <button type="button"
+              class="btn btn-primary"
+              data-booking="Seat">
+
+              <span>BOOK YOUR EXPERIENCE</span>
+
+              <span class="btn-arrow">↗</span>
+
+            </button>
+
+            <button type="button"
+              class="btn btn-outline"
+              data-booking="Build">
+
+              <span>BUILD YOUR PACKAGE</span>
+
+              <span class="btn-arrow">→</span>
+
+            </button>
+
+          </div>
+
+          <!-- HOSPITALITY TRUST LINE -->
+          <div class="hero-trust reveal">
+
+            <div class="trust-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 2L20 5V11C20 16.2 16.5 20.1 12 22C7.5 20.1 4 16.2 4 11V5L12 2Z"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linejoin="round"/>
+                <path d="M8.5 12L11 14.5L15.7 9.5"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"/>
+              </svg>
+            </div>
 
             <p>
-              Thirty-one days of colour, music, culture,
-              dance and unforgettable celebration.
-              Come to Calabar for the parade, the performances,
-              the people and the full festival experience.
+              Verified hospitality access from
+              <strong>₦150,000 per person.</strong>
             </p>
 
           </div>
 
-          <!-- CTA BUTTONS -->
-          <div class="hero-buttons hero-animate">
+        </div>
 
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-booking="Seat"
+        <!-- RIGHT FLOATING MASK -->
+        <div class="hero-visual reveal">
+
+          <div class="mask-aura"></div>
+
+          <div class="mask-circle mask-circle-one"></div>
+          <div class="mask-circle mask-circle-two"></div>
+
+          <span class="mask-star star-one" aria-hidden="true">✳</span>
+          <span class="mask-star star-two" aria-hidden="true">✦</span>
+          <span class="mask-star star-three" aria-hidden="true">✳</span>
+
+          <div class="mask-float">
+
+            <img
+              src="images/masks.png"
+              alt="Colourful Calabar Carnival masquerade mask"
+              class="carnival-mask"
+              id="carnivalMask"
+              fetchpriority="high"
             >
-              <span>BOOK YOUR EXPERIENCE</span>
 
-              <span class="button-icon">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M5 19L19 5M7 5H19V17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </span>
+          </div>
 
-            </button>
+          <span class="floating-tag tag-top">
+            <span class="tag-dot"></span>
+            THE CULTURE
+          </span>
 
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-booking="Build"
-            >
-              <span>BUILD YOUR PACKAGE</span>
+          <span class="floating-tag tag-bottom">
+            THE CELEBRATION
+            <span class="tag-star">✦</span>
+          </span>
 
-              <span class="button-icon">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M5 12H19M13 6L19 12L13 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </span>
-
-            </button>
-
+          <div class="visual-year" aria-hidden="true">
+            2026
           </div>
 
         </div>
 
       </div>
 
-      <!-- HERO FOOTER -->
-      <div class="hero-bottom">
+      <!-- BOTTOM HERO INFORMATION -->
+      <div class="hero-footer">
 
-        <div class="hero-bottom-inner">
+        <div class="hero-footer-inner">
 
-          <div class="hero-location">
-            <span class="location-indicator"></span>
+          <div class="hero-event-date">
+
+            <span class="date-icon" aria-hidden="true">✳</span>
 
             <div>
-              <span class="location-label">THE DESTINATION</span>
-              <strong>CALABAR, CROSS RIVER · NIGERIA</strong>
+              <span class="footer-label">FEATURED CARNIVAL DATE</span>
+              <strong>DECEMBER 28, 2026</strong>
             </div>
+
           </div>
 
-          <!-- SCROLL INDICATOR -->
-          <a href="#hero-end" class="scroll-indicator" aria-label="Scroll down">
-            <span>SCROLL TO DISCOVER</span>
+          <div class="hero-microcopy">
+            Select your preferred event date at booking.
+            Exact ticketed event dates and seat availability
+            are subject to official confirmation.
+          </div>
 
-            <span class="scroll-mouse">
-              <span class="scroll-wheel"></span>
-            </span>
+          <a href="#hero-end"
+            class="scroll-cue"
+            aria-label="Scroll down to explore">
+
+            <span>SCROLL TO EXPLORE</span>
+            <span class="scroll-arrow">↓</span>
+
           </a>
-
-          <!-- SOUND CONTROL -->
-          <button
-            type="button"
-            class="sound-button"
-            id="soundButton"
-            aria-label="Unmute background video"
-            aria-pressed="false"
-          >
-            <span class="sound-icon" id="soundIcon">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M11 5L6 9H3V15H6L11 19V5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-                <path d="M16 9L21 15M21 9L16 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-              </svg>
-            </span>
-
-            <span id="soundText">SOUND OFF</span>
-          </button>
 
         </div>
 
-      </div>
-
-      <!-- HERO NUMBER -->
-      <div class="hero-number" aria-hidden="true">
-        <span>01</span>
-        <span class="number-divider"></span>
-        <span>2026</span>
       </div>
 
     </section>
 
-    <div id="hero-end" class="hero-end-marker"></div>
+    <div id="hero-end"></div>
 
   </main>
 
-  <!-- BOOKING PREVIEW DIALOG -->
-  <dialog class="booking-dialog" id="bookingDialog" aria-labelledby="bookingTitle">
+  <!-- BOOKING PREVIEW -->
+  <dialog class="booking-dialog"
+    id="bookingDialog"
+    aria-labelledby="bookingTitle">
 
     <div class="dialog-inner">
 
-      <button
+      <button type="button"
         class="dialog-close"
         id="dialogClose"
-        type="button"
-        aria-label="Close booking preview"
-      >
+        aria-label="Close booking options">
         &times;
       </button>
 
-      <span class="dialog-eyebrow">
-        CALABAR CARNIVAL 2026
-      </span>
+      <span class="dialog-eyebrow">CALABAR CARNIVAL 2026</span>
 
-      <h2 id="bookingTitle">
-        Choose your experience.
-      </h2>
+      <h2 id="bookingTitle">Choose your experience.</h2>
 
       <p class="dialog-description">
-        Select your preferred experience. Full booking and checkout
-        will become available when the package section is connected.
+        Explore the Carnival hospitality packages available for your journey.
+        Prices and availability are subject to confirmation.
       </p>
 
-      <div class="booking-options" id="bookingOptions">
+      <div class="booking-options">
 
-        <button class="booking-option" type="button" data-package="Seat">
+        <button type="button" class="booking-option" data-package="Seat">
           <span>
             <strong>SEAT</strong>
             <small>From ₦150,000 per person</small>
           </span>
-          <span class="option-arrow">↗</span>
+          <span>↗</span>
         </button>
 
-        <button class="booking-option" type="button" data-package="Stay">
+        <button type="button" class="booking-option" data-package="Stay">
           <span>
             <strong>STAY</strong>
             <small>From ₦500,000 per person sharing</small>
           </span>
-          <span class="option-arrow">↗</span>
+          <span>↗</span>
         </button>
 
-        <button class="booking-option" type="button" data-package="Explore">
+        <button type="button" class="booking-option" data-package="Explore">
           <span>
             <strong>EXPLORE</strong>
             <small>From ₦620,000 per person sharing</small>
           </span>
-          <span class="option-arrow">↗</span>
+          <span>↗</span>
         </button>
 
-        <button class="booking-option" type="button" data-package="Fly & Explore">
+        <button type="button" class="booking-option" data-package="Fly & Explore">
           <span>
             <strong>FLY & EXPLORE</strong>
-            <small>From ₦920,000 per person, selected origins</small>
+            <small>From ₦920,000 per person, selected Nigerian origins</small>
           </span>
-          <span class="option-arrow">↗</span>
+          <span>↗</span>
         </button>
 
       </div>
 
-      <p class="dialog-note" id="dialogNote">
-        Package rates and availability are subject to confirmation.
+      <p id="dialogNote" class="dialog-note">
+        Full checkout and payment will be connected to the booking page.
       </p>
 
     </div>
 
   </dialog>
 
-  <!-- JAVASCRIPT -->
   <script src="calabar.js" defer></script>
 
 </body>
