@@ -1,52 +1,855 @@
 
-/* ============================================
-   CALABAR CARNIVAL
-   BRAND TYPOGRAPHY + SECTION 3 REDESIGN
-============================================ */
+/* =====================================================
+   CALABAR CARNIVAL 2026
+   COMPLETE WEBSITE STYLESHEET
 
-/* CLASH DISPLAY FONT — ENTIRE WEBSITE */
+   SECTION 1 — CINEMATIC VIDEO HERO
+   SECTION 2 — PURPLE HOSPITALITY
+   SECTION 3 — GREEN CARNIVAL SHOWCASE
 
-@import url('https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&display=swap');
+   BRAND FONT: CLASH DISPLAY
+===================================================== */
+
+/* =====================================================
+   CLASH DISPLAY FONT
+===================================================== */
+
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&display=swap");
+
+/* =====================================================
+   GLOBAL VARIABLES
+===================================================== */
 
 :root {
+
+  /* Brand colours */
+
+  --purple: #150721;
+  --purple-mid: #250D40;
+  --purple-deep: #10051E;
+
+  --deep-green: #073F33;
+  --dark-green: #042E27;
+  --emerald: #09503F;
+
+  --green: #56EF83;
+  --yellow: #FFD247;
+  --gold: #F5BC4A;
+
+  --white: #FFFFFF;
+  --cream: #FFF5D8;
+
+  /* Typography */
+
   --display: "Clash Display", sans-serif;
   --body: "Clash Display", sans-serif;
 
-  --carnival-deep-green: #073F33;
-  --carnival-green: #56EF83;
-  --carnival-yellow: #FFD247;
-  --carnival-cream: #FFF5D8;
+  /* Animation */
+
+  --ease: cubic-bezier(.16,1,.3,1);
+
 }
 
-/* APPLY BRAND FONT GLOBALLY */
+/* =====================================================
+   GLOBAL RESET
+===================================================== */
 
-html,
-body,
-button,
-input,
-select,
-textarea,
-a,
-p,
-span,
-strong,
-small,
-label,
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 84px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+
+  background: var(--purple);
+  color: var(--white);
+
+  font-family: var(--body);
+
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+
+  overflow-x: hidden;
+}
+
+body.menu-open,
+body.dialog-open {
+  overflow: hidden;
+}
+
 h1,
 h2,
 h3,
 h4,
 h5,
-h6 {
-  font-family: "Clash Display", sans-serif;
+h6,
+p,
+span,
+strong,
+small,
+a,
+button,
+input,
+select,
+textarea {
+  font-family: var(--display);
 }
 
-/* ============================================
-   SECTION 3 — DEEP GREEN BACKGROUND
-============================================ */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 4px;
+}
+
+img,
+video {
+  max-width: 100%;
+}
+
+::selection {
+  background: var(--yellow);
+  color: var(--purple);
+}
+
+/* Skip navigation */
+
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 12px;
+  z-index: 1000;
+
+  padding: 12px 18px;
+
+  background: var(--yellow);
+  color: var(--purple);
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
+/* =====================================================
+   NAVIGATION — STICKY GLASSMORPHISM
+===================================================== */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  z-index: 100;
+
+  background: rgba(18,7,31,.55);
+
+  -webkit-backdrop-filter:
+    blur(18px) saturate(140%);
+
+  backdrop-filter:
+    blur(18px) saturate(140%);
+
+  transition:
+    background .35s ease,
+    box-shadow .35s ease;
+}
+
+.site-header.scrolled,
+.site-header.menu-active {
+  background: rgba(16,5,29,.90);
+
+  box-shadow:
+    0 12px 35px rgba(0,0,0,.17);
+}
+
+/* Header on green section */
+
+.site-header.on-light-section {
+  background: rgba(4,46,39,.88);
+
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+
+/* Navigation container */
+
+.nav-container {
+  width: min(100% - 80px,1400px);
+  height: 84px;
+
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 28px;
+}
+
+/* Logo */
+
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.brand-mark {
+  display: flex;
+
+  width: 37px;
+  height: 37px;
+
+  color: var(--yellow);
+}
+
+.brand-mark svg {
+  width: 100%;
+  height: 100%;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+
+  line-height: 1;
+}
+
+.brand-text strong {
+  font-size: 22px;
+  font-weight: 700;
+
+  letter-spacing: -.055em;
+}
+
+.brand-text small {
+  margin-top: 6px;
+
+  font-size: 8px;
+  font-weight: 600;
+
+  letter-spacing: .17em;
+
+  color: rgba(255,255,255,.75);
+}
+
+/* Navigation links */
+
+.nav-links {
+  display: flex;
+  align-items: center;
+
+  gap: clamp(20px,3vw,44px);
+}
+
+.nav-link {
+  font-size: 13px;
+  font-weight: 500;
+
+  color: rgba(255,255,255,.82);
+
+  transition: color .3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--yellow);
+}
+
+/* Navigation actions */
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+}
+
+.nav-book-btn {
+  min-height: 44px;
+
+  padding: 12px 26px;
+
+  border: none;
+  border-radius: 30px;
+
+  background: var(--yellow);
+  color: #1A0A2B;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  transition:
+    background .3s ease,
+    transform .3s ease;
+}
+
+.nav-book-btn:hover {
+  background: var(--green);
+
+  transform: translateY(-2px);
+}
+
+/* Mobile menu toggle */
+
+.menu-toggle {
+  display: none;
+
+  width: 40px;
+  height: 40px;
+
+  padding: 8px;
+
+  border: none;
+  background: transparent;
+
+  flex-direction: column;
+  justify-content: center;
+
+  gap: 7px;
+}
+
+.menu-toggle span {
+  width: 100%;
+  height: 2px;
+
+  background: var(--white);
+
+  transition: transform .3s ease;
+}
+
+.menu-toggle[aria-expanded="true"]
+span:first-child {
+  transform:
+    translateY(4.5px) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"]
+span:last-child {
+  transform:
+    translateY(-4.5px) rotate(-45deg);
+}
+
+/* =====================================================
+   SECTION 1 — ORIGINAL VIDEO HERO
+===================================================== */
+
+.carnival-hero {
+  position: relative;
+
+  isolation: isolate;
+
+  width: 100%;
+  height: 100svh;
+  min-height: 650px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  background: var(--purple);
+}
+
+/* Fullscreen video */
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+
+  z-index: -1;
+
+  overflow: hidden;
+
+  background: #170B23;
+}
+
+.hero-video {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Cinematic video overlay */
+
+.video-overlay {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7,3,13,.40) 0%,
+      rgba(7,3,13,.38) 35%,
+      rgba(7,3,13,.48) 70%,
+      rgba(7,3,13,.74) 100%
+    ),
+    rgba(20,7,31,.12);
+}
+
+/* Hero layout */
+
+.hero-container {
+  position: relative;
+  z-index: 2;
+
+  width: min(100% - 48px,1100px);
+
+  margin: auto;
+
+  padding: 115px 0 100px;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+
+  text-align: center;
+}
+
+/* Hero eyebrow */
+
+.hero-eyebrow {
+  margin: 0 0 22px;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  letter-spacing: .23em;
+
+  color: #FFDC88;
+}
+
+/* Hero heading */
+
+.hero-title {
+  margin: 0;
+
+  font-size: clamp(48px,6.2vw,96px);
+  font-weight: 700;
+
+  line-height: 1.06;
+  letter-spacing: -.055em;
+
+  text-wrap: balance;
+}
+
+.hero-title span {
+  display: block;
+}
+
+.hero-title em {
+  color: var(--gold);
+  font-style: normal;
+}
+
+/* Hero description */
+
+.hero-description {
+  max-width: 660px;
+
+  margin: 22px 0 0;
+
+  color: rgba(255,255,255,.89);
+
+  font-size: clamp(14px,1.3vw,17px);
+  font-weight: 400;
+
+  line-height: 1.75;
+
+  text-wrap: pretty;
+}
+
+/* Hero CTA buttons */
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  gap: 14px;
+
+  margin-top: 30px;
+}
+
+.btn {
+  min-height: 55px;
+  min-width: 190px;
+
+  padding: 15px 26px;
+
+  border-radius: 40px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  transition:
+    background .3s ease,
+    color .3s ease,
+    transform .3s ease;
+}
+
+.btn-primary {
+  border: 1px solid var(--gold);
+
+  background: var(--gold);
+  color: #17071E;
+}
+
+.btn-primary:hover {
+  background: #FFDC88;
+
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  border: 1px solid rgba(255,255,255,.7);
+
+  background: rgba(255,255,255,.08);
+  color: var(--white);
+
+  backdrop-filter: blur(9px);
+}
+
+.btn-secondary:hover {
+  background: var(--white);
+  color: var(--purple);
+
+  transform: translateY(-2px);
+}
+
+/* Hero bottom controls */
+
+.hero-bottom {
+  position: absolute;
+
+  z-index: 5;
+
+  left: max(45px,calc((100vw - 1400px)/2));
+  right: max(45px,calc((100vw - 1400px)/2));
+
+  bottom: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+.discover-more {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.discover-more span {
+  font-size: 18px;
+}
+
+.sound-button {
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  padding: 10px 15px;
+
+  border: 1px solid rgba(255,255,255,.4);
+  border-radius: 30px;
+
+  background: rgba(12,5,22,.24);
+  color: var(--white);
+
+  backdrop-filter: blur(10px);
+
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.sound-button:hover {
+  background: rgba(255,255,255,.14);
+}
+
+/* =====================================================
+   SECTION 2 — PURPLE HOSPITALITY
+   ORIGINAL CONTENT PRESERVED
+===================================================== */
+
+.hospitality-section {
+  position: relative;
+
+  isolation: isolate;
+
+  min-height: 100svh;
+
+  display: flex;
+  align-items: center;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      ellipse at 75% 55%,
+      #48216A 0%,
+      #2A1045 42%,
+      transparent 70%
+    ),
+    linear-gradient(
+      120deg,
+      #160727 0%,
+      #250D40 55%,
+      #170725 100%
+    );
+}
+
+/* Atmospheric effects */
+
+.hospitality-atmosphere {
+  position: absolute;
+  inset: 0;
+
+  z-index: -1;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at 85% 10%,
+      rgba(96,237,133,.13),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 100% 90%,
+      rgba(255,210,71,.12),
+      transparent 38%
+    );
+}
+
+/* Girl image */
+
+.hospitality-image-area {
+  position: absolute;
+
+  inset: 0 0 0 auto;
+
+  width: 60%;
+
+  z-index: 1;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  pointer-events: none;
+}
+
+.hospitality-image-glow {
+  position: absolute;
+
+  right: 8%;
+  bottom: 4%;
+
+  width: 78%;
+  height: 78%;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(96,237,133,.16),
+      rgba(155,53,203,.23) 42%,
+      transparent 74%
+    );
+
+  filter: blur(40px);
+}
+
+.hospitality-image-float {
+  position: relative;
+
+  z-index: 2;
+
+  height: 94%;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+  animation:
+    carnivalGirlFloat 6s ease-in-out infinite;
+}
+
+.hospitality-girl {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+  object-position: bottom center;
+
+  filter:
+    drop-shadow(
+      -18px 14px 35px rgba(0,0,0,.25)
+    );
+}
+
+@keyframes carnivalGirlFloat {
+  0%,100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-13px);
+  }
+}
+
+/* Text contrast */
+
+.hospitality-image-shade {
+  position: absolute;
+  inset: 0;
+
+  z-index: 2;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      #180829 0%,
+      rgba(24,8,41,.96) 26%,
+      rgba(24,8,41,.68) 48%,
+      rgba(24,8,41,.12) 78%,
+      transparent 100%
+    );
+}
+
+/* Content layout */
+
+.hospitality-layout {
+  position: relative;
+
+  z-index: 3;
+
+  width: min(100% - 100px,1400px);
+
+  margin: auto;
+
+  padding: 105px 0 35px;
+}
+
+.hospitality-content {
+  width: min(54%,690px);
+}
+
+.hospitality-statement {
+  margin: 0;
+
+  font-size: clamp(36px,4.9vw,76px);
+  font-weight: 700;
+
+  line-height: 1.09;
+  letter-spacing: -.055em;
+
+  text-wrap: balance;
+}
+
+.hospitality-statement strong {
+  display: block;
+
+  margin-top: 12px;
+
+  color: var(--yellow);
+
+  font-weight: 700;
+}
+
+.hospitality-notice {
+  max-width: 540px;
+
+  margin: 32px 0 0;
+
+  font-size: clamp(14px,1.3vw,18px);
+
+  line-height: 1.8;
+
+  color: rgba(255,255,255,.80);
+}
+
+.hospitality-notice strong {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: var(--green);
+
+  font-size: clamp(22px,2.2vw,34px);
+  font-weight: 600;
+
+  line-height: 1.25;
+}
+
+/* =====================================================
+   SECTION 3 — DEEP GREEN CARNIVAL SHOWCASE
+   BRAND REDESIGN
+===================================================== */
 
 .carnival-scale-section {
   position: relative;
+
+  isolation: isolate;
+
+  width: 100%;
+  height: 100svh;
+  min-height: 720px;
+
+  overflow: hidden;
+
+  color: var(--white);
 
   background:
     radial-gradient(
@@ -65,34 +868,104 @@ h6 {
       #073F33 45%,
       #09503F 100%
     );
-
-  color: #FFFFFF;
 }
 
-/* OVERSIZED BACKGROUND TEXT */
+/* =====================================================
+   OVERSIZED BACKGROUND TYPOGRAPHY
+===================================================== */
 
 .scale-background-word {
-  font-family: "Clash Display", sans-serif;
+  position: absolute;
+
+  z-index: 0;
+
+  left: 50%;
+  top: 22%;
+
+  width: max-content;
+
+  transform: translateX(-50%);
+
+  font-family: var(--display);
+
+  font-size: clamp(155px,24vw,450px);
   font-weight: 700;
-  color: rgba(255,255,255,.095);
+
+  line-height: .95;
   letter-spacing: -.075em;
+
+  color: rgba(255,255,255,.095);
+
+  user-select: none;
+  pointer-events: none;
 }
 
-/* ATMOSPHERIC LIGHTING */
+/* =====================================================
+   ATMOSPHERIC LIGHT
+===================================================== */
+
+.scale-light {
+  position: absolute;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+}
 
 .scale-light-one {
+  z-index: 0;
+
+  width: 550px;
+  height: 550px;
+
+  left: -260px;
+  bottom: -280px;
+
   background: rgba(86,239,131,.15);
+
+  filter: blur(80px);
 }
 
 .scale-light-two {
+  z-index: 0;
+
+  width: 520px;
+  height: 520px;
+
+  right: -180px;
+  top: -180px;
+
   background: rgba(255,210,71,.15);
+
+  filter: blur(85px);
 }
 
-/* ============================================
-   LARGE CENTRAL FLOATING MASK
-============================================ */
+/* =====================================================
+   CENTRAL FLOATING MASK
+===================================================== */
+
+.scale-mask-stage {
+  position: absolute;
+
+  z-index: 2;
+
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  pointer-events: none;
+}
 
 .scale-mask-glow {
+  position: absolute;
+
+  width: min(72vw,850px);
+  height: min(72vw,850px);
+
+  border-radius: 50%;
+
   background:
     radial-gradient(
       circle,
@@ -104,97 +977,234 @@ h6 {
   filter: blur(45px);
 }
 
-.scale-mask-image {
-  filter:
-    drop-shadow(0 35px 48px rgba(0,0,0,.30))
-    drop-shadow(0 0 35px rgba(86,239,131,.12));
+.scale-mask-floating {
+  position: absolute;
+
+  top: 10%;
+  left: 31%;
+
+  width: 59%;
+  height: 85%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  animation:
+    scaleMaskFloat 7s ease-in-out infinite;
 }
 
-/* ============================================
-   HEADLINE
-============================================ */
+.scale-mask-image {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  filter:
+    drop-shadow(
+      0 35px 48px rgba(0,0,0,.30)
+    )
+    drop-shadow(
+      0 0 35px rgba(86,239,131,.12)
+    );
+}
+
+@keyframes scaleMaskFloat {
+  0%,100% {
+    transform:
+      translateY(0) rotate(-2deg);
+  }
+
+  50% {
+    transform:
+      translateY(-15px) rotate(1deg);
+  }
+}
+
+/* =====================================================
+   THIRD SECTION HEADLINE
+===================================================== */
+
+.scale-heading-area {
+  position: absolute;
+
+  z-index: 4;
+
+  top: 34%;
+
+  left:
+    max(50px,calc((100vw - 1400px)/2));
+
+  width: min(39%,540px);
+}
 
 .scale-eyebrow {
-  color: var(--carnival-yellow);
-  font-family: "Clash Display", sans-serif;
+  margin: 0 0 18px;
+
+  font-size: 10px;
   font-weight: 600;
+
+  letter-spacing: .22em;
+
+  color: var(--yellow);
 }
 
 .scale-heading {
-  color: #FFFFFF;
-  font-family: "Clash Display", sans-serif;
+  margin: 0;
+
+  font-size: clamp(38px,4.2vw,70px);
   font-weight: 700;
-  letter-spacing: -.055em;
+
+  line-height: 1.13;
+  letter-spacing: -.053em;
+
+  color: var(--white);
 }
 
 .scale-heading span {
-  color: var(--carnival-green);
+  color: var(--green);
 }
 
 .scale-heading em {
-  color: var(--carnival-yellow);
-  font-family: "Clash Display", sans-serif;
+  display: block;
+
+  margin-top: 7px;
+
+  font-size: .71em;
   font-style: normal;
   font-weight: 600;
+
+  color: var(--yellow);
 }
 
 .scale-description {
+  margin: 19px 0 0;
+
+  font-size: clamp(13px,1.1vw,16px);
+  line-height: 1.65;
+
   color: rgba(255,255,255,.78);
-  font-family: "Clash Display", sans-serif;
 }
 
-/* ============================================
-   GLASSMORPHISM STATISTIC CARDS
-============================================ */
+/* =====================================================
+   GLASSMORPHISM STATISTICS
+===================================================== */
+
+.scale-stats {
+  position: absolute;
+
+  z-index: 6;
+
+  bottom: 38px;
+
+  left:
+    max(50px,calc((100vw - 1400px)/2));
+
+  right:
+    max(50px,calc((100vw - 1400px)/2));
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4,minmax(0,1fr))
+    minmax(0,1.5fr);
+
+  gap: 12px;
+
+  align-items: stretch;
+}
+
+/* Individual cards */
 
 .scale-stat-card {
-  background: rgba(255,255,255,.09);
+  position: relative;
 
-  border: 1px solid rgba(255,255,255,.20);
+  min-width: 0;
+  min-height: 158px;
 
-  backdrop-filter: blur(22px) saturate(130%);
-  -webkit-backdrop-filter: blur(22px) saturate(130%);
+  padding: 21px 17px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  border:
+    1px solid rgba(255,255,255,.20);
+
+  border-radius: 20px;
+
+  background:
+    rgba(255,255,255,.09);
+
+  -webkit-backdrop-filter:
+    blur(22px) saturate(130%);
+
+  backdrop-filter:
+    blur(22px) saturate(130%);
 
   box-shadow:
     0 15px 45px rgba(0,0,0,.12),
     inset 0 1px 0 rgba(255,255,255,.10);
 
   transition:
-    transform .4s ease,
+    transform .4s var(--ease),
     background .4s ease;
 }
 
 .scale-stat-card:hover {
-  background: rgba(255,255,255,.16);
+  background:
+    rgba(255,255,255,.16);
+
   transform: translateY(-6px);
 }
 
-/* STATISTIC NUMBERS */
+/* Big numbers */
 
 .scale-stat-number {
-  color: var(--carnival-yellow);
-  font-family: "Clash Display", sans-serif;
+  font-size: clamp(35px,3.1vw,52px);
   font-weight: 700;
+
+  line-height: 1.05;
+  letter-spacing: -.07em;
+
+  color: var(--yellow);
 }
 
-/* STATISTIC LABELS */
+/* Stat labels */
 
 .scale-stat-title {
-  color: var(--carnival-green);
-  font-family: "Clash Display", sans-serif;
+  margin-top: 6px;
+
+  font-size: 9px;
   font-weight: 600;
+
+  letter-spacing: .13em;
+
+  color: var(--green);
 }
+
+/* Description */
 
 .scale-stat-card p {
+  margin: 9px 0 0;
+
+  font-size: clamp(10px,.85vw,12px);
+  line-height: 1.5;
+
   color: rgba(255,255,255,.82);
-  font-family: "Clash Display", sans-serif;
 }
 
-/* FINAL HIGHLIGHTS CARD */
+/* =====================================================
+   FINAL FESTIVAL PROGRAM CARD
+===================================================== */
 
 .scale-program-card {
   background: rgba(255,210,71,.94);
-  border-color: rgba(255,210,71,.65);
+
+  border-color:
+    rgba(255,210,71,.65);
 }
 
 .scale-program-card:hover {
@@ -202,29 +1212,454 @@ h6 {
 }
 
 .scale-program-heading {
-  color: #073F33;
-  font-family: "Clash Display", sans-serif;
+  font-size: clamp(17px,1.6vw,24px);
   font-weight: 700;
+
+  line-height: 1.15;
+  letter-spacing: -.035em;
+
+  color: #073F33;
 }
 
 .scale-program-card p {
+  font-size: clamp(11px,.9vw,13px);
+
   color: #174B3B;
 }
 
-/* SIDE TEXT */
+/* Side text */
 
 .scale-side-label {
+  position: absolute;
+
+  z-index: 5;
+
+  top: 29%;
+  right: 25px;
+
+  writing-mode: vertical-rl;
+
+  font-size: 9px;
+  font-weight: 600;
+
+  letter-spacing: .22em;
+
   color: rgba(255,255,255,.52);
-  font-family: "Clash Display", sans-serif;
 }
 
-/* ============================================
-   MOBILE OPTIMISATION
-============================================ */
+/* =====================================================
+   BOOKING DIALOG
+===================================================== */
+
+.booking-dialog {
+  width: min(92%,520px);
+  max-height: 86dvh;
+
+  margin: auto;
+  padding: 0;
+
+  overflow-y: auto;
+
+  background: #1C0D2A;
+  color: var(--white);
+
+  border:
+    1px solid rgba(245,188,74,.25);
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 30px 100px rgba(0,0,0,.6);
+}
+
+.booking-dialog::backdrop {
+  background: rgba(5,2,10,.78);
+  backdrop-filter: blur(8px);
+}
+
+.dialog-inner {
+  position: relative;
+  padding: 36px 32px;
+}
+
+.dialog-close {
+  position: absolute;
+
+  top: 14px;
+  right: 20px;
+
+  border: none;
+  background: none;
+
+  color: var(--white);
+  font-size: 30px;
+}
+
+.dialog-eyebrow {
+  color: var(--yellow);
+
+  font-size: 10px;
+  font-weight: 600;
+
+  letter-spacing: .14em;
+}
+
+.dialog-inner h2 {
+  margin: 14px 0 12px;
+
+  font-size: clamp(28px,5vw,39px);
+  font-weight: 700;
+
+  letter-spacing: -.05em;
+}
+
+.dialog-description {
+  font-size: 13px;
+  line-height: 1.7;
+
+  color: rgba(255,255,255,.72);
+}
+
+.booking-options {
+  display: grid;
+  gap: 9px;
+
+  margin-top: 24px;
+}
+
+.booking-option {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 6px;
+
+  width: 100%;
+
+  padding: 15px 18px;
+
+  background: rgba(255,255,255,.05);
+  color: var(--white);
+
+  border:
+    1px solid rgba(255,255,255,.13);
+
+  border-radius: 6px;
+
+  text-align: left;
+}
+
+.booking-option:hover,
+.booking-option.selected {
+  background: rgba(96,237,133,.1);
+  border-color: var(--green);
+}
+
+.booking-option strong {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.booking-option small {
+  color: rgba(255,255,255,.68);
+  font-size: 11px;
+}
+
+.dialog-note {
+  margin: 20px 0 0;
+
+  font-size: 11px;
+  line-height: 1.7;
+
+  color: rgba(255,255,255,.63);
+}
+
+/* =====================================================
+   LARGE LAPTOPS
+===================================================== */
+
+@media (max-width:1200px) {
+
+  .scale-heading-area {
+    left: 35px;
+    width: 44%;
+  }
+
+  .scale-stats {
+    left: 30px;
+    right: 30px;
+
+    gap: 9px;
+  }
+
+  .scale-stat-card {
+    padding: 17px 13px;
+  }
+
+  .scale-mask-floating {
+    left: 35%;
+    width: 63%;
+  }
+
+}
+
+/* =====================================================
+   TABLETS
+===================================================== */
+
+@media (max-width:900px) {
+
+  .nav-container {
+    width: calc(100% - 45px);
+    height: 76px;
+  }
+
+  .nav-links {
+    position: fixed;
+
+    top: 76px;
+    left: 0;
+    right: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 0;
+
+    max-height: 0;
+
+    padding: 0 25px;
+
+    overflow: hidden;
+
+    opacity: 0;
+    visibility: hidden;
+
+    background: rgba(17,6,30,.98);
+
+    backdrop-filter: blur(22px);
+
+    transition:
+      max-height .4s ease,
+      padding .3s ease,
+      opacity .3s ease,
+      visibility .3s ease;
+  }
+
+  .nav-links.open {
+    max-height: 300px;
+
+    padding: 15px 25px 25px;
+
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav-link {
+    padding: 14px 0;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .hospitality-content {
+    width: 65%;
+  }
+
+  .scale-background-word {
+    font-size: 29vw;
+  }
+
+  .scale-heading-area {
+    width: 47%;
+    top: 30%;
+  }
+
+  .scale-heading {
+    font-size: clamp(35px,4.8vw,53px);
+  }
+
+  .scale-stats {
+    grid-template-columns:
+      repeat(5,minmax(0,1fr));
+  }
+
+  .scale-stat-card {
+    min-height: 147px;
+    border-radius: 15px;
+  }
+
+}
+
+/* =====================================================
+   MOBILE PHONES
+===================================================== */
 
 @media (max-width:640px) {
 
+  /* NAVIGATION */
+
+  .nav-container {
+    width: calc(100% - 32px);
+
+    height: 70px;
+    gap: 12px;
+  }
+
+  .nav-links {
+    top: 70px;
+  }
+
+  .brand-logo {
+    gap: 7px;
+  }
+
+  .brand-mark {
+    width: 29px;
+    height: 29px;
+  }
+
+  .brand-text strong {
+    font-size: 17px;
+  }
+
+  .brand-text small {
+    font-size: 6px;
+  }
+
+  .nav-actions {
+    gap: 8px;
+  }
+
+  .nav-book-btn {
+    min-height: 37px;
+
+    padding: 10px 14px;
+
+    font-size: 10px;
+  }
+
+  /* SECTION 1 — VIDEO */
+
+  .carnival-hero {
+    height: 100svh;
+    min-height: 630px;
+  }
+
+  .hero-container {
+    width: calc(100% - 36px);
+    padding: 90px 0;
+  }
+
+  .hero-eyebrow {
+    font-size: 9px;
+    letter-spacing: .1em;
+    margin-bottom: 17px;
+  }
+
+  .hero-title {
+    font-size: clamp(40px,10.1vw,65px);
+    line-height: 1.1;
+  }
+
+  .hero-description {
+    margin-top: 18px;
+
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .hero-buttons {
+    margin-top: 23px;
+    gap: 10px;
+  }
+
+  .btn {
+    min-height: 47px;
+    min-width: 0;
+
+    padding: 12px 17px;
+
+    font-size: 11px;
+  }
+
+  .hero-bottom {
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+  }
+
+  .discover-more,
+  .sound-button {
+    font-size: 10px;
+  }
+
+  /* SECTION 2 — HOSPITALITY */
+
+  .hospitality-section {
+    min-height: 100svh;
+  }
+
+  .hospitality-image-area {
+    width: 100%;
+
+    right: -15%;
+
+    opacity: .7;
+  }
+
+  .hospitality-image-shade {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(21,7,33,.94),
+        rgba(21,7,33,.79) 48%,
+        rgba(21,7,33,.38)
+      );
+  }
+
+  .hospitality-layout {
+    width: calc(100% - 38px);
+
+    padding: 100px 0 35px;
+  }
+
+  .hospitality-content {
+    width: 100%;
+    max-width: 450px;
+  }
+
+  .hospitality-statement {
+    font-size: clamp(37px,9vw,58px);
+  }
+
+  .hospitality-notice {
+    max-width: 390px;
+
+    margin-top: 25px;
+
+    font-size: 13px;
+  }
+
+  .hospitality-notice strong {
+    font-size: 23px;
+  }
+
+  /* SECTION 3 — DEEP GREEN */
+
   .carnival-scale-section {
+    min-height: 850px;
+    height: auto;
+
+    padding: 100px 0 28px;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+
     background:
       radial-gradient(
         ellipse at 70% 24%,
@@ -240,21 +1675,206 @@ h6 {
   }
 
   .scale-background-word {
+    top: 19%;
+
+    font-size: 32vw;
+
     color: rgba(255,255,255,.075);
   }
 
+  /* Mask */
+
+  .scale-mask-stage {
+    top: 70px;
+    bottom: auto;
+
+    height: 480px;
+  }
+
+  .scale-mask-floating {
+    top: 0;
+    left: 14%;
+
+    width: 86%;
+    height: 100%;
+
+    opacity: .93;
+  }
+
+  .scale-mask-glow {
+    width: 100%;
+    height: 90%;
+  }
+
+  /* Headline */
+
+  .scale-heading-area {
+    position: relative;
+
+    top: auto;
+    left: auto;
+
+    z-index: 5;
+
+    width: calc(100% - 38px);
+
+    margin: 0 auto;
+
+    padding-top: 230px;
+  }
+
+  .scale-eyebrow {
+    font-size: 9px;
+    margin-bottom: 12px;
+  }
+
   .scale-heading {
-    color: #FFFFFF;
-    font-family: "Clash Display", sans-serif;
+    font-size: clamp(40px,10.4vw,63px);
+    line-height: 1.08;
+  }
+
+  .scale-heading em {
+    font-size: .75em;
+  }
+
+  .scale-description {
+    font-size: 12px;
+    margin-top: 14px;
+  }
+
+  /* Statistics */
+
+  .scale-stats {
+    position: relative;
+
+    bottom: auto;
+    left: auto;
+    right: auto;
+
+    width: calc(100% - 38px);
+
+    margin: 36px auto 0;
+
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+
+    gap: 10px;
   }
 
   .scale-stat-card {
-    background: rgba(255,255,255,.09);
-    border-color: rgba(255,255,255,.17);
+    min-height: 137px;
+
+    border-radius: 14px;
+
+    padding: 17px;
+  }
+
+  .scale-stat-number {
+    font-size: 39px;
+  }
+
+  .scale-stat-title {
+    font-size: 9px;
+  }
+
+  .scale-stat-card p {
+    font-size: 11px;
   }
 
   .scale-program-card {
-    background: rgba(255,210,71,.94);
+    grid-column: 1 / -1;
+
+    min-height: 110px;
+  }
+
+  .scale-program-heading {
+    font-size: 21px;
+  }
+
+  .scale-side-label {
+    display: none;
+  }
+
+  /* Booking dialog */
+
+  .dialog-inner {
+    padding: 34px 22px;
+  }
+
+}
+
+/* =====================================================
+   VERY SMALL PHONES
+===================================================== */
+
+@media (max-width:380px) {
+
+  .brand-text strong {
+    font-size: 15px;
+  }
+
+  .hero-title {
+    font-size: 9.8vw;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .hospitality-statement {
+    font-size: 9vw;
+  }
+
+  .scale-heading {
+    font-size: 10vw;
+  }
+
+}
+
+/* =====================================================
+   SHORT DESKTOP SCREENS
+===================================================== */
+
+@media (max-height:740px) and (min-width:641px) {
+
+  .carnival-scale-section {
+    min-height: 720px;
+  }
+
+  .scale-heading-area {
+    top: 28%;
+  }
+
+  .scale-stats {
+    bottom: 22px;
+  }
+
+  .scale-stat-card {
+    min-height: 135px;
+  }
+
+}
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media (prefers-reduced-motion:reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+
+    transition-duration: .01ms !important;
+
+    scroll-behavior: auto !important;
   }
 
 }
