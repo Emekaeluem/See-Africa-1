@@ -5,13 +5,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#100719">
-  <meta name="description" content="Experience Calabar Carnival 2026. Thirty-one days of colour, music, culture, dance and unforgettable celebration.">
-  <title>Calabar Carnival 2026 | The Beat Calls. Answer It.</title>
 
+  <title>Calabar Carnival 2026 | The Beat Calls. Answer It.</title>
+  <meta name="description" content="Experience Calabar Carnival 2026. Thirty-one days of colour, music, culture, dance and unforgettable celebration. Book your experience and build your package.">
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
+  <!-- Stylesheet -->
   <link rel="stylesheet" href="calabar.css">
 </head>
 
@@ -27,7 +30,7 @@
     </div>
   </div>
 
-  <!-- STICKY GLASS NAVIGATION -->
+  <!-- NAVIGATION -->
   <header class="site-header" id="siteHeader">
     <nav class="nav-container" aria-label="Main navigation">
 
@@ -53,10 +56,6 @@
       </div>
 
       <div class="nav-actions">
-        <span class="nav-year">
-          DECEMBER <strong>2026</strong>
-        </span>
-
         <button type="button" class="nav-book-btn" data-booking="Seat">
           BOOK NOW
         </button>
@@ -79,9 +78,12 @@
 
   <main id="main">
 
-    <!-- SECTION 1: ORIGINAL VIDEO HERO -->
+    <!-- ========================================
+         SECTION 1 — CENTRED VIDEO HERO
+    ======================================== -->
     <section class="carnival-hero" id="home" aria-label="Calabar Carnival 2026">
 
+      <!-- FULLSCREEN VIDEO -->
       <div class="hero-media">
         <video
           id="heroVideo"
@@ -97,105 +99,85 @@
         >
           <source src="images/calabar-carnival.mp4" type="video/mp4">
         </video>
-
-        <div class="video-tint"></div>
-        <div class="video-gradient"></div>
-        <div class="video-vignette"></div>
+        <div class="video-overlay"></div>
       </div>
 
-      <div class="hero-grain" aria-hidden="true"></div>
-
-      <span class="corner-text corner-left" aria-hidden="true">
-        AFRICA'S CELEBRATION OF CULTURE
-      </span>
-
-      <span class="corner-text corner-right" aria-hidden="true">
-        04°57′ N — 08°20′ E
-      </span>
-
+      <!-- CENTRED CONTENT -->
       <div class="hero-container">
+
         <div class="hero-content">
 
-          <div class="hero-eyebrow hero-animate">
+          <p class="hero-eyebrow hero-animate">
             CARNIVAL CALABAR & FESTIVALS 2026
-          </div>
+          </p>
 
           <h1 class="hero-title">
             <span class="title-line">
-              <span class="title-inner">The Beat</span>
+              <span class="title-inner">The Beat Calls.</span>
             </span>
-
-            <span class="title-line title-second">
-              <span class="title-inner">
-                Calls<span class="title-period">.</span>
-              </span>
-            </span>
-
-            <span class="title-line title-final">
+            <span class="title-line">
               <span class="title-inner">
                 Answer <em>it.</em>
               </span>
             </span>
           </h1>
 
-          <div class="hero-description hero-animate">
-            <p>
-              Thirty-one days of colour, music, culture,
-              dance and unforgettable celebration.
-              Come to Calabar for the parade, the performances,
-              the people and the full festival experience.
-            </p>
-          </div>
+          <p class="hero-description hero-animate">
+            Thirty-one days of colour, music, culture, dance and unforgettable
+            celebration. Come to Calabar for the parade, the performances,
+            the people and the full festival experience.
+          </p>
 
-          <!-- CLEAN BUTTONS: NO ICONS -->
+          <!-- CENTRED BUTTONS -->
           <div class="hero-buttons hero-animate">
             <button type="button" class="btn btn-primary" data-booking="Seat">
-              BOOK YOUR EXPERIENCE
+              Book Your Experience
             </button>
 
             <button type="button" class="btn btn-secondary" data-booking="Build">
-              BUILD YOUR PACKAGE
+              Build Your Package
             </button>
           </div>
 
         </div>
       </div>
 
-      <!-- CLEAN HERO FOOTER -->
+      <!-- BOTTOM CONTROLS -->
       <div class="hero-bottom">
-        <div class="hero-bottom-inner">
 
-          <a href="#experience" class="scroll-indicator" aria-label="Scroll to the experience section">
-            SCROLL TO DISCOVER
-          </a>
+        <a href="#experience" class="discover-more">
+          Discover More
+          <span aria-hidden="true">↓</span>
+        </a>
 
-          <button
-            type="button"
-            class="sound-button"
-            id="soundButton"
-            aria-label="Unmute background video"
-            aria-pressed="false"
-          >
-            <span class="sound-icon" id="soundIcon">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M11 5L6 9H3V15H6L11 19V5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-                <path d="M16 9L21 15M21 9L16 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-              </svg>
-            </span>
-            <span id="soundText">SOUND OFF</span>
-          </button>
+        <button
+          type="button"
+          class="sound-button"
+          id="soundButton"
+          aria-label="Unmute background video"
+          aria-pressed="false"
+        >
+          <span class="sound-icon" id="soundIcon">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M11 5L6 9H3V15H6L11 19V5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+              <path d="M16 9L21 15M21 9L16 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span id="soundText">Turn On Sound</span>
+        </button>
 
-        </div>
       </div>
-
     </section>
 
-    <!-- SECTION 2: HOSPITALITY -->
+    <!-- ========================================
+         SECTION 2 — HOSPITALITY
+    ======================================== -->
     <section
       class="hospitality-section"
       id="experience"
       aria-labelledby="hospitalityHeading"
     >
+
       <div class="hospitality-glow hospitality-glow-one" aria-hidden="true"></div>
       <div class="hospitality-glow hospitality-glow-two" aria-hidden="true"></div>
       <div class="hospitality-pattern" aria-hidden="true"></div>
@@ -206,9 +188,9 @@
         <!-- LEFT CONTENT -->
         <div class="hospitality-content hospitality-reveal">
 
-          <div class="hospitality-eyebrow">
+          <p class="hospitality-eyebrow">
             THE CARNIVAL EXPERIENCE
-          </div>
+          </p>
 
           <h2 class="hospitality-heading" id="hospitalityHeading">
             <span class="heading-top">YOUR SEAT.</span>
@@ -224,32 +206,30 @@
             hospitality designed around you.
           </p>
 
-          <!-- HOSPITALITY TRUST LINE -->
+          <!-- TRUST LINE -->
           <div class="hospitality-trust">
-            <div>
-              <span class="trust-label">HOSPITALITY ACCESS</span>
-              <p>
-                Verified hospitality access from
-                <strong>₦150,000 per person.</strong>
-              </p>
-            </div>
+            <span class="trust-label">HOSPITALITY ACCESS</span>
+            <p>
+              Verified hospitality access from
+              <strong>₦150,000 per person.</strong>
+            </p>
           </div>
 
           <!-- EVENT DATE -->
           <div class="hospitality-date">
-            <div>
-              <span class="hospitality-date-label">
-                FEATURED CARNIVAL DATE
-              </span>
 
-              <strong>DECEMBER 28, 2026</strong>
+            <span class="hospitality-date-label">
+              FEATURED CARNIVAL DATE
+            </span>
 
-              <p>
-                Select your preferred event date at booking.
-                Exact ticketed event dates and seat availability
-                are subject to official confirmation.
-              </p>
-            </div>
+            <strong>DECEMBER 28, 2026</strong>
+
+            <p>
+              Select your preferred event date at booking.
+              Exact ticketed event dates and seat availability
+              are subject to official confirmation.
+            </p>
+
           </div>
 
           <button
@@ -257,7 +237,7 @@
             class="hospitality-cta"
             data-booking="Seat"
           >
-            RESERVE YOUR EXPERIENCE
+            Reserve Your Experience
           </button>
 
         </div>
@@ -266,7 +246,6 @@
         <div class="hospitality-visual hospitality-reveal">
 
           <div class="hospitality-aura" aria-hidden="true"></div>
-
           <div class="hospitality-orbit hospitality-orbit-one" aria-hidden="true"></div>
           <div class="hospitality-orbit hospitality-orbit-two" aria-hidden="true"></div>
 
@@ -330,7 +309,7 @@
         when the package section is connected.
       </p>
 
-      <div class="booking-options" id="bookingOptions">
+      <div class="booking-options">
 
         <button class="booking-option" type="button" data-package="Seat">
           <span>
