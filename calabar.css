@@ -1,374 +1,1096 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#100719">
-  <meta name="description" content="Experience Calabar Carnival 2026. Thirty-one days of colour, music, culture, dance and unforgettable celebration.">
-  <title>Calabar Carnival 2026 | The Beat Calls. Answer It.</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="calabar.css">
-</head>
-
-<body>
-
-  <a href="#main" class="skip-link">Skip to content</a>
-
-  <!-- PRELOADER -->
-  <div class="page-loader" id="pageLoader" aria-hidden="true">
-    <div class="loader-content">
-      <div class="loader-wordmark">CALABAR<span>.</span></div>
-      <p>THE BEAT IS CALLING</p>
-    </div>
-  </div>
-
-  <!-- STICKY GLASS NAVIGATION -->
-  <header class="site-header" id="siteHeader">
-    <nav class="nav-container" aria-label="Main navigation">
-
-      <a href="#home" class="brand-logo" aria-label="Calabar Carnival home">
-        <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="0 0 50 50" fill="none">
-            <path d="M25 3L30.5 18.5L46 13L35 25L46 37L30.5 31.5L25 47L19.5 31.5L4 37L15 25L4 13L19.5 18.5L25 3Z" fill="currentColor"/>
-            <circle cx="25" cy="25" r="6" fill="#1B0B23"/>
-          </svg>
-        </span>
-
-        <span class="brand-text">
-          <strong>CALABAR</strong>
-          <small>CARNIVAL & FESTIVALS</small>
-        </span>
-      </a>
-
-      <div class="nav-links" id="navLinks">
-        <a href="#home" class="nav-link active">Home</a>
-        <a href="#experience" class="nav-link">Experience</a>
-        <a href="#packages" class="nav-link">Packages</a>
-        <a href="#about" class="nav-link">About</a>
-      </div>
-
-      <div class="nav-actions">
-        <span class="nav-year">
-          DECEMBER <strong>2026</strong>
-        </span>
-
-        <button type="button" class="nav-book-btn" data-booking="Seat">
-          BOOK NOW
-        </button>
-
-        <button
-          type="button"
-          class="menu-toggle"
-          id="menuToggle"
-          aria-label="Open menu"
-          aria-controls="navLinks"
-          aria-expanded="false"
-        >
-          <span></span>
-          <span></span>
-        </button>
-      </div>
-
-    </nav>
-  </header>
-
-  <main id="main">
-
-    <!-- SECTION 1: ORIGINAL VIDEO HERO -->
-    <section class="carnival-hero" id="home" aria-label="Calabar Carnival 2026">
-
-      <div class="hero-media">
-        <video
-          id="heroVideo"
-          class="hero-video"
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="metadata"
-          aria-hidden="true"
-          disablepictureinpicture
-          disableremoteplayback
-        >
-          <source src="images/calabar-carnival.mp4" type="video/mp4">
-        </video>
-
-        <div class="video-tint"></div>
-        <div class="video-gradient"></div>
-        <div class="video-vignette"></div>
-      </div>
-
-      <div class="hero-grain" aria-hidden="true"></div>
-
-      <span class="corner-text corner-left" aria-hidden="true">
-        AFRICA'S CELEBRATION OF CULTURE
-      </span>
-
-      <span class="corner-text corner-right" aria-hidden="true">
-        04°57′ N — 08°20′ E
-      </span>
-
-      <div class="hero-container">
-        <div class="hero-content">
-
-          <div class="hero-eyebrow hero-animate">
-            CARNIVAL CALABAR & FESTIVALS 2026
-          </div>
-
-          <h1 class="hero-title">
-            <span class="title-line">
-              <span class="title-inner">The Beat</span>
-            </span>
-
-            <span class="title-line title-second">
-              <span class="title-inner">
-                Calls<span class="title-period">.</span>
-              </span>
-            </span>
-
-            <span class="title-line title-final">
-              <span class="title-inner">
-                Answer <em>it.</em>
-              </span>
-            </span>
-          </h1>
-
-          <div class="hero-description hero-animate">
-            <p>
-              Thirty-one days of colour, music, culture,
-              dance and unforgettable celebration.
-              Come to Calabar for the parade, the performances,
-              the people and the full festival experience.
-            </p>
-          </div>
-
-          <!-- CLEAN BUTTONS: NO ICONS -->
-          <div class="hero-buttons hero-animate">
-            <button type="button" class="btn btn-primary" data-booking="Seat">
-              BOOK YOUR EXPERIENCE
-            </button>
-
-            <button type="button" class="btn btn-secondary" data-booking="Build">
-              BUILD YOUR PACKAGE
-            </button>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- CLEAN HERO FOOTER -->
-      <div class="hero-bottom">
-        <div class="hero-bottom-inner">
-
-          <a href="#experience" class="scroll-indicator" aria-label="Scroll to the experience section">
-            SCROLL TO DISCOVER
-          </a>
-
-          <button
-            type="button"
-            class="sound-button"
-            id="soundButton"
-            aria-label="Unmute background video"
-            aria-pressed="false"
-          >
-            <span class="sound-icon" id="soundIcon">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M11 5L6 9H3V15H6L11 19V5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-                <path d="M16 9L21 15M21 9L16 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-              </svg>
-            </span>
-            <span id="soundText">SOUND OFF</span>
-          </button>
-
-        </div>
-      </div>
-
-    </section>
-
-    <!-- SECTION 2: HOSPITALITY -->
-    <section
-      class="hospitality-section"
-      id="experience"
-      aria-labelledby="hospitalityHeading"
-    >
-      <div class="hospitality-glow hospitality-glow-one" aria-hidden="true"></div>
-      <div class="hospitality-glow hospitality-glow-two" aria-hidden="true"></div>
-      <div class="hospitality-pattern" aria-hidden="true"></div>
-      <div class="hospitality-particles" id="hospitalityParticles" aria-hidden="true"></div>
-
-      <div class="hospitality-container">
-
-        <!-- LEFT CONTENT -->
-        <div class="hospitality-content hospitality-reveal">
-
-          <div class="hospitality-eyebrow">
-            THE CARNIVAL EXPERIENCE
-          </div>
-
-          <h2 class="hospitality-heading" id="hospitalityHeading">
-            <span class="heading-top">YOUR SEAT.</span>
-            <span class="heading-middle">YOUR</span>
-            <span class="heading-bottom">
-              EXPERIENCE<span>.</span>
-            </span>
-          </h2>
-
-          <p class="hospitality-lead">
-            Be part of the rhythm. Experience the colour,
-            the culture and the celebration with
-            hospitality designed around you.
-          </p>
-
-          <!-- HOSPITALITY TRUST LINE -->
-          <div class="hospitality-trust">
-            <div>
-              <span class="trust-label">HOSPITALITY ACCESS</span>
-              <p>
-                Verified hospitality access from
-                <strong>₦150,000 per person.</strong>
-              </p>
-            </div>
-          </div>
-
-          <!-- EVENT DATE -->
-          <div class="hospitality-date">
-            <div>
-              <span class="hospitality-date-label">
-                FEATURED CARNIVAL DATE
-              </span>
-
-              <strong>DECEMBER 28, 2026</strong>
-
-              <p>
-                Select your preferred event date at booking.
-                Exact ticketed event dates and seat availability
-                are subject to official confirmation.
-              </p>
-            </div>
-          </div>
-
-          <button
-            type="button"
-            class="hospitality-cta"
-            data-booking="Seat"
-          >
-            RESERVE YOUR EXPERIENCE
-          </button>
-
-        </div>
-
-        <!-- RIGHT FLOATING MASK -->
-        <div class="hospitality-visual hospitality-reveal">
-
-          <div class="hospitality-aura" aria-hidden="true"></div>
-
-          <div class="hospitality-orbit hospitality-orbit-one" aria-hidden="true"></div>
-          <div class="hospitality-orbit hospitality-orbit-two" aria-hidden="true"></div>
-
-          <div class="hospitality-mask-float">
-            <img
-              src="images/masks.png"
-              class="hospitality-mask"
-              id="hospitalityMask"
-              alt="Colourful Calabar Carnival masquerade mask"
-              loading="lazy"
-            >
-          </div>
-
-          <div class="hospitality-watermark" aria-hidden="true">
-            2026
-          </div>
-
-        </div>
-
-      </div>
-
-      <div class="hospitality-bottom">
-        <div class="hospitality-bottom-inner">
-          <span>CALABAR CARNIVAL & FESTIVALS 2026</span>
-          <span>THE BEAT CALLS. ANSWER IT.</span>
-        </div>
-      </div>
-
-    </section>
-
-  </main>
-
-  <!-- BOOKING PREVIEW -->
-  <dialog
-    class="booking-dialog"
-    id="bookingDialog"
-    aria-labelledby="bookingTitle"
-  >
-    <div class="dialog-inner">
-
-      <button
-        type="button"
-        class="dialog-close"
-        id="dialogClose"
-        aria-label="Close booking preview"
-      >
-        &times;
-      </button>
-
-      <span class="dialog-eyebrow">
-        CALABAR CARNIVAL 2026
-      </span>
-
-      <h2 id="bookingTitle">
-        Choose your experience.
-      </h2>
-
-      <p class="dialog-description">
-        Select your preferred experience.
-        Full booking and checkout will become available
-        when the package section is connected.
-      </p>
-
-      <div class="booking-options" id="bookingOptions">
-
-        <button class="booking-option" type="button" data-package="Seat">
-          <span>
-            <strong>SEAT</strong>
-            <small>From ₦150,000 per person</small>
-          </span>
-        </button>
-
-        <button class="booking-option" type="button" data-package="Stay">
-          <span>
-            <strong>STAY</strong>
-            <small>From ₦500,000 per person sharing</small>
-          </span>
-        </button>
-
-        <button class="booking-option" type="button" data-package="Explore">
-          <span>
-            <strong>EXPLORE</strong>
-            <small>From ₦620,000 per person sharing</small>
-          </span>
-        </button>
-
-        <button class="booking-option" type="button" data-package="Fly & Explore">
-          <span>
-            <strong>FLY & EXPLORE</strong>
-            <small>From ₦920,000 per person, selected origins</small>
-          </span>
-        </button>
-
-      </div>
-
-      <p class="dialog-note" id="dialogNote">
-        Package rates and availability are subject to confirmation.
-      </p>
-
-    </div>
-  </dialog>
-
-  <script src="calabar.js" defer></script>
-</body>
-</html>
+/* CALABAR CARNIVAL 2026 — COMPLETE CSS */
+
+:root {
+  --bg: #100719;
+  --purple: #210D34;
+  --gold: #F5BC4A;
+  --gold-light: #FFDC88;
+  --green: #56EF83;
+  --yellow: #FFD247;
+  --white: #FFFFFF;
+  --text-soft: rgba(255,255,255,.76);
+  --text-muted: rgba(255,255,255,.48);
+  --ease: cubic-bezier(.16,1,.3,1);
+  --font-display: "Outfit", sans-serif;
+  --font-body: "DM Sans", sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  color: var(--white);
+  background: var(--bg);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+body.menu-open,
+body.dialog-open { overflow: hidden; }
+
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; }
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+::selection { background: var(--gold); color: var(--bg); }
+
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 15px;
+  z-index: 9999;
+  padding: 12px 20px;
+  background: var(--gold);
+  color: var(--bg);
+}
+.skip-link:focus { top: 15px; }
+
+/* PRELOADER */
+
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  background: var(--bg);
+  animation: loaderFallback .65s ease 2s forwards;
+}
+
+.page-loader.loaded {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@keyframes loaderFallback {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+.loader-content { text-align: center; }
+
+.loader-wordmark {
+  font: 900 clamp(2rem,6vw,4.5rem)/1 var(--font-display);
+  letter-spacing: -.065em;
+}
+
+.loader-wordmark span { color: var(--gold); }
+
+.loader-content p {
+  margin-top: 25px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .38em;
+  color: var(--text-muted);
+}
+
+/* NAVIGATION — ALWAYS GLASSMORPHISM */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(22,10,37,.58);
+  backdrop-filter: blur(22px) saturate(135%);
+  -webkit-backdrop-filter: blur(22px) saturate(135%);
+  box-shadow: 0 12px 35px rgba(0,0,0,.10);
+  transition: background .35s ease, box-shadow .35s ease;
+}
+
+.site-header.scrolled,
+.site-header.menu-active {
+  background: rgba(16,6,29,.88);
+  backdrop-filter: blur(25px) saturate(140%);
+  -webkit-backdrop-filter: blur(25px) saturate(140%);
+  box-shadow: 0 15px 40px rgba(0,0,0,.20);
+}
+
+.nav-container {
+  width: min(100% - 100px,1480px);
+  min-height: 96px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  flex-shrink: 0;
+}
+
+.brand-mark {
+  display: flex;
+  width: 39px;
+  height: 39px;
+  color: var(--gold);
+}
+.brand-mark svg { width: 100%; height: 100%; }
+
+.brand-text { display: flex; flex-direction: column; line-height: 1; }
+
+.brand-text strong {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -.05em;
+}
+
+.brand-text small {
+  margin-top: 6px;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .23em;
+  color: rgba(255,255,255,.75);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(18px,3vw,48px);
+}
+
+.nav-link {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,.72);
+  transition: color .3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active { color: var(--white); }
+
+.nav-actions { display: flex; align-items: center; gap: 25px; }
+
+.nav-year {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  color: rgba(255,255,255,.65);
+  white-space: nowrap;
+}
+.nav-year strong { color: var(--gold); }
+
+/* Clean navigation button */
+
+.nav-book-btn {
+  min-height: 45px;
+  padding: 14px 27px;
+  border: 1px solid rgba(245,188,74,.55);
+  border-radius: 3px;
+  background: rgba(245,188,74,.09);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  transition: background .3s ease, color .3s ease;
+}
+
+.nav-book-btn:hover {
+  background: var(--gold);
+  color: var(--bg);
+}
+
+.menu-toggle {
+  display: none;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  background: transparent;
+  flex-direction: column;
+  justify-content: center;
+  gap: 7px;
+  padding: 7px;
+}
+.menu-toggle span {
+  height: 2px;
+  width: 100%;
+  background: var(--white);
+  transition: transform .3s ease;
+}
+.menu-toggle[aria-expanded="true"] span:first-child {
+  transform: translateY(4.5px) rotate(45deg);
+}
+.menu-toggle[aria-expanded="true"] span:last-child {
+  transform: translateY(-4.5px) rotate(-45deg);
+}
+
+/* VIDEO HERO — ORIGINAL LAYOUT */
+
+.carnival-hero {
+  position: relative;
+  isolation: isolate;
+  height: 100svh;
+  min-height: 780px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: -4;
+  overflow: hidden;
+  background: linear-gradient(125deg,#180826,#361148,#100719);
+}
+
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  animation: cinematicZoom 24s ease-in-out infinite alternate;
+}
+
+@keyframes cinematicZoom {
+  from { transform: scale(1.075); }
+  to { transform: scale(1.16); }
+}
+
+.video-tint,
+.video-gradient,
+.video-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.video-tint {
+  background: rgba(38,8,60,.24);
+  mix-blend-mode: multiply;
+}
+
+.video-gradient {
+  background:
+    linear-gradient(90deg,rgba(12,4,19,.79),rgba(12,4,19,.48) 48%,rgba(12,4,19,.23)),
+    linear-gradient(180deg,rgba(8,3,14,.46),transparent 27%,transparent 65%,rgba(8,3,14,.8));
+}
+
+.video-vignette {
+  box-shadow: inset 0 0 190px 70px rgba(9,3,14,.27);
+}
+
+.hero-grain {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  opacity: .17;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.24'/%3E%3C/svg%3E");
+}
+
+.corner-text {
+  position: absolute;
+  top: 50%;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .28em;
+  color: rgba(255,255,255,.42);
+  writing-mode: vertical-rl;
+}
+
+.corner-left { left: 22px; transform: translateY(-50%) rotate(180deg); }
+.corner-right { right: 22px; transform: translateY(-50%); }
+
+.hero-container {
+  position: relative;
+  z-index: 3;
+  width: min(100% - 100px,1480px);
+  margin: auto;
+  padding: 120px 0 115px;
+}
+
+.hero-content { max-width: 1120px; }
+
+.hero-eyebrow {
+  margin-bottom: 34px;
+  font-size: clamp(10px,1vw,12px);
+  font-weight: 700;
+  letter-spacing: .24em;
+  color: var(--gold-light);
+}
+
+.hero-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(76px,9.4vw,155px);
+  font-weight: 900;
+  line-height: .87;
+  letter-spacing: -.09em;
+  text-transform: uppercase;
+}
+
+.title-line {
+  display: block;
+  overflow: hidden;
+  padding-right: .12em;
+  padding-bottom: .07em;
+}
+
+.title-inner { display: inline-block; opacity: 1; transform: none; }
+
+.page-ready .title-inner {
+  animation: titleEntrance 1.15s var(--ease) both;
+}
+.page-ready .title-line:nth-child(2) .title-inner { animation-delay: .13s; }
+.page-ready .title-line:nth-child(3) .title-inner { animation-delay: .25s; }
+
+@keyframes titleEntrance {
+  from { opacity: 0; transform: translateY(115%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.title-period { color: var(--gold); }
+
+.title-final {
+  color: var(--gold);
+  font-size: .74em;
+  letter-spacing: -.075em;
+}
+
+.title-final em { color: var(--white); font-style: normal; }
+
+/* Description without vertical line */
+
+.hero-description { margin-top: 25px; }
+
+.hero-description p {
+  max-width: 650px;
+  margin: 0;
+  font-size: clamp(14px,1.3vw,17px);
+  line-height: 1.85;
+  font-weight: 400;
+  color: var(--text-soft);
+}
+
+/* Clean buttons — no arrows, icons, or split areas */
+
+.hero-buttons {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 13px;
+  margin-top: 36px;
+}
+
+.btn {
+  min-height: 62px;
+  padding: 18px 30px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .055em;
+  text-align: center;
+  transition: background .3s ease, color .3s ease, transform .3s var(--ease);
+}
+
+.btn-primary {
+  color: #170A24;
+  background: var(--gold);
+  border: 1px solid var(--gold);
+}
+
+.btn-primary:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  color: var(--white);
+  background: rgba(255,255,255,.065);
+  border: 1px solid rgba(255,255,255,.28);
+  backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover {
+  color: var(--bg);
+  background: var(--white);
+  transform: translateY(-2px);
+}
+
+/* Entrance animations */
+
+.hero-animate { opacity: 1; transform: none; }
+
+.page-ready .hero-animate {
+  animation: heroFadeUp 1s var(--ease) both;
+}
+
+.page-ready .hero-eyebrow { animation-delay: .12s; }
+.page-ready .hero-description { animation-delay: .52s; }
+.page-ready .hero-buttons { animation-delay: .7s; }
+
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero bottom: no divider, destination or numbering */
+
+.hero-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 4;
+}
+
+.hero-bottom-inner {
+  width: min(100% - 100px,1480px);
+  min-height: 94px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+.scroll-indicator {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  color: rgba(255,255,255,.77);
+  transition: color .3s ease;
+}
+.scroll-indicator:hover { color: var(--gold); }
+
+.sound-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: none;
+  background: transparent;
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .12em;
+}
+
+.sound-icon {
+  display: grid;
+  place-items: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.12);
+}
+
+.sound-icon svg { width: 16px; height: 16px; }
+.sound-button:hover .sound-icon { color: var(--gold); }
+
+/* HOSPITALITY SECTION */
+
+.hospitality-section {
+  --h-green: #56EF83;
+  --h-yellow: #FFD247;
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 77% 44%,rgba(92,28,142,.5),transparent 50%),
+    radial-gradient(ellipse at 8% 85%,rgba(46,9,91,.72),transparent 52%),
+    linear-gradient(125deg,#10041F,#220840 52%,#18062E);
+}
+
+.hospitality-glow {
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(95px);
+  pointer-events: none;
+}
+
+.hospitality-glow-one {
+  width: 520px;
+  height: 520px;
+  left: -250px;
+  bottom: -240px;
+  background: rgba(74,14,122,.55);
+}
+
+.hospitality-glow-two {
+  width: 540px;
+  height: 540px;
+  right: -160px;
+  top: 10%;
+  background: rgba(106,30,161,.4);
+}
+
+.hospitality-pattern {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: .08;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(255,255,255,.4) .8px,transparent .8px);
+  background-size: 38px 38px;
+  mask-image: linear-gradient(90deg,transparent,#000);
+}
+
+.hospitality-container {
+  position: relative;
+  z-index: 2;
+  width: min(100% - 100px,1460px);
+  margin: auto;
+  padding: 130px 0 125px;
+  display: grid;
+  grid-template-columns: 1.06fr .94fr;
+  align-items: center;
+  gap: 40px;
+}
+
+.hospitality-content { max-width: 700px; position: relative; z-index: 5; }
+
+.hospitality-eyebrow {
+  margin-bottom: 30px;
+  color: var(--h-green);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .21em;
+}
+
+.hospitality-heading {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(60px,6.8vw,110px);
+  font-weight: 900;
+  letter-spacing: -.075em;
+  line-height: .94;
+  text-transform: uppercase;
+}
+
+.hospitality-heading > span { display: block; }
+.heading-top { color: var(--white); }
+.heading-middle { color: var(--h-green); }
+.heading-bottom { color: var(--h-yellow); }
+.heading-bottom span { color: var(--h-green); }
+
+.hospitality-lead {
+  max-width: 550px;
+  margin: 29px 0 0;
+  font-size: clamp(14px,1.25vw,17px);
+  line-height: 1.85;
+  color: rgba(255,255,255,.73);
+}
+
+/* Trust content: restrained glass treatment */
+
+.hospitality-trust {
+  max-width: 570px;
+  margin-top: 32px;
+  padding: 20px 23px;
+  border-radius: 8px;
+  background: rgba(255,255,255,.055);
+  backdrop-filter: blur(14px);
+}
+
+.trust-label,
+.hospitality-date-label {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .18em;
+  color: var(--h-green);
+}
+
+.hospitality-trust p {
+  margin: 10px 0 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(255,255,255,.86);
+}
+
+.hospitality-trust strong {
+  color: var(--h-yellow);
+  font-weight: 800;
+}
+
+.hospitality-date { margin-top: 32px; }
+.hospitality-date > div { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+
+.hospitality-date strong {
+  font-size: 23px;
+  font-weight: 800;
+  color: var(--h-yellow);
+}
+
+.hospitality-date p {
+  max-width: 480px;
+  margin: 3px 0 0;
+  font-size: 12px;
+  line-height: 1.85;
+  color: rgba(255,255,255,.62);
+}
+
+.hospitality-cta {
+  min-height: 60px;
+  margin-top: 34px;
+  padding: 18px 30px;
+  border: none;
+  border-radius: 4px;
+  background: var(--h-green);
+  color: #140622;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .065em;
+  transition: background .3s ease, transform .3s var(--ease);
+}
+
+.hospitality-cta:hover {
+  transform: translateY(-2px);
+  background: var(--h-yellow);
+}
+
+/* Floating mask */
+
+.hospitality-visual {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-width: 0;
+  height: min(590px,55vw);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hospitality-aura {
+  position: absolute;
+  width: 82%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle,rgba(86,239,131,.17),rgba(118,32,169,.22) 45%,transparent 73%);
+  filter: blur(23px);
+  animation: hospitalityAura 6s ease-in-out infinite;
+}
+
+@keyframes hospitalityAura {
+  0%,100% { transform: scale(1); opacity: .7; }
+  50% { transform: scale(1.14); opacity: 1; }
+}
+
+.hospitality-orbit {
+  position: absolute;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hospitality-orbit-one {
+  width: 83%;
+  border: 1px solid rgba(255,210,71,.13);
+}
+
+.hospitality-orbit-two {
+  width: 101%;
+  border: 1px dashed rgba(86,239,131,.15);
+  animation: hospitalityOrbit 65s linear infinite;
+}
+
+@keyframes hospitalityOrbit { to { transform: rotate(360deg); } }
+
+.hospitality-mask-float {
+  position: relative;
+  z-index: 3;
+  width: min(100%,640px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: hospitalityFloat 6s ease-in-out infinite;
+  filter: drop-shadow(0 35px 35px rgba(0,0,0,.27));
+}
+
+.hospitality-mask {
+  display: block;
+  width: 100%;
+  max-height: 650px;
+  object-fit: contain;
+  transform: rotate(-5deg);
+  transition: transform .5s var(--ease);
+  filter: drop-shadow(0 25px 30px rgba(0,0,0,.32));
+}
+
+.hospitality-visual:hover .hospitality-mask {
+  transform: rotate(-2deg) scale(1.04);
+}
+
+@keyframes hospitalityFloat {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-25px); }
+}
+
+.hospitality-watermark {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  font-family: var(--font-display);
+  font-size: clamp(90px,12vw,190px);
+  font-weight: 900;
+  letter-spacing: -.09em;
+  line-height: 1;
+  color: rgba(255,255,255,.035);
+  pointer-events: none;
+}
+
+/* Particles */
+
+.hospitality-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hospitality-particle {
+  position: absolute;
+  bottom: -20px;
+  left: var(--left,50%);
+  width: var(--size,4px);
+  height: var(--size,4px);
+  border-radius: 2px;
+  background: var(--color,#FFD247);
+  opacity: 0;
+  animation: particleRise var(--duration,12s) linear infinite;
+  animation-delay: var(--delay,0s);
+}
+
+@keyframes particleRise {
+  0% { transform: translate(0,0) rotate(0); opacity: 0; }
+  12%,85% { opacity: .6; }
+  100% { transform: translate(var(--drift,20px),-110vh) rotate(430deg); opacity: 0; }
+}
+
+/* Reveal, visible by default */
+
+.hospitality-reveal { opacity: 1; transform: none; }
+.hospitality-reveal.is-visible { animation: hospitalityReveal 1.1s var(--ease) both; }
+.hospitality-visual.hospitality-reveal.is-visible { animation-delay: .18s; }
+
+@keyframes hospitalityReveal {
+  from { opacity: 0; transform: translateY(45px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hospitality-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.hospitality-bottom-inner {
+  width: min(100% - 100px,1460px);
+  min-height: 77px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.hospitality-bottom-inner span {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  color: rgba(255,255,255,.65);
+}
+
+/* Booking dialog */
+
+.booking-dialog {
+  width: min(92%,520px);
+  max-height: 86dvh;
+  margin: auto;
+  padding: 0;
+  overflow-y: auto;
+  color: var(--white);
+  background: #1C0D2A;
+  border: 1px solid rgba(245,188,74,.25);
+  border-radius: 10px;
+  box-shadow: 0 30px 100px rgba(0,0,0,.6);
+}
+
+.booking-dialog::backdrop {
+  background: rgba(5,2,10,.78);
+  backdrop-filter: blur(8px);
+}
+
+.dialog-inner { position: relative; padding: 42px 34px; }
+
+.dialog-close {
+  position: absolute;
+  top: 16px;
+  right: 22px;
+  border: none;
+  background: none;
+  color: var(--white);
+  font-size: 30px;
+}
+
+.dialog-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  color: var(--gold);
+}
+
+.dialog-inner h2 {
+  margin: 14px 0 12px;
+  font-family: var(--font-display);
+  font-size: clamp(28px,5vw,40px);
+  letter-spacing: -.05em;
+  line-height: 1.12;
+}
+
+.dialog-description {
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--text-soft);
+}
+
+.booking-options {
+  display: grid;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.booking-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 17px 18px;
+  text-align: left;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 5px;
+  background: rgba(255,255,255,.04);
+  color: var(--white);
+  transition: background .3s ease;
+}
+
+.booking-option:hover,
+.booking-option.selected {
+  background: rgba(245,188,74,.13);
+}
+
+.booking-option > span {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.booking-option strong { font-size: 13px; letter-spacing: .08em; }
+.booking-option small { font-size: 11px; color: var(--text-soft); }
+.dialog-note { font-size: 11px; line-height: 1.7; color: var(--text-muted); }
+
+/* TABLET */
+
+@media (max-width:1150px) {
+  .nav-container,
+  .hero-container,
+  .hero-bottom-inner,
+  .hospitality-container,
+  .hospitality-bottom-inner {
+    width: min(100% - 64px,1480px);
+  }
+
+  .nav-links { gap: 20px; }
+  .nav-year { display: none; }
+  .hero-title { font-size: clamp(76px,10vw,120px); }
+  .corner-text { display: none; }
+  .hospitality-container { gap: 20px; }
+  .hospitality-heading { font-size: clamp(58px,6.5vw,88px); }
+  .hospitality-visual { height: 460px; }
+}
+
+/* MOBILE NAV */
+
+@media (max-width:860px) {
+  .nav-container { min-height: 78px; }
+
+  .nav-links {
+    position: fixed;
+    top: 78px;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0 32px;
+    background: rgba(17,6,28,.94);
+    backdrop-filter: blur(22px);
+    max-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    opacity: 0;
+    transition: max-height .45s var(--ease), opacity .3s ease, padding .35s ease;
+  }
+
+  .nav-links.open {
+    max-height: 360px;
+    padding: 16px 32px 30px;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .nav-link { padding: 15px 0; font-size: 14px; }
+  .menu-toggle { display: flex; }
+  .nav-book-btn { padding: 12px 14px; }
+  .hospitality-container { grid-template-columns: 1fr .8fr; gap: 10px; }
+  .hospitality-heading { font-size: clamp(52px,7vw,76px); }
+  .hospitality-visual { height: 410px; }
+  .hospitality-lead { font-size: 13px; }
+  .hospitality-trust { padding: 14px; }
+}
+
+/* MOBILE */
+
+@media (max-width:640px) {
+  .nav-container,
+  .hero-container,
+  .hero-bottom-inner,
+  .hospitality-container,
+  .hospitality-bottom-inner {
+    width: calc(100% - 38px);
+  }
+
+  .nav-container { min-height: 74px; }
+  .nav-links { top: 74px; }
+
+  .brand-mark { width: 30px; height: 30px; }
+  .brand-text strong { font-size: 18px; }
+  .brand-text small { font-size: 6.5px; }
+  .nav-actions { gap: 10px; }
+  .nav-book-btn { font-size: 9px; padding: 11px 13px; }
+
+  .carnival-hero { min-height: 700px; height: 100svh; }
+  .hero-video { object-position: 52% center; }
+
+  .video-gradient {
+    background:
+      linear-gradient(180deg,rgba(9,3,15,.6),rgba(9,3,15,.45) 30%,rgba(9,3,15,.65) 65%,rgba(9,3,15,.88)),
+      linear-gradient(90deg,rgba(9,3,15,.38),rgba(9,3,15,.1));
+  }
+
+  .hero-container { padding: 115px 0 125px; }
+  .hero-eyebrow { font-size: 9px; letter-spacing: .12em; margin-bottom: 23px; }
+  .hero-title { font-size: clamp(59px,13.7vw,94px); line-height: .92; }
+  .title-final { font-size: .75em; }
+  .hero-description { margin-top: 26px; }
+  .hero-description p { font-size: 13px; line-height: 1.7; }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 30px;
+    gap: 11px;
+  }
+
+  .btn { min-height: 59px; width: 100%; padding: 17px 20px; font-size: 10px; }
+  .hero-bottom-inner { min-height: 78px; }
+  .scroll-indicator { font-size: 9px; letter-spacing: .12em; }
+  .sound-button { font-size: 9px; }
+  .sound-icon { width: 31px; height: 31px; }
+
+  .hospitality-section { min-height: 900px; height: auto; }
+
+  .hospitality-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 90px 0 125px;
+    gap: 15px;
+  }
+
+  .hospitality-eyebrow { font-size: 9px; letter-spacing: .12em; margin-bottom: 22px; }
+  .hospitality-heading { font-size: clamp(53px,12.7vw,82px); line-height: .96; }
+  .hospitality-lead { margin-top: 22px; font-size: 13px; }
+  .hospitality-trust { margin-top: 23px; padding: 15px; }
+  .trust-label { font-size: 9px; }
+  .hospitality-trust p { font-size: 12px; }
+  .hospitality-date { margin-top: 24px; }
+  .hospitality-date-label { font-size: 9px; }
+  .hospitality-date strong { font-size: 19px; }
+  .hospitality-date p { font-size: 11px; line-height: 1.7; }
+  .hospitality-cta { width: 100%; min-height: 56px; margin-top: 24px; font-size: 10px; }
+
+  .hospitality-visual {
+    width: min(100%,420px);
+    height: 345px;
+    margin: 5px auto 0;
+  }
+
+  .hospitality-mask-float { width: 89%; }
+  .hospitality-mask { max-height: 345px; }
+  .hospitality-orbit-one { width: 76%; }
+  .hospitality-orbit-two { width: 96%; }
+  .hospitality-watermark { font-size: 95px; }
+  .hospitality-bottom-inner { min-height: 65px; gap: 12px; }
+  .hospitality-bottom-inner span { font-size: 8px; line-height: 1.5; letter-spacing: .06em; }
+  .dialog-inner { padding: 36px 22px; }
+}
+
+@media (max-width:380px) {
+  .hero-title { font-size: 12.8vw; }
+  .hero-description p { font-size: 12px; }
+  .brand-logo { gap: 6px; }
+  .brand-text strong { font-size: 16px; }
+  .hospitality-heading { font-size: 12vw; }
+  .hospitality-visual { height: 285px; }
+}
+
+@media (max-height:720px) and (min-width:641px) {
+  .carnival-hero { height: auto; min-height: 720px; }
+  .hero-container { padding: 140px 0; }
+  .hero-title { font-size: clamp(68px,8vw,115px); }
+}
+
+@media (max-height:650px) and (max-width:640px) {
+  .carnival-hero { height: auto; min-height: 700px; }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+
+  .title-inner,
+  .hero-animate,
+  .hospitality-reveal { opacity: 1 !important; transform: none !important; }
+
+  .page-loader { visibility: hidden; pointer-events: none; }
+}
