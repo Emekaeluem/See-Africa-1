@@ -1,5 +1,8 @@
 
-/* CALABAR CARNIVAL 2026 — COMPLETE JAVASCRIPT */
+/* =========================================
+   CALABAR CARNIVAL 2026
+   COMPLETE JAVASCRIPT
+========================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
   "use strict";
@@ -9,17 +12,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const header = document.getElementById("siteHeader");
   const hero = document.querySelector(".carnival-hero");
   const heroVideo = document.getElementById("heroVideo");
+
   const soundButton = document.getElementById("soundButton");
   const soundText = document.getElementById("soundText");
   const soundIcon = document.getElementById("soundIcon");
+
   const menuToggle = document.getElementById("menuToggle");
   const navLinks = document.getElementById("navLinks");
+
   const bookingDialog = document.getElementById("bookingDialog");
   const dialogClose = document.getElementById("dialogClose");
   const dialogTitle = document.getElementById("bookingTitle");
   const dialogNote = document.getElementById("dialogNote");
   const bookingButtons = document.querySelectorAll("[data-booking]");
   const bookingOptions = document.querySelectorAll(".booking-option");
+
   const hospitalitySection = document.querySelector(".hospitality-section");
   const hospitalityParticles = document.getElementById("hospitalityParticles");
   const hospitalityMask = document.getElementById("hospitalityMask");
@@ -29,7 +36,9 @@ document.addEventListener("DOMContentLoaded", () => {
     "(prefers-reduced-motion: reduce)"
   ).matches;
 
-  /* PRELOADER — DOES NOT WAIT FOR VIDEO */
+  /* ---------------------------------------
+     PRELOADER
+  --------------------------------------- */
 
   let pageStarted = false;
 
@@ -43,16 +52,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     body.classList.add("page-ready");
-
-    if (hero) {
-      hero.classList.add("hero-ready");
-    }
+    if (hero) hero.classList.add("hero-ready");
   }
 
-  window.setTimeout(startPage, reducedMotion ? 0 : 850);
-  window.setTimeout(startPage, 2200);
+  window.setTimeout(startPage, reducedMotion ? 0 : 650);
 
-  /* VIDEO PLAYBACK */
+  /* ---------------------------------------
+     HERO VIDEO
+  --------------------------------------- */
 
   let videoInView = true;
 
@@ -61,103 +68,77 @@ document.addEventListener("DOMContentLoaded", () => {
     heroVideo.defaultMuted = true;
     heroVideo.playsInline = true;
     heroVideo.loop = true;
-    heroVideo.autoplay = true;
 
-    function attemptVideoPlayback() {
+    function playHeroVideo() {
       if (document.hidden || !videoInView) return;
 
-      try {
-        const playPromise = heroVideo.play();
+      const promise = heroVideo.play();
 
-        if (playPromise && typeof playPromise.catch === "function") {
-          playPromise.catch(error => {
-            console.warn("Video playback unavailable:", error.message);
-          });
-        }
-      } catch (error) {
-        console.warn("Video playback error:", error.message);
+      if (promise && typeof promise.catch === "function") {
+        promise.catch(() => {
+          // Browsers may restrict video playback.
+        });
       }
     }
 
-    attemptVideoPlayback();
-
-    heroVideo.addEventListener("error", () => {
-      console.warn(
-        "Check the video path: images/calabar-carnival.mp4"
-      );
-    });
+    playHeroVideo();
 
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) {
         heroVideo.pause();
       } else {
-        attemptVideoPlayback();
+        playHeroVideo();
       }
     });
 
-    /* SOUND CONTROL */
-
     const mutedIcon = `
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path
-          d="M11 5L6 9H3V15H6L11 19V5Z"
-          stroke="currentColor"
-          stroke-width="1.6"
-          stroke-linejoin="round"
-        />
-        <path
-          d="M16 9L21 15M21 9L16 15"
-          stroke="currentColor"
-          stroke-width="1.6"
-          stroke-linecap="round"
-        />
+        <path d="M11 5L6 9H3V15H6L11 19V5Z"
+          stroke="currentColor" stroke-width="1.6"
+          stroke-linejoin="round"/>
+        <path d="M16 9L21 15M21 9L16 15"
+          stroke="currentColor" stroke-width="1.6"
+          stroke-linecap="round"/>
       </svg>
     `;
 
-    const soundOnIcon = `
+    const unmutedIcon = `
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path
-          d="M11 5L6 9H3V15H6L11 19V5Z"
-          stroke="currentColor"
-          stroke-width="1.6"
-          stroke-linejoin="round"
-        />
-        <path
-          d="M15 9C16.5 10.5 16.5 13.5 15 15"
-          stroke="currentColor"
-          stroke-width="1.6"
-          stroke-linecap="round"
-        />
-        <path
-          d="M18 6C21.5 9.5 21.5 14.5 18 18"
-          stroke="currentColor"
-          stroke-width="1.6"
-          stroke-linecap="round"
-        />
+        <path d="M11 5L6 9H3V15H6L11 19V5Z"
+          stroke="currentColor" stroke-width="1.6"
+          stroke-linejoin="round"/>
+        <path d="M15 9C16.5 10.5 16.5 13.5 15 15"
+          stroke="currentColor" stroke-width="1.6"
+          stroke-linecap="round"/>
+        <path d="M18 6C21.5 9.5 21.5 14.5 18 18"
+          stroke="currentColor" stroke-width="1.6"
+          stroke-linecap="round"/>
       </svg>
     `;
 
     function updateSoundUI() {
-      if (!soundText || !soundIcon || !soundButton) return;
+      if (!soundButton || !soundText || !soundIcon) return;
 
-      const enabled = !heroVideo.muted;
+      const soundEnabled = !heroVideo.muted;
 
-      soundText.textContent = enabled
-        ? "SOUND ON"
-        : "SOUND OFF";
+      soundText.textContent = soundEnabled
+        ? "Turn Off Sound"
+        : "Turn On Sound";
 
-      soundIcon.innerHTML = enabled
-        ? soundOnIcon
+      soundIcon.innerHTML = soundEnabled
+        ? unmutedIcon
         : mutedIcon;
 
       soundButton.setAttribute(
         "aria-pressed",
-        String(enabled)
+        String(soundEnabled)
       );
 
       soundButton.setAttribute(
         "aria-label",
-        enabled ? "Mute background video" : "Unmute background video"
+        soundEnabled
+          ? "Mute background video"
+          : "Unmute background video"
       );
     }
 
@@ -165,13 +146,11 @@ document.addEventListener("DOMContentLoaded", () => {
       soundButton.addEventListener("click", () => {
         heroVideo.muted = !heroVideo.muted;
         updateSoundUI();
-        attemptVideoPlayback();
+        playHeroVideo();
       });
     }
 
     updateSoundUI();
-
-    /* PAUSE VIDEO OUTSIDE THE HERO */
 
     if (hero && "IntersectionObserver" in window) {
       const videoObserver = new IntersectionObserver(entries => {
@@ -179,32 +158,41 @@ document.addEventListener("DOMContentLoaded", () => {
           videoInView = entry.isIntersecting;
 
           if (videoInView && !document.hidden) {
-            attemptVideoPlayback();
+            playHeroVideo();
           } else {
             heroVideo.pause();
           }
         });
-      }, { threshold: 0.05 });
+      }, {
+        threshold: 0.05
+      });
 
       videoObserver.observe(hero);
     }
   }
 
-  /* GLASS HEADER SCROLL STATE */
+  /* ---------------------------------------
+     STICKY HEADER
+  --------------------------------------- */
 
   function updateHeader() {
     if (!header) return;
 
     header.classList.toggle(
       "scrolled",
-      window.scrollY > 30
+      window.scrollY > 35
     );
   }
 
-  window.addEventListener("scroll", updateHeader, { passive: true });
+  window.addEventListener("scroll", updateHeader, {
+    passive: true
+  });
+
   updateHeader();
 
-  /* MOBILE NAVIGATION */
+  /* ---------------------------------------
+     MOBILE NAVIGATION
+  --------------------------------------- */
 
   function closeMenu() {
     if (!menuToggle || !navLinks) return;
@@ -217,6 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     menuToggle.setAttribute("aria-expanded", "false");
     menuToggle.setAttribute("aria-label", "Open menu");
+
     body.classList.remove("menu-open");
   }
 
@@ -248,11 +237,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     window.addEventListener("resize", () => {
-      if (window.innerWidth > 860) closeMenu();
+      if (window.innerWidth > 860) {
+        closeMenu();
+      }
     });
   }
 
-  /* BOOKING PREVIEW */
+  /* ---------------------------------------
+     BOOKING PREVIEW
+  --------------------------------------- */
 
   function openBooking(type) {
     if (!bookingDialog) return;
@@ -321,7 +314,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (dialogNote) {
         dialogNote.textContent =
           option.dataset.package +
-          " selected. This selection will connect to the complete booking form when the package calculator is added.";
+          " selected. This will connect to the full booking form when the package calculator is added.";
       }
     });
   });
@@ -342,7 +335,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* HOSPITALITY SCROLL REVEAL */
+  /* ---------------------------------------
+     HOSPITALITY SCROLL ANIMATION
+  --------------------------------------- */
 
   function revealHospitality() {
     hospitalityReveal.forEach(element => {
@@ -359,7 +354,9 @@ document.addEventListener("DOMContentLoaded", () => {
             observer.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.15 });
+      }, {
+        threshold: 0.15
+      });
 
       observer.observe(hospitalitySection);
     } else {
@@ -367,11 +364,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  /* SUBTLE FESTIVAL PARTICLES */
+  /* ---------------------------------------
+     SUBTLE CARNIVAL PARTICLES
+  --------------------------------------- */
 
-  function createHospitalityParticles() {
-    if (!hospitalityParticles || reducedMotion) return;
-
+  if (hospitalityParticles && !reducedMotion) {
     const colors = [
       "#FFD247",
       "#56EF83",
@@ -383,6 +380,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     for (let i = 0; i < 18; i++) {
       const particle = document.createElement("span");
+
       particle.className = "hospitality-particle";
 
       const size = 2 + Math.random() * 4;
@@ -408,9 +406,9 @@ document.addEventListener("DOMContentLoaded", () => {
     hospitalityParticles.appendChild(fragment);
   }
 
-  createHospitalityParticles();
-
-  /* FLOATING MASK MOUSE PARALLAX */
+  /* ---------------------------------------
+     FLOATING MASK PARALLAX
+  --------------------------------------- */
 
   if (
     hospitalitySection &&
@@ -422,28 +420,28 @@ document.addEventListener("DOMContentLoaded", () => {
     let targetY = 0;
     let currentX = 0;
     let currentY = 0;
-    let animationFrame = null;
+    let frame = null;
 
     function animateMask() {
-      currentX += (targetX - currentX) * 0.06;
-      currentY += (targetY - currentY) * 0.06;
+      currentX += (targetX - currentX) * .06;
+      currentY += (targetY - currentY) * .06;
 
       hospitalityMask.style.translate =
         `${currentX}px ${currentY}px`;
 
       if (
-        Math.abs(targetX - currentX) > 0.05 ||
-        Math.abs(targetY - currentY) > 0.05
+        Math.abs(targetX - currentX) > .05 ||
+        Math.abs(targetY - currentY) > .05
       ) {
-        animationFrame = requestAnimationFrame(animateMask);
+        frame = requestAnimationFrame(animateMask);
       } else {
-        animationFrame = null;
+        frame = null;
       }
     }
 
-    function requestMaskAnimation() {
-      if (animationFrame === null) {
-        animationFrame = requestAnimationFrame(animateMask);
+    function requestAnimation() {
+      if (frame === null) {
+        frame = requestAnimationFrame(animateMask);
       }
     }
 
@@ -451,22 +449,24 @@ document.addEventListener("DOMContentLoaded", () => {
       const rect = hospitalitySection.getBoundingClientRect();
 
       targetX =
-        ((event.clientX - rect.left) / rect.width - 0.5) * 18;
+        ((event.clientX - rect.left) / rect.width - .5) * 18;
 
       targetY =
-        ((event.clientY - rect.top) / rect.height - 0.5) * 14;
+        ((event.clientY - rect.top) / rect.height - .5) * 14;
 
-      requestMaskAnimation();
+      requestAnimation();
     });
 
     hospitalitySection.addEventListener("pointerleave", () => {
       targetX = 0;
       targetY = 0;
-      requestMaskAnimation();
+      requestAnimation();
     });
   }
 
-  /* ESCAPE KEY */
+  /* ---------------------------------------
+     ESCAPE KEY
+  --------------------------------------- */
 
   document.addEventListener("keydown", event => {
     if (event.key === "Escape") {
@@ -475,5 +475,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  console.info("Calabar Carnival website initialized.");
 });
