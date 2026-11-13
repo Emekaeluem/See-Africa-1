@@ -1,186 +1,50 @@
 
-/* =========================================
+/* ==========================================
    CALABAR CARNIVAL 2026
    COMPLETE JAVASCRIPT
-========================================= */
+========================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
   "use strict";
 
   const body = document.body;
-  const loader = document.getElementById("pageLoader");
+
   const header = document.getElementById("siteHeader");
+  const menuToggle = document.getElementById("menuToggle");
+  const navLinks = document.getElementById("navLinks");
+
   const hero = document.querySelector(".carnival-hero");
   const heroVideo = document.getElementById("heroVideo");
 
   const soundButton = document.getElementById("soundButton");
-  const soundText = document.getElementById("soundText");
   const soundIcon = document.getElementById("soundIcon");
-
-  const menuToggle = document.getElementById("menuToggle");
-  const navLinks = document.getElementById("navLinks");
+  const soundText = document.getElementById("soundText");
 
   const bookingDialog = document.getElementById("bookingDialog");
   const dialogClose = document.getElementById("dialogClose");
-  const dialogTitle = document.getElementById("bookingTitle");
+  const bookingTitle = document.getElementById("bookingTitle");
   const dialogNote = document.getElementById("dialogNote");
+
   const bookingButtons = document.querySelectorAll("[data-booking]");
-  const bookingOptions = document.querySelectorAll(".booking-option");
+  const bookingOptions = document.querySelectorAll("[data-package]");
 
   const hospitalitySection = document.querySelector(".hospitality-section");
-  const hospitalityParticles = document.getElementById("hospitalityParticles");
-  const hospitalityMask = document.getElementById("hospitalityMask");
-  const hospitalityReveal = document.querySelectorAll(".hospitality-reveal");
+  const hospitalityGirl = document.getElementById("hospitalityGirl");
 
   const reducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
   ).matches;
 
-  /* ---------------------------------------
-     PRELOADER
-  --------------------------------------- */
-
-  let pageStarted = false;
-
-  function startPage() {
-    if (pageStarted) return;
-    pageStarted = true;
-
-    if (loader) {
-      loader.classList.add("loaded");
-      loader.style.pointerEvents = "none";
-    }
-
-    body.classList.add("page-ready");
-    if (hero) hero.classList.add("hero-ready");
-  }
-
-  window.setTimeout(startPage, reducedMotion ? 0 : 650);
-
-  /* ---------------------------------------
-     HERO VIDEO
-  --------------------------------------- */
-
-  let videoInView = true;
-
-  if (heroVideo) {
-    heroVideo.muted = true;
-    heroVideo.defaultMuted = true;
-    heroVideo.playsInline = true;
-    heroVideo.loop = true;
-
-    function playHeroVideo() {
-      if (document.hidden || !videoInView) return;
-
-      const promise = heroVideo.play();
-
-      if (promise && typeof promise.catch === "function") {
-        promise.catch(() => {
-          // Browsers may restrict video playback.
-        });
-      }
-    }
-
-    playHeroVideo();
-
-    document.addEventListener("visibilitychange", () => {
-      if (document.hidden) {
-        heroVideo.pause();
-      } else {
-        playHeroVideo();
-      }
-    });
-
-    const mutedIcon = `
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M11 5L6 9H3V15H6L11 19V5Z"
-          stroke="currentColor" stroke-width="1.6"
-          stroke-linejoin="round"/>
-        <path d="M16 9L21 15M21 9L16 15"
-          stroke="currentColor" stroke-width="1.6"
-          stroke-linecap="round"/>
-      </svg>
-    `;
-
-    const unmutedIcon = `
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M11 5L6 9H3V15H6L11 19V5Z"
-          stroke="currentColor" stroke-width="1.6"
-          stroke-linejoin="round"/>
-        <path d="M15 9C16.5 10.5 16.5 13.5 15 15"
-          stroke="currentColor" stroke-width="1.6"
-          stroke-linecap="round"/>
-        <path d="M18 6C21.5 9.5 21.5 14.5 18 18"
-          stroke="currentColor" stroke-width="1.6"
-          stroke-linecap="round"/>
-      </svg>
-    `;
-
-    function updateSoundUI() {
-      if (!soundButton || !soundText || !soundIcon) return;
-
-      const soundEnabled = !heroVideo.muted;
-
-      soundText.textContent = soundEnabled
-        ? "Turn Off Sound"
-        : "Turn On Sound";
-
-      soundIcon.innerHTML = soundEnabled
-        ? unmutedIcon
-        : mutedIcon;
-
-      soundButton.setAttribute(
-        "aria-pressed",
-        String(soundEnabled)
-      );
-
-      soundButton.setAttribute(
-        "aria-label",
-        soundEnabled
-          ? "Mute background video"
-          : "Unmute background video"
-      );
-    }
-
-    if (soundButton) {
-      soundButton.addEventListener("click", () => {
-        heroVideo.muted = !heroVideo.muted;
-        updateSoundUI();
-        playHeroVideo();
-      });
-    }
-
-    updateSoundUI();
-
-    if (hero && "IntersectionObserver" in window) {
-      const videoObserver = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          videoInView = entry.isIntersecting;
-
-          if (videoInView && !document.hidden) {
-            playHeroVideo();
-          } else {
-            heroVideo.pause();
-          }
-        });
-      }, {
-        threshold: 0.05
-      });
-
-      videoObserver.observe(hero);
-    }
-  }
-
-  /* ---------------------------------------
-     STICKY HEADER
-  --------------------------------------- */
+  /* ======================================
+     GLASS NAVIGATION
+  ====================================== */
 
   function updateHeader() {
     if (!header) return;
 
     header.classList.toggle(
       "scrolled",
-      window.scrollY > 35
+      window.scrollY > 30
     );
   }
 
@@ -190,46 +54,46 @@ document.addEventListener("DOMContentLoaded", () => {
 
   updateHeader();
 
-  /* ---------------------------------------
-     MOBILE NAVIGATION
-  --------------------------------------- */
+  /* ======================================
+     MOBILE MENU
+  ====================================== */
 
   function closeMenu() {
     if (!menuToggle || !navLinks) return;
 
     navLinks.classList.remove("open");
 
-    if (header) {
-      header.classList.remove("menu-active");
-    }
+    menuToggle.setAttribute(
+      "aria-expanded",
+      "false"
+    );
 
-    menuToggle.setAttribute("aria-expanded", "false");
-    menuToggle.setAttribute("aria-label", "Open menu");
+    menuToggle.setAttribute(
+      "aria-label",
+      "Open menu"
+    );
 
+    header?.classList.remove("menu-active");
     body.classList.remove("menu-open");
   }
 
   if (menuToggle && navLinks) {
     menuToggle.addEventListener("click", () => {
-      const shouldOpen = !navLinks.classList.contains("open");
+      const open = !navLinks.classList.contains("open");
 
-      navLinks.classList.toggle("open", shouldOpen);
-
-      if (header) {
-        header.classList.toggle("menu-active", shouldOpen);
-      }
+      navLinks.classList.toggle("open", open);
+      header?.classList.toggle("menu-active", open);
+      body.classList.toggle("menu-open", open);
 
       menuToggle.setAttribute(
         "aria-expanded",
-        String(shouldOpen)
+        String(open)
       );
 
       menuToggle.setAttribute(
         "aria-label",
-        shouldOpen ? "Close menu" : "Open menu"
+        open ? "Close menu" : "Open menu"
       );
-
-      body.classList.toggle("menu-open", shouldOpen);
     });
 
     navLinks.querySelectorAll("a").forEach(link => {
@@ -243,19 +107,151 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ---------------------------------------
+  /* ======================================
+     VIDEO PLAYBACK
+  ====================================== */
+
+  let videoVisible = true;
+
+  if (heroVideo) {
+    heroVideo.muted = true;
+    heroVideo.defaultMuted = true;
+    heroVideo.playsInline = true;
+    heroVideo.loop = true;
+
+    function playVideo() {
+      if (document.hidden || !videoVisible) return;
+
+      try {
+        const playPromise = heroVideo.play();
+
+        if (playPromise && typeof playPromise.catch === "function") {
+          playPromise.catch(() => {
+            // Browser may restrict autoplay.
+          });
+        }
+      } catch (error) {
+        console.warn("Video playback unavailable:", error);
+      }
+    }
+
+    playVideo();
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        heroVideo.pause();
+      } else {
+        playVideo();
+      }
+    });
+
+    /* SOUND CONTROL */
+
+    const mutedIcon = `
+      <svg viewBox="0 0 24 24"
+        width="18" height="18"
+        fill="none"
+        aria-hidden="true">
+
+        <path d="M11 5L6 9H3V15H6L11 19V5Z"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linejoin="round"/>
+
+        <path d="M16 9L21 15M21 9L16 15"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"/>
+      </svg>
+    `;
+
+    const unmutedIcon = `
+      <svg viewBox="0 0 24 24"
+        width="18" height="18"
+        fill="none"
+        aria-hidden="true">
+
+        <path d="M11 5L6 9H3V15H6L11 19V5Z"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linejoin="round"/>
+
+        <path d="M15 9C16.5 10.5 16.5 13.5 15 15"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"/>
+
+        <path d="M18 6C21.5 9.5 21.5 14.5 18 18"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"/>
+      </svg>
+    `;
+
+    function updateSound() {
+      if (!soundButton || !soundIcon || !soundText) return;
+
+      const on = !heroVideo.muted;
+
+      soundIcon.innerHTML = on ? unmutedIcon : mutedIcon;
+      soundText.textContent = on ? "Turn Off Sound" : "Turn On Sound";
+
+      soundButton.setAttribute(
+        "aria-pressed",
+        String(on)
+      );
+
+      soundButton.setAttribute(
+        "aria-label",
+        on ? "Turn off video sound" : "Turn on video sound"
+      );
+    }
+
+    if (soundButton) {
+      soundButton.addEventListener("click", () => {
+        heroVideo.muted = !heroVideo.muted;
+        updateSound();
+        playVideo();
+      });
+    }
+
+    updateSound();
+
+    /* PAUSE VIDEO OUTSIDE HERO */
+
+    if (hero && "IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          videoVisible = entry.isIntersecting;
+
+          if (videoVisible && !document.hidden) {
+            playVideo();
+          } else {
+            heroVideo.pause();
+          }
+        });
+      }, {
+        threshold: 0.05
+      });
+
+      observer.observe(hero);
+    }
+  }
+
+  /* ======================================
      BOOKING PREVIEW
-  --------------------------------------- */
+  ====================================== */
 
   function openBooking(type) {
     if (!bookingDialog) return;
 
     closeMenu();
 
-    if (dialogTitle) {
-      dialogTitle.textContent = type === "Build"
-        ? "Build your Calabar experience."
-        : "Choose your experience.";
+    if (bookingTitle) {
+      bookingTitle.textContent =
+        type === "Build"
+          ? "Build Your Calabar Experience"
+          : "Choose Your Experience";
     }
 
     bookingOptions.forEach(option => {
@@ -263,25 +259,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     if (type !== "Build") {
-      const seatOption = document.querySelector(
+      const seat = document.querySelector(
         '[data-package="Seat"]'
       );
 
-      if (seatOption) {
-        seatOption.classList.add("selected");
+      if (seat) {
+        seat.classList.add("selected");
       }
     }
 
     if (dialogNote) {
       dialogNote.textContent =
-        "Package rates and availability are subject to confirmation. " +
-        "Full booking and payment functionality will be connected to the booking section.";
+        "Package prices and availability are subject to confirmation. " +
+        "Full checkout and payment functionality will be connected separately.";
     }
 
-    if (
-      typeof bookingDialog.showModal === "function" &&
-      !bookingDialog.open
-    ) {
+    if (!bookingDialog.open) {
       bookingDialog.showModal();
       body.classList.add("dialog-open");
     }
@@ -314,7 +307,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (dialogNote) {
         dialogNote.textContent =
           option.dataset.package +
-          " selected. This will connect to the full booking form when the package calculator is added.";
+          " selected. Booking and checkout will be connected when the booking system is ready.";
       }
     });
   });
@@ -335,113 +328,44 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ---------------------------------------
-     HOSPITALITY SCROLL ANIMATION
-  --------------------------------------- */
-
-  function revealHospitality() {
-    hospitalityReveal.forEach(element => {
-      element.classList.add("is-visible");
-    });
-  }
-
-  if (hospitalitySection) {
-    if ("IntersectionObserver" in window && !reducedMotion) {
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            revealHospitality();
-            observer.unobserve(entry.target);
-          }
-        });
-      }, {
-        threshold: 0.15
-      });
-
-      observer.observe(hospitalitySection);
-    } else {
-      revealHospitality();
-    }
-  }
-
-  /* ---------------------------------------
-     SUBTLE CARNIVAL PARTICLES
-  --------------------------------------- */
-
-  if (hospitalityParticles && !reducedMotion) {
-    const colors = [
-      "#FFD247",
-      "#56EF83",
-      "#E3ACFF",
-      "#FFFFFF"
-    ];
-
-    const fragment = document.createDocumentFragment();
-
-    for (let i = 0; i < 18; i++) {
-      const particle = document.createElement("span");
-
-      particle.className = "hospitality-particle";
-
-      const size = 2 + Math.random() * 4;
-      const left = Math.random() * 100;
-      const duration = 10 + Math.random() * 12;
-      const delay = -Math.random() * 20;
-      const drift = -70 + Math.random() * 140;
-
-      const color = colors[
-        Math.floor(Math.random() * colors.length)
-      ];
-
-      particle.style.setProperty("--size", size + "px");
-      particle.style.setProperty("--left", left + "%");
-      particle.style.setProperty("--duration", duration + "s");
-      particle.style.setProperty("--delay", delay + "s");
-      particle.style.setProperty("--drift", drift + "px");
-      particle.style.setProperty("--color", color);
-
-      fragment.appendChild(particle);
-    }
-
-    hospitalityParticles.appendChild(fragment);
-  }
-
-  /* ---------------------------------------
-     FLOATING MASK PARALLAX
-  --------------------------------------- */
+  /* ======================================
+     SUBTLE GIRL IMAGE PARALLAX
+  ====================================== */
 
   if (
+    hospitalityGirl &&
     hospitalitySection &&
-    hospitalityMask &&
     !reducedMotion &&
-    window.matchMedia("(hover: hover) and (pointer: fine)").matches
+    window.matchMedia(
+      "(hover: hover) and (pointer: fine)"
+    ).matches
   ) {
     let targetX = 0;
     let targetY = 0;
     let currentX = 0;
     let currentY = 0;
-    let frame = null;
+    let animationFrame = null;
 
-    function animateMask() {
-      currentX += (targetX - currentX) * .06;
-      currentY += (targetY - currentY) * .06;
+    function animateGirl() {
+      currentX += (targetX - currentX) * 0.055;
+      currentY += (targetY - currentY) * 0.055;
 
-      hospitalityMask.style.translate =
+      hospitalityGirl.style.translate =
         `${currentX}px ${currentY}px`;
 
       if (
-        Math.abs(targetX - currentX) > .05 ||
-        Math.abs(targetY - currentY) > .05
+        Math.abs(targetX - currentX) > 0.1 ||
+        Math.abs(targetY - currentY) > 0.1
       ) {
-        frame = requestAnimationFrame(animateMask);
+        animationFrame = requestAnimationFrame(animateGirl);
       } else {
-        frame = null;
+        animationFrame = null;
       }
     }
 
-    function requestAnimation() {
-      if (frame === null) {
-        frame = requestAnimationFrame(animateMask);
+    function requestGirlAnimation() {
+      if (animationFrame === null) {
+        animationFrame = requestAnimationFrame(animateGirl);
       }
     }
 
@@ -449,30 +373,30 @@ document.addEventListener("DOMContentLoaded", () => {
       const rect = hospitalitySection.getBoundingClientRect();
 
       targetX =
-        ((event.clientX - rect.left) / rect.width - .5) * 18;
+        ((event.clientX - rect.left) / rect.width - 0.5) * 12;
 
       targetY =
-        ((event.clientY - rect.top) / rect.height - .5) * 14;
+        ((event.clientY - rect.top) / rect.height - 0.5) * 9;
 
-      requestAnimation();
+      requestGirlAnimation();
     });
 
     hospitalitySection.addEventListener("pointerleave", () => {
       targetX = 0;
       targetY = 0;
-      requestAnimation();
+      requestGirlAnimation();
     });
   }
 
-  /* ---------------------------------------
+  /* ======================================
      ESCAPE KEY
-  --------------------------------------- */
+  ====================================== */
 
   document.addEventListener("keydown", event => {
     if (event.key === "Escape") {
-      closeBooking();
       closeMenu();
     }
   });
 
+  console.info("Calabar Carnival landing page loaded.");
 });
