@@ -1,8 +1,8 @@
 
-/* ==========================================
+/* ==============================================
    CALABAR CARNIVAL 2026
-   COMPLETE JAVASCRIPT
-========================================== */
+   COMPLETE JAVASCRIPT — THREE SECTIONS
+============================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
   "use strict";
@@ -28,24 +28,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const bookingButtons = document.querySelectorAll("[data-booking]");
   const bookingOptions = document.querySelectorAll("[data-package]");
 
-  const hospitalitySection = document.querySelector(".hospitality-section");
-  const hospitalityGirl = document.getElementById("hospitalityGirl");
-
-  const reducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  ).matches;
+  const lightSection = document.getElementById("highlights");
 
   /* ======================================
-     GLASS NAVIGATION
+     NAVIGATION
   ====================================== */
 
   function updateHeader() {
     if (!header) return;
 
-    header.classList.toggle(
-      "scrolled",
-      window.scrollY > 30
-    );
+    const scrolled = window.scrollY > 30;
+
+    header.classList.toggle("scrolled", scrolled);
   }
 
   window.addEventListener("scroll", updateHeader, {
@@ -55,6 +49,26 @@ document.addEventListener("DOMContentLoaded", () => {
   updateHeader();
 
   /* ======================================
+     LIGHT SECTION NAVIGATION
+  ====================================== */
+
+  if (header && lightSection && "IntersectionObserver" in window) {
+    const lightObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        header.classList.toggle(
+          "on-light-section",
+          entry.isIntersecting
+        );
+      });
+    }, {
+      rootMargin: "-65px 0px -75% 0px",
+      threshold: 0
+    });
+
+    lightObserver.observe(lightSection);
+  }
+
+  /* ======================================
      MOBILE MENU
   ====================================== */
 
@@ -62,22 +76,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!menuToggle || !navLinks) return;
 
     navLinks.classList.remove("open");
-
-    menuToggle.setAttribute(
-      "aria-expanded",
-      "false"
-    );
-
-    menuToggle.setAttribute(
-      "aria-label",
-      "Open menu"
-    );
-
     header?.classList.remove("menu-active");
     body.classList.remove("menu-open");
+
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.setAttribute("aria-label", "Open menu");
   }
 
   if (menuToggle && navLinks) {
+
     menuToggle.addEventListener("click", () => {
       const open = !navLinks.classList.contains("open");
 
@@ -101,9 +108,40 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     window.addEventListener("resize", () => {
-      if (window.innerWidth > 860) {
+      if (window.innerWidth > 900) {
         closeMenu();
       }
+    });
+  }
+
+  /* ======================================
+     ACTIVE NAVIGATION
+  ====================================== */
+
+  const sections = document.querySelectorAll(
+    "main section[id]"
+  );
+
+  if ("IntersectionObserver" in window) {
+    const sectionObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+
+        const id = entry.target.id;
+
+        document.querySelectorAll(".nav-link").forEach(link => {
+          link.classList.toggle(
+            "active",
+            link.getAttribute("href") === "#" + id
+          );
+        });
+      });
+    }, {
+      rootMargin: "-35% 0px -50% 0px"
+    });
+
+    sections.forEach(section => {
+      sectionObserver.observe(section);
     });
   }
 
@@ -114,6 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let videoVisible = true;
 
   if (heroVideo) {
+
     heroVideo.muted = true;
     heroVideo.defaultMuted = true;
     heroVideo.playsInline = true;
@@ -123,10 +162,10 @@ document.addEventListener("DOMContentLoaded", () => {
       if (document.hidden || !videoVisible) return;
 
       try {
-        const playPromise = heroVideo.play();
+        const promise = heroVideo.play();
 
-        if (playPromise && typeof playPromise.catch === "function") {
-          playPromise.catch(() => {
+        if (promise && typeof promise.catch === "function") {
+          promise.catch(() => {
             // Browser may restrict autoplay.
           });
         }
@@ -145,65 +184,80 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    /* SOUND CONTROL */
+    /* SOUND ICONS */
 
     const mutedIcon = `
       <svg viewBox="0 0 24 24"
         width="18" height="18"
-        fill="none"
-        aria-hidden="true">
+        fill="none" aria-hidden="true">
 
-        <path d="M11 5L6 9H3V15H6L11 19V5Z"
+        <path
+          d="M11 5L6 9H3V15H6L11 19V5Z"
           stroke="currentColor"
           stroke-width="1.6"
-          stroke-linejoin="round"/>
+          stroke-linejoin="round"
+        />
 
-        <path d="M16 9L21 15M21 9L16 15"
+        <path
+          d="M16 9L21 15M21 9L16 15"
           stroke="currentColor"
           stroke-width="1.6"
-          stroke-linecap="round"/>
+          stroke-linecap="round"
+        />
       </svg>
     `;
 
     const unmutedIcon = `
       <svg viewBox="0 0 24 24"
         width="18" height="18"
-        fill="none"
-        aria-hidden="true">
+        fill="none" aria-hidden="true">
 
-        <path d="M11 5L6 9H3V15H6L11 19V5Z"
+        <path
+          d="M11 5L6 9H3V15H6L11 19V5Z"
           stroke="currentColor"
           stroke-width="1.6"
-          stroke-linejoin="round"/>
+          stroke-linejoin="round"
+        />
 
-        <path d="M15 9C16.5 10.5 16.5 13.5 15 15"
+        <path
+          d="M15 9C16.5 10.5 16.5 13.5 15 15"
           stroke="currentColor"
           stroke-width="1.6"
-          stroke-linecap="round"/>
+          stroke-linecap="round"
+        />
 
-        <path d="M18 6C21.5 9.5 21.5 14.5 18 18"
+        <path
+          d="M18 6C21.5 9.5 21.5 14.5 18 18"
           stroke="currentColor"
           stroke-width="1.6"
-          stroke-linecap="round"/>
+          stroke-linecap="round"
+        />
       </svg>
     `;
 
     function updateSound() {
       if (!soundButton || !soundIcon || !soundText) return;
 
-      const on = !heroVideo.muted;
+      const enabled = !heroVideo.muted;
 
-      soundIcon.innerHTML = on ? unmutedIcon : mutedIcon;
-      soundText.textContent = on ? "Turn Off Sound" : "Turn On Sound";
+      soundIcon.innerHTML = enabled
+        ? unmutedIcon
+        : mutedIcon;
+
+      soundText.textContent = enabled
+        ? "Turn Off Sound"
+        : "Turn On Sound";
 
       soundButton.setAttribute(
         "aria-pressed",
-        String(on)
+        String(enabled)
       );
 
       soundButton.setAttribute(
         "aria-label",
-        on ? "Turn off video sound" : "Turn on video sound"
+        enabled
+          ? "Turn off video sound"
+          : "Turn on video sound"
       );
     }
 
@@ -217,10 +271,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateSound();
 
-    /* PAUSE VIDEO OUTSIDE HERO */
+    /* VIDEO VISIBILITY */
 
     if (hero && "IntersectionObserver" in window) {
-      const observer = new IntersectionObserver(entries => {
+      const videoObserver = new IntersectionObserver(entries => {
         entries.forEach(entry => {
           videoVisible = entry.isIntersecting;
 
@@ -234,7 +288,7 @@ document.addEventListener("DOMContentLoaded", () => {
         threshold: 0.05
       });
 
-      observer.observe(hero);
+      videoObserver.observe(hero);
     }
   }
 
@@ -274,7 +328,8 @@ document.addEventListener("DOMContentLoaded", () => {
         "Full checkout and payment functionality will be connected separately.";
     }
 
-    if (!bookingDialog.open) {
+    if (typeof bookingDialog.showModal === "function" &&
+        !bookingDialog.open) {
       bookingDialog.showModal();
       body.classList.add("dialog-open");
     }
@@ -329,74 +384,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ======================================
-     SUBTLE GIRL IMAGE PARALLAX
+     FINAL INITIALIZATION
   ====================================== */
 
-  if (
-    hospitalityGirl &&
-    hospitalitySection &&
-    !reducedMotion &&
-    window.matchMedia(
-      "(hover: hover) and (pointer: fine)"
-    ).matches
-  ) {
-    let targetX = 0;
-    let targetY = 0;
-    let currentX = 0;
-    let currentY = 0;
-    let animationFrame = null;
+  console.info("Calabar Carnival — three sections ready.");
 
-    function animateGirl() {
-      currentX += (targetX - currentX) * 0.055;
-      currentY += (targetY - currentY) * 0.055;
-
-      hospitalityGirl.style.translate =
-        `${currentX}px ${currentY}px`;
-
-      if (
-        Math.abs(targetX - currentX) > 0.1 ||
-        Math.abs(targetY - currentY) > 0.1
-      ) {
-        animationFrame = requestAnimationFrame(animateGirl);
-      } else {
-        animationFrame = null;
-      }
-    }
-
-    function requestGirlAnimation() {
-      if (animationFrame === null) {
-        animationFrame = requestAnimationFrame(animateGirl);
-      }
-    }
-
-    hospitalitySection.addEventListener("pointermove", event => {
-      const rect = hospitalitySection.getBoundingClientRect();
-
-      targetX =
-        ((event.clientX - rect.left) / rect.width - 0.5) * 12;
-
-      targetY =
-        ((event.clientY - rect.top) / rect.height - 0.5) * 9;
-
-      requestGirlAnimation();
-    });
-
-    hospitalitySection.addEventListener("pointerleave", () => {
-      targetX = 0;
-      targetY = 0;
-      requestGirlAnimation();
-    });
-  }
-
-  /* ======================================
-     ESCAPE KEY
-  ====================================== */
-
-  document.addEventListener("keydown", event => {
-    if (event.key === "Escape") {
-      closeMenu();
-    }
-  });
-
-  console.info("Calabar Carnival landing page loaded.");
 });
