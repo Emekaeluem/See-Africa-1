@@ -3,22 +3,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#150721">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#D6EDF2">
 
   <title>Calabar Carnival 2026 | The Beat Calls</title>
-
-  <meta name="description"
-        content="Experience Calabar Carnival 2026 with hospitality access from ₦150,000 per person.">
+  <meta name="description" content="Experience Calabar Carnival 2026. One carnival, one rhythm, millions of memories.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap"
-    rel="stylesheet"
-  >
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="calabar.css">
   <script src="calabar.js" defer></script>
@@ -26,21 +20,16 @@
 
 <body>
 
-  <a class="skip-link" href="#main">
-    Skip to content
-  </a>
+  <a href="#main" class="skip-link">Skip to content</a>
 
   <!-- NAVIGATION -->
   <header class="site-header" id="siteHeader">
     <nav class="nav-container" aria-label="Main navigation">
 
-      <a href="#home" class="brand-logo">
+      <a href="#home" class="brand-logo" aria-label="Calabar Carnival home">
         <span class="brand-mark" aria-hidden="true">
           <svg viewBox="0 0 50 50" fill="none">
-            <path
-              d="M25 3L30.5 18.5L46 13L35 25L46 37L30.5 31.5L25 47L19.5 31.5L4 37L15 25L4 13L19.5 18.5L25 3Z"
-              fill="currentColor"
-            />
+            <path d="M25 3L30.5 18.5L46 13L35 25L46 37L30.5 31.5L25 47L19.5 31.5L4 37L15 25L4 13L19.5 18.5L25 3Z" fill="currentColor"/>
             <circle cx="25" cy="25" r="6" fill="#19072F"/>
           </svg>
         </span>
@@ -52,17 +41,13 @@
       </a>
 
       <div class="nav-links" id="navLinks">
-        <a class="nav-link active" href="#home">Home</a>
-        <a class="nav-link" href="#experience">Experience</a>
-        <a class="nav-link" href="#experience">Hospitality</a>
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#experience" class="nav-link">Hospitality</a>
+        <a href="#highlights" class="nav-link">The Carnival</a>
       </div>
 
       <div class="nav-actions">
-        <button
-          type="button"
-          class="nav-book-btn"
-          data-booking="Seat"
-        >
+        <button type="button" class="nav-book-btn" data-booking="Seat">
           Book Now
         </button>
 
@@ -71,8 +56,8 @@
           class="menu-toggle"
           id="menuToggle"
           aria-label="Open menu"
-          aria-expanded="false"
           aria-controls="navLinks"
+          aria-expanded="false"
         >
           <span></span>
           <span></span>
@@ -84,12 +69,12 @@
 
   <main id="main">
 
-    <!-- ====================================
+    <!-- ======================================
          SECTION 1
-         ORIGINAL CENTRED VIDEO HERO
-    ===================================== -->
+         ORIGINAL VIDEO HERO
+    ======================================= -->
 
-    <section class="carnival-hero" id="home">
+    <section class="carnival-hero" id="home" aria-label="Calabar Carnival 2026">
 
       <div class="hero-media">
         <video
@@ -103,12 +88,8 @@
           disablepictureinpicture
           aria-hidden="true"
         >
-          <source
-            src="images/calabar-carnival.mp4"
-            type="video/mp4"
-          >
+          <source src="images/calabar-carnival.mp4" type="video/mp4">
         </video>
-
         <div class="video-overlay"></div>
       </div>
 
@@ -133,19 +114,11 @@
           </p>
 
           <div class="hero-buttons">
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-booking="Seat"
-            >
+            <button type="button" class="btn btn-primary" data-booking="Seat">
               Book Your Experience
             </button>
 
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-booking="Build"
-            >
+            <button type="button" class="btn btn-secondary" data-booking="Build">
               Build Your Package
             </button>
           </div>
@@ -154,155 +127,174 @@
       </div>
 
       <div class="hero-bottom">
-
         <a href="#experience" class="discover-more">
           Discover More
           <span aria-hidden="true">↓</span>
         </a>
 
         <button
+          type="button"
           class="sound-button"
           id="soundButton"
-          type="button"
           aria-label="Turn on video sound"
           aria-pressed="false"
         >
           <span id="soundIcon" aria-hidden="true">♪</span>
           <span id="soundText">Turn On Sound</span>
         </button>
-
       </div>
 
     </section>
 
-    <!-- ====================================
+    <!-- ======================================
          SECTION 2
-         NEW EDITORIAL HOSPITALITY DESIGN
-         ALL INFORMATION IN ONE SCREEN
-    ===================================== -->
+         HOSPITALITY
+         ONLY THE REQUESTED CONTENT
+    ======================================= -->
 
     <section
       class="hospitality-section"
       id="experience"
-      aria-labelledby="hospitalityTitle"
+      aria-label="Carnival Hospitality"
     >
-
-      <!-- DEEP PURPLE BACKGROUND -->
       <div class="hospitality-atmosphere" aria-hidden="true"></div>
 
-      <!-- RIGHT IMAGE -->
-      <div class="hospitality-image-area">
-
+      <div class="hospitality-image-area" aria-hidden="true">
         <div class="hospitality-image-glow"></div>
-
         <div class="hospitality-image-float">
           <img
             src="images/girl.png"
-            alt="Carnival-inspired portrait celebrating colour and culture"
             class="hospitality-girl"
-            id="hospitalityGirl"
+            alt=""
             loading="lazy"
           >
         </div>
-
       </div>
 
-      <!-- SOFT IMAGE CONTRAST FOR TEXT -->
       <div class="hospitality-image-shade" aria-hidden="true"></div>
 
-      <!-- LEFT CONTENT -->
       <div class="hospitality-layout">
-
         <div class="hospitality-content">
 
-          <p class="hospitality-eyebrow">
-            CALABAR CARNIVAL 2026
+          <p class="hospitality-statement">
+            Verified hospitality access from
+            <strong>₦150,000 per person.</strong>
           </p>
 
-          <h2 id="hospitalityTitle" class="hospitality-heading">
-
-            <span class="heading-white">
-              Your Seat.
-            </span>
-
-            <span class="heading-green">
-              Your
-            </span>
-
-            <span class="heading-yellow">
-              Experience.
-            </span>
-
-          </h2>
-
-          <p class="hospitality-description">
-            Step into the celebration with the comfort,
-            access and excitement your Carnival
-            experience deserves.
-          </p>
-
-          <!-- PRICE FEATURE -->
-          <div class="hospitality-price-block">
-
-            <span class="hospitality-price-caption">
-              HOSPITALITY ACCESS
-            </span>
-
-            <p class="hospitality-price-copy">
-              Verified hospitality access from
-            </p>
-
-            <div class="hospitality-price">
-              ₦150,000
-              <span>per person</span>
-            </div>
-
-          </div>
-
-          <!-- EVENT DATE -->
-          <div class="hospitality-event">
-
-            <span class="hospitality-event-label">
-              FEATURED CARNIVAL DATE
-            </span>
-
-            <strong>December 28, 2026</strong>
-
-          </div>
-
-          <!-- REQUIRED EVENT NOTICE -->
-          <p class="hospitality-note">
+          <p class="hospitality-notice">
+            <strong>December 28, 2026.</strong>
             Select your preferred event date at booking.
             Exact ticketed event dates and seat availability
             are subject to official confirmation.
           </p>
 
-          <!-- CTA -->
-          <button
-            class="hospitality-book"
-            type="button"
-            data-booking="Seat"
-          >
-            Reserve Your Experience
-          </button>
-
         </div>
       </div>
+    </section>
+
+    <!-- ======================================
+         SECTION 3
+         NEW ICE BLUE CARNIVAL SCALE SECTION
+         INSPIRED BY UPLOADED REFERENCE
+    ======================================= -->
+
+    <section
+      class="carnival-scale-section"
+      id="highlights"
+      aria-labelledby="scaleTitle"
+    >
+
+      <!-- BACKGROUND WORDMARK -->
+      <div class="scale-background-word" aria-hidden="true">
+        CARNIVAL
+      </div>
+
+      <!-- SUBTLE BACKGROUND LIGHT -->
+      <div class="scale-light scale-light-one" aria-hidden="true"></div>
+      <div class="scale-light scale-light-two" aria-hidden="true"></div>
+
+      <!-- CENTRAL HERO MASK -->
+      <div class="scale-mask-stage" aria-hidden="true">
+        <div class="scale-mask-glow"></div>
+
+        <div class="scale-mask-floating">
+          <img
+            src="images/masks.png"
+            alt=""
+            class="scale-mask-image"
+            loading="lazy"
+          >
+        </div>
+      </div>
+
+      <!-- EDITORIAL HEADING -->
+      <div class="scale-heading-area">
+
+        <p class="scale-eyebrow">
+          CARNIVAL CALABAR & FESTIVALS
+        </p>
+
+        <h2 id="scaleTitle" class="scale-heading">
+          One carnival.<br>
+          <span>One rhythm.</span>
+          <em>Millions of memories.</em>
+        </h2>
+
+        <p class="scale-description">
+          This is not just a parade.<br>
+          This is Africa in motion.
+        </p>
+
+      </div>
+
+      <!-- GLASS STATISTICS ROW -->
+      <div class="scale-stats">
+
+        <article class="scale-stat-card">
+          <span class="scale-stat-number">31</span>
+          <span class="scale-stat-title">DAYS</span>
+          <p>Days of festival energy</p>
+        </article>
+
+        <article class="scale-stat-card">
+          <span class="scale-stat-number">2M+</span>
+          <span class="scale-stat-title">REVELERS</span>
+          <p>Expected across the celebration</p>
+        </article>
+
+        <article class="scale-stat-card">
+          <span class="scale-stat-number">25+</span>
+          <span class="scale-stat-title">COUNTRIES</span>
+          <p>Represented through the festival audience</p>
+        </article>
+
+        <article class="scale-stat-card">
+          <span class="scale-stat-number">07</span>
+          <span class="scale-stat-title">BANDS</span>
+          <p>Competing in colour, costume and creativity</p>
+        </article>
+
+        <article class="scale-stat-card scale-program-card">
+          <span class="scale-program-heading">THE CELEBRATION</span>
+          <p>
+            Children's Carnival, Kings' and Queens' Night,
+            music, food, culture and live shows.
+          </p>
+        </article>
+
+      </div>
+
+      <!-- MINIMAL VERTICAL LABEL -->
+      <span class="scale-side-label" aria-hidden="true">
+        CALABAR · NIGERIA · 2026
+      </span>
 
     </section>
 
   </main>
 
-  <!-- ====================================
-       BOOKING PACKAGE PREVIEW
-  ===================================== -->
-
-  <dialog
-    class="booking-dialog"
-    id="bookingDialog"
-    aria-labelledby="bookingTitle"
-  >
-
+  <!-- BOOKING PREVIEW -->
+  <dialog class="booking-dialog" id="bookingDialog" aria-labelledby="bookingTitle">
     <div class="dialog-inner">
 
       <button
@@ -314,54 +306,33 @@
         &times;
       </button>
 
-      <span class="dialog-eyebrow">
-        CALABAR CARNIVAL 2026
-      </span>
+      <span class="dialog-eyebrow">CALABAR CARNIVAL 2026</span>
 
-      <h2 id="bookingTitle">
-        Choose Your Experience
-      </h2>
+      <h2 id="bookingTitle">Choose Your Experience</h2>
 
       <p class="dialog-description">
-        Explore your preferred Carnival hospitality
-        experience. All prices and availability
-        are subject to confirmation.
+        Explore your preferred Carnival hospitality experience.
+        All prices and availability are subject to confirmation.
       </p>
 
       <div class="booking-options">
 
-        <button
-          type="button"
-          class="booking-option"
-          data-package="Seat"
-        >
+        <button type="button" class="booking-option" data-package="Seat">
           <strong>Seat</strong>
           <small>From ₦150,000 per person</small>
         </button>
 
-        <button
-          type="button"
-          class="booking-option"
-          data-package="Stay"
-        >
+        <button type="button" class="booking-option" data-package="Stay">
           <strong>Stay</strong>
           <small>From ₦500,000 per person sharing</small>
         </button>
 
-        <button
-          type="button"
-          class="booking-option"
-          data-package="Explore"
-        >
+        <button type="button" class="booking-option" data-package="Explore">
           <strong>Explore</strong>
           <small>From ₦620,000 per person sharing</small>
         </button>
 
-        <button
-          type="button"
-          class="booking-option"
-          data-package="Fly & Explore"
-        >
+        <button type="button" class="booking-option" data-package="Fly & Explore">
           <strong>Fly & Explore</strong>
           <small>From ₦920,000 per person, selected origins</small>
         </button>
@@ -369,12 +340,10 @@
       </div>
 
       <p class="dialog-note" id="dialogNote">
-        Full booking and checkout will be connected
-        when the booking system is ready.
+        Full booking and checkout will be connected later.
       </p>
 
     </div>
-
   </dialog>
 
 </body>
