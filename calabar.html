@@ -737,103 +737,100 @@
     </div>
   </dialog>
   
-<!-- SEE AFRICA LOADING SCREEN -->
+
 <style>
-#calabar-loader {
+#deployment-screen {
   position: fixed;
   inset: 0;
   z-index: 999999;
-  background: #091810;
-  color: #fff;
+  background: #081D16;
+  color: white;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   text-align: center;
   font-family: Arial, sans-serif;
-  transition: opacity .6s ease;
 }
-.calabar-loader-inner {
-  width: min(85%, 390px);
+.deployment-content {
+  width: 85%;
+  max-width: 420px;
 }
-.calabar-loader-inner h1 {
-  font-size: clamp(26px, 6vw, 42px);
-  margin: 18px 0;
+.deployment-content h1 {
+  font-size: clamp(28px, 6vw, 46px);
+  margin: 20px 0;
 }
-.calabar-gold {
-  color: #e6c479;
+.gold {
+  color: #E8C77B;
   letter-spacing: 3px;
-  font-size: 12px;
 }
-#calabar-percent {
-  font-size: 46px;
-  font-weight: 700;
-  margin: 30px 0 16px;
+#real-timer {
+  color: #E8C77B;
+  font-size: clamp(38px, 9vw, 58px);
+  font-weight: bold;
+  margin: 35px 0 20px;
+  font-variant-numeric: tabular-nums;
 }
-.calabar-track {
+.loading-track {
+  width: 100%;
   height: 6px;
-  background: #344438;
+  background: #314C3F;
   border-radius: 20px;
   overflow: hidden;
 }
-#calabar-progress {
+.loading-bar {
+  width: 35%;
   height: 100%;
-  width: 0;
-  background: #e6c479;
-  transition: width .25s ease;
+  background: #E8C77B;
+  border-radius: 20px;
+  animation: loading 2s infinite ease-in-out;
 }
-.calabar-loader-inner p {
-  color: #aab8ae;
-  font-size: 13px;
-  margin-top: 18px;
+@keyframes loading {
+  0% { transform: translateX(-110%); }
+  100% { transform: translateX(310%); }
+}
+.status {
+  margin-top: 24px;
+  color: #B9C9C0;
+  font-size: 14px;
 }
 </style>
 
-<div id="calabar-loader" role="status"
-     aria-label="Loading Calabar Carnival website">
-  <div class="calabar-loader-inner">
-    <div class="calabar-gold">SEE AFRICA PRESENTS</div>
+<div id="deployment-screen">
+  <div class="deployment-content">
+    <div class="gold">SEE AFRICA PRESENTS</div>
     <h1>CALABAR<br>CARNIVAL</h1>
-    <div class="calabar-gold">THE BEAT CALLS. ANSWER IT.</div>
+    <p>Preparing something extraordinary...</p>
 
-    <div id="calabar-percent">0%</div>
-    <div class="calabar-track">
-      <div id="calabar-progress"></div>
+    <div id="real-timer">00:00:00</div>
+
+    <div class="loading-track">
+      <div class="loading-bar"></div>
     </div>
-    <p>Preparing your carnival experience...</p>
+
+    <p class="status">Deployment in progress...</p>
   </div>
 </div>
 
 <script>
 (function () {
-  const loader = document.getElementById("calabar-loader");
-  const bar = document.getElementById("calabar-progress");
-  const counter = document.getElementById("calabar-percent");
-  let progress = 0;
-  let loaded = document.readyState === "complete";
+  const start = Date.now();
+  const display = document.getElementById("real-timer");
 
-  window.addEventListener("load", () => {
-    loaded = true;
-  });
+  function updateTimer() {
+    const seconds = Math.floor((Date.now() - start) / 1000);
 
-  function update() {
-    // Animated estimate, not actual network percentage.
-    const target = loaded ? 100 : 90;
-    progress = Math.min(target, progress + (loaded ? 5 : 1));
+    const h = String(Math.floor(seconds / 3600)).padStart(2, "0");
+    const m = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
+    const s = String(seconds % 60).padStart(2, "0");
 
-    bar.style.width = progress + "%";
-    counter.textContent = progress + "%";
-
-    if (progress >= 100) {
-      loader.style.opacity = "0";
-      setTimeout(() => loader.remove(), 600);
-    } else {
-      setTimeout(update, 35);
-    }
+    display.textContent = `${h}:${m}:${s}`;
   }
 
-  update();
+  updateTimer();
+  setInterval(updateTimer, 250);
 })();
 </script>
+
 
 </body>
 </html>
