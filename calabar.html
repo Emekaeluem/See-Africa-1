@@ -736,5 +736,104 @@
       </button>
     </div>
   </dialog>
+  
+<!-- SEE AFRICA LOADING SCREEN -->
+<style>
+#calabar-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: #091810;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  transition: opacity .6s ease;
+}
+.calabar-loader-inner {
+  width: min(85%, 390px);
+}
+.calabar-loader-inner h1 {
+  font-size: clamp(26px, 6vw, 42px);
+  margin: 18px 0;
+}
+.calabar-gold {
+  color: #e6c479;
+  letter-spacing: 3px;
+  font-size: 12px;
+}
+#calabar-percent {
+  font-size: 46px;
+  font-weight: 700;
+  margin: 30px 0 16px;
+}
+.calabar-track {
+  height: 6px;
+  background: #344438;
+  border-radius: 20px;
+  overflow: hidden;
+}
+#calabar-progress {
+  height: 100%;
+  width: 0;
+  background: #e6c479;
+  transition: width .25s ease;
+}
+.calabar-loader-inner p {
+  color: #aab8ae;
+  font-size: 13px;
+  margin-top: 18px;
+}
+</style>
+
+<div id="calabar-loader" role="status"
+     aria-label="Loading Calabar Carnival website">
+  <div class="calabar-loader-inner">
+    <div class="calabar-gold">SEE AFRICA PRESENTS</div>
+    <h1>CALABAR<br>CARNIVAL</h1>
+    <div class="calabar-gold">THE BEAT CALLS. ANSWER IT.</div>
+
+    <div id="calabar-percent">0%</div>
+    <div class="calabar-track">
+      <div id="calabar-progress"></div>
+    </div>
+    <p>Preparing your carnival experience...</p>
+  </div>
+</div>
+
+<script>
+(function () {
+  const loader = document.getElementById("calabar-loader");
+  const bar = document.getElementById("calabar-progress");
+  const counter = document.getElementById("calabar-percent");
+  let progress = 0;
+  let loaded = document.readyState === "complete";
+
+  window.addEventListener("load", () => {
+    loaded = true;
+  });
+
+  function update() {
+    // Animated estimate, not actual network percentage.
+    const target = loaded ? 100 : 90;
+    progress = Math.min(target, progress + (loaded ? 5 : 1));
+
+    bar.style.width = progress + "%";
+    counter.textContent = progress + "%";
+
+    if (progress >= 100) {
+      loader.style.opacity = "0";
+      setTimeout(() => loader.remove(), 600);
+    } else {
+      setTimeout(update, 35);
+    }
+  }
+
+  update();
+})();
+</script>
+
 </body>
 </html>
