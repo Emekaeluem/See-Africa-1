@@ -1,4 +1,10 @@
 
+/* ========================================
+   SEE AFRICA × FIRSTBANK
+   CALABAR CARNIVAL 2026
+   COMPLETE WEBSITE STYLESHEET
+======================================== */
+
 :root {
   --navy: #062b52;
   --deep: #041a33;
@@ -12,9 +18,7 @@
   --max: 1240px;
 }
 
-*,
-*::before,
-*::after {
+*, *::before, *::after {
   box-sizing: border-box;
 }
 
@@ -25,8 +29,8 @@ html {
 
 body {
   margin: 0;
-  background: white;
   color: var(--ink);
+  background: #fff;
   font-family: "DM Sans", sans-serif;
   overflow-x: hidden;
 }
@@ -40,32 +44,39 @@ button, input, select {
   font: inherit;
 }
 
-button { cursor: pointer; }
+button {
+  cursor: pointer;
+}
 
 a {
   color: inherit;
   text-decoration: none;
 }
 
-h1,h2,h3,h4,p {
+h1, h2, h3, h4, p {
   margin-top: 0;
 }
 
-h1,h2,h3,h4 {
+h1, h2, h3, h4 {
   font-family: "Manrope", sans-serif;
   letter-spacing: -.045em;
 }
 
 h2 {
-  font-size: clamp(2.25rem,4.8vw,4.7rem);
+  font-size: clamp(2.25rem, 4.8vw, 4.7rem);
   line-height: 1.12;
   margin-bottom: 25px;
 }
 
-h3 { line-height: 1.2; }
-p { line-height: 1.75; }
+h3 {
+  line-height: 1.2;
+}
 
-h1 em,h2 em,h3 em {
+p {
+  line-height: 1.75;
+}
+
+h1 em, h2 em, h3 em {
   color: #d3a72b;
   font-style: normal;
 }
@@ -80,12 +91,12 @@ summary:focus-visible {
 }
 
 .container {
-  width: min(var(--max),calc(100% - 48px));
+  width: min(var(--max), calc(100% - 48px));
   margin-inline: auto;
 }
 
 .section {
-  padding: clamp(76px,9vw,135px) 0;
+  padding: clamp(76px, 9vw, 135px) 0;
 }
 
 .eyebrow {
@@ -98,7 +109,9 @@ summary:focus-visible {
   margin-bottom: 19px;
 }
 
-.eyebrow.gold { color: var(--gold); }
+.eyebrow.gold {
+  color: var(--gold);
+}
 
 .section-heading {
   max-width: 850px;
@@ -128,7 +141,9 @@ summary:focus-visible {
   margin-top: 20px;
 }
 
-.center { text-align: center; }
+.center {
+  text-align: center;
+}
 
 .text-link {
   display: inline-block;
@@ -152,7 +167,7 @@ summary:focus-visible {
   font-weight: 800;
   line-height: 1.3;
   text-align: center;
-  transition: background .25s,transform .25s;
+  transition: background .25s, transform .25s;
 }
 
 .btn:hover {
@@ -164,14 +179,18 @@ summary:focus-visible {
   background: var(--gold);
 }
 
-.btn-gold:hover { background: #ffdc72; }
+.btn-gold:hover {
+  background: #ffdc72;
+}
 
 .btn-navy {
   color: white;
   background: var(--navy);
 }
 
-.btn-navy:hover { background: #125091; }
+.btn-navy:hover {
+  background: #125091;
+}
 
 .btn-outline {
   color: white;
@@ -205,9 +224,13 @@ summary:focus-visible {
   padding: 12px;
 }
 
-.skip-link:focus { top: 10px; }
+.skip-link:focus {
+  top: 10px;
+}
 
-/* HEADER */
+/* ========================================
+   SPONSOR STRIP
+======================================== */
 
 .sponsor-strip {
   display: flex;
@@ -223,6 +246,10 @@ summary:focus-visible {
   font-weight: 700;
 }
 
+/* ========================================
+   FIVE-LOGO HEADER
+======================================== */
+
 .header {
   position: sticky;
   top: 0;
@@ -236,15 +263,15 @@ summary:focus-visible {
   align-items: center;
   justify-content: space-between;
   min-height: 82px;
-  gap: 16px;
+  gap: 12px;
 }
 
 .brand-logos {
   display: flex;
   align-items: center;
-  flex-shrink: 0;
+  flex-shrink: 1;
   min-width: 0;
-  gap: 12px;
+  gap: 10px;
 }
 
 .brand {
@@ -252,19 +279,22 @@ summary:focus-visible {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-width: 0;
   gap: 4px;
   color: white;
+  min-width: 0;
+  flex-shrink: 0;
 }
 
 .brand img {
-  height: 37px;
+  height: 33px;
   width: auto;
-  max-width: 110px;
+  max-width: 100px;
   object-fit: contain;
 }
 
-.firstbank-brand img { max-width: 120px; }
+.firstbank-brand img {
+  max-width: 105px;
+}
 
 .brand small {
   color: var(--gold);
@@ -274,28 +304,57 @@ summary:focus-visible {
   white-space: nowrap;
 }
 
+.okhma-brand img {
+  width: 105px;
+  height: auto;
+  max-height: 39px;
+}
+
+.seeafrica-brand img {
+  max-width: 82px;
+}
+
 .brand-divider {
-  height: 28px;
+  height: 25px;
   width: 1px;
-  flex-shrink: 0;
   background: #ffffff40;
+  flex-shrink: 0;
+}
+
+.calabar-logo-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.calabar-brand img {
+  max-width: 65px;
+  max-height: 43px;
+}
+
+.festival-brand img {
+  max-width: 48px;
+  height: 43px;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 11px;
 }
 
 .nav-links a {
   color: #dce7f4;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   white-space: nowrap;
   transition: color .2s;
 }
 
-.nav-links a:hover { color: var(--gold); }
+.nav-links a:hover {
+  color: var(--gold);
+}
 
 .nav-actions {
   display: flex;
@@ -317,14 +376,16 @@ summary:focus-visible {
   font-size: 27px;
 }
 
-/* ORIGINAL HERO */
+/* ========================================
+   ORIGINAL HERO
+======================================== */
 
 .hero {
   position: relative;
   isolation: isolate;
   display: flex;
   align-items: center;
-  min-height: min(820px,100svh);
+  min-height: min(820px, 100svh);
   color: white;
   overflow: hidden;
   background: #08274e
@@ -341,9 +402,13 @@ summary:focus-visible {
   height: 100%;
 }
 
-.hero-media { z-index: -1; }
+.hero-media {
+  z-index: -1;
+}
 
-.hero-media video { object-fit: cover; }
+.hero-media video {
+  object-fit: cover;
+}
 
 .hero-overlay {
   background:
@@ -368,13 +433,15 @@ summary:focus-visible {
 
 .hero h1 {
   max-width: 990px;
-  font-size: clamp(3.4rem,8vw,7.7rem);
+  font-size: clamp(3.4rem, 8vw, 7.7rem);
   line-height: 1.02;
   letter-spacing: -.07em;
   margin: 20px 0 26px;
 }
 
-.hero h1 em { color: var(--gold); }
+.hero h1 em {
+  color: var(--gold);
+}
 
 .hero-content > p {
   max-width: 560px;
@@ -396,7 +463,9 @@ summary:focus-visible {
   margin-top: 10px;
 }
 
-.sponsor-pill strong { color: var(--gold); }
+.sponsor-pill strong {
+  color: var(--gold);
+}
 
 .hero-bottom {
   display: flex;
@@ -419,7 +488,9 @@ summary:focus-visible {
   font-size: 12px;
 }
 
-/* PHOTO COMPONENTS */
+/* ========================================
+   PHOTO COMPONENTS
+======================================== */
 
 .split {
   display: grid;
@@ -446,7 +517,9 @@ summary:focus-visible {
   transition: transform .6s;
 }
 
-.photo-frame:hover img { transform: scale(1.045); }
+.photo-frame:hover img {
+  transform: scale(1.045);
+}
 
 .photo-frame figcaption {
   position: absolute;
@@ -461,11 +534,17 @@ summary:focus-visible {
   letter-spacing: .13em;
 }
 
-/* THEME */
+/* ========================================
+   THEME SECTION
+======================================== */
 
-.theme-section { background: var(--cream); }
+.theme-section {
+  background: var(--cream);
+}
 
-/* STORY */
+/* ========================================
+   FESTIVAL STORY
+======================================== */
 
 .story-section {
   background: var(--deep);
@@ -473,7 +552,9 @@ summary:focus-visible {
 }
 
 .story-section .section-heading p,
-.story-copy p { color: #bcd0e3; }
+.story-copy p {
+  color: #bcd0e3;
+}
 
 .story-row {
   display: grid;
@@ -483,9 +564,13 @@ summary:focus-visible {
   margin-bottom: 110px;
 }
 
-.story-row:last-child { margin-bottom: 0; }
+.story-row:last-child {
+  margin-bottom: 0;
+}
 
-.story-row.reverse .story-images { order: 2; }
+.story-row.reverse .story-images {
+  order: 2;
+}
 
 .story-images {
   display: grid;
@@ -518,16 +603,26 @@ summary:focus-visible {
   margin: 17px 0;
 }
 
-.story-copy .text-link { color: var(--gold); }
+.story-copy .text-link {
+  color: var(--gold);
+}
 
-/* FIRSTBANK SPONSOR */
+/* ========================================
+   FIRSTBANK SPONSOR
+======================================== */
 
-.sponsor-section { background: var(--gold); }
+.sponsor-section {
+  background: var(--gold);
+}
 
 .sponsor-section h2,
-.sponsor-section .eyebrow { color: var(--navy); }
+.sponsor-section .eyebrow {
+  color: var(--navy);
+}
 
-.sponsor-section p { color: #233e55; }
+.sponsor-section p {
+  color: #233e55;
+}
 
 .sponsor-logo {
   width: auto;
@@ -537,9 +632,13 @@ summary:focus-visible {
   margin: 18px 0 25px;
 }
 
-/* HOSPITALITY */
+/* ========================================
+   HOSPITALITY
+======================================== */
 
-.hospitality-section { background: white; }
+.hospitality-section {
+  background: white;
+}
 
 .check-list {
   padding: 0;
@@ -563,9 +662,13 @@ summary:focus-visible {
   font-weight: 900;
 }
 
-/* PACKAGE CARDS */
+/* ========================================
+   FOUR PACKAGES
+======================================== */
 
-.packages-section { background: #eef3f7; }
+.packages-section {
+  background: #eef3f7;
+}
 
 .package-grid {
   display: grid;
@@ -661,16 +764,22 @@ summary:focus-visible {
   margin-bottom: 23px;
 }
 
-.package-content .btn { margin-top: auto; }
+.package-content .btn {
+  margin-top: auto;
+}
 
-/* FIVE STEP JOURNEY */
+/* ========================================
+   FIVE STEP JOURNEY
+======================================== */
 
 .journey-section {
   color: white;
   background: var(--navy);
 }
 
-.journey-section h2 em { color: var(--gold); }
+.journey-section h2 em {
+  color: var(--gold);
+}
 
 .journey-layout {
   display: grid;
@@ -710,7 +819,9 @@ summary:focus-visible {
   font-weight: 900;
 }
 
-.journey-step strong { font-size: 16px; }
+.journey-step strong {
+  font-size: 16px;
+}
 
 .journey-step small {
   font-size: 12px;
@@ -774,11 +885,17 @@ summary:focus-visible {
   color: #d6e3ef;
 }
 
-.journey-feature-content .btn { margin-top: 15px; }
+.journey-feature-content .btn {
+  margin-top: 15px;
+}
 
-/* ATTRACTIONS */
+/* ========================================
+   ATTRACTIONS
+======================================== */
 
-.attractions-section { background: white; }
+.attractions-section {
+  background: white;
+}
 
 .attraction-grid {
   display: grid;
@@ -818,7 +935,9 @@ summary:focus-visible {
   margin: 14px 0 0;
 }
 
-.attraction-body { padding: 26px 28px; }
+.attraction-body {
+  padding: 26px 28px;
+}
 
 .attraction-body p {
   color: var(--muted);
@@ -834,7 +953,9 @@ summary:focus-visible {
   border-radius: 7px;
 }
 
-.info-panel h3 { font-size: 19px; }
+.info-panel h3 {
+  font-size: 19px;
+}
 
 .info-panel p {
   color: var(--muted);
@@ -842,11 +963,17 @@ summary:focus-visible {
   font-size: 14px;
 }
 
-/* LOGISTICS */
+/* ========================================
+   LOGISTICS
+======================================== */
 
-.logistics-section { background: #f3f7fa; }
+.logistics-section {
+  background: #f3f7fa;
+}
 
-.logistics-intro { margin-bottom: 45px; }
+.logistics-intro {
+  margin-bottom: 45px;
+}
 
 .logistics-grid {
   display: grid;
@@ -898,18 +1025,26 @@ summary:focus-visible {
   font-size: 14px;
 }
 
-.upgrade-list > div:last-child { border: 0; }
+.upgrade-list > div:last-child {
+  border: 0;
+}
 
 .upgrade-list strong {
   color: var(--navy);
   text-align: right;
 }
 
-/* INTERNATIONAL */
+/* ========================================
+   INTERNATIONAL VISITORS
+======================================== */
 
-.international-section { background: white; }
+.international-section {
+  background: white;
+}
 
-.international-intro { margin-bottom: 40px; }
+.international-intro {
+  margin-bottom: 40px;
+}
 
 .international-grid {
   display: grid;
@@ -939,7 +1074,9 @@ summary:focus-visible {
   margin-bottom: 27px;
 }
 
-/* ARTIST */
+/* ========================================
+   STAR ARTIST — DAVIDO IMAGE
+======================================== */
 
 .artist-section {
   background: #030c1b;
@@ -949,9 +1086,14 @@ summary:focus-visible {
 
 .artist-layout {
   display: grid;
-  grid-template-columns: 1.25fr .75fr;
-  gap: 50px;
+  grid-template-columns: 1.15fr .85fr;
+  gap: 55px;
   align-items: center;
+}
+
+.artist-content {
+  position: relative;
+  z-index: 2;
 }
 
 .artist-section h2 {
@@ -970,34 +1112,58 @@ summary:focus-visible {
   max-width: 600px;
 }
 
-.artist-section .small-note { color: #9faebf; }
+.artist-section .small-note {
+  color: #9faebf;
+}
 
-.artist-decoration {
-  aspect-ratio: 1;
+.artist-image-wrap {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  text-align: center;
-  border: 1px solid #e9bb353f;
+  min-height: 500px;
+  overflow: hidden;
+  border-radius: 18px;
+  background:
+    radial-gradient(
+      circle at 50% 70%,
+      rgba(241,197,65,.2),
+      transparent 55%
+    ),
+    linear-gradient(135deg,#0c2444,#030c1b);
+}
+
+.artist-image-wrap::before {
+  content: "";
+  position: absolute;
+  width: 75%;
+  aspect-ratio: 1;
+  bottom: 0;
   border-radius: 50%;
-  background: radial-gradient(circle,#10365e,#030c1b 73%);
+  background: rgba(241,197,65,.11);
+  filter: blur(55px);
 }
 
-.artist-decoration span {
-  color: var(--gold);
-  font-size: 10px;
-  letter-spacing: .13em;
-  margin-bottom: 25px;
+.davido-image {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  max-width: 550px;
+  max-height: 600px;
+  height: auto;
+  object-fit: contain;
+  object-position: center bottom;
+  filter: drop-shadow(0 20px 35px rgba(0,0,0,.3));
 }
 
-.artist-decoration strong {
-  font: 800 clamp(24px,3vw,50px)/1.15 "Manrope",sans-serif;
+/* ========================================
+   GALLERY
+======================================== */
+
+.gallery-section {
+  background: #edf3f8;
 }
-
-/* PHOTO GALLERY */
-
-.gallery-section { background: #edf3f8; }
 
 .gallery-heading {
   display: flex;
@@ -1058,7 +1224,9 @@ summary:focus-visible {
   transition: transform .4s;
 }
 
-.gallery-card:hover img { transform: scale(1.05); }
+.gallery-card:hover img {
+  transform: scale(1.05);
+}
 
 .gallery-card span {
   position: absolute;
@@ -1071,9 +1239,13 @@ summary:focus-visible {
   font-weight: 700;
 }
 
-/* BOOKING */
+/* ========================================
+   BOOKING CALCULATOR
+======================================== */
 
-.booking-section { background: #f1f5f8; }
+.booking-section {
+  background: #f1f5f8;
+}
 
 .booking-layout {
   display: grid;
@@ -1118,9 +1290,13 @@ summary:focus-visible {
   font-weight: 500;
 }
 
-.form-grid .full-field { grid-column: 1 / -1; }
+.form-grid .full-field {
+  grid-column: 1 / -1;
+}
 
-.form-actions { margin-top: 28px; }
+.form-actions {
+  margin-top: 28px;
+}
 
 .booking-summary {
   position: sticky;
@@ -1130,7 +1306,9 @@ summary:focus-visible {
   border: 0;
 }
 
-.booking-summary h3 { font-size: 27px; }
+.booking-summary h3 {
+  font-size: 27px;
+}
 
 .summary-amount {
   color: var(--gold);
@@ -1158,9 +1336,13 @@ summary:focus-visible {
   line-height: 1.8;
 }
 
-.summary-details ul { padding-left: 18px; }
+.summary-details ul {
+  padding-left: 18px;
+}
 
-.booking-summary .small-note { color: #bfd0e2; }
+.booking-summary .small-note {
+  color: #bfd0e2;
+}
 
 .booking-summary .btn {
   width: 100%;
@@ -1172,22 +1354,34 @@ summary:focus-visible {
   cursor: not-allowed;
 }
 
-/* URGENCY */
+/* ========================================
+   URGENCY
+======================================== */
 
 .urgency-section {
   background: var(--deep);
   color: white;
 }
 
-.urgency-section p { color: #c3d3e2; }
+.urgency-section p {
+  color: #c3d3e2;
+}
 
-.urgency-section .small-note { color: #a8bacd; }
+.urgency-section .small-note {
+  color: #a8bacd;
+}
 
-.urgency-section h2 em { color: var(--gold); }
+.urgency-section h2 em {
+  color: var(--gold);
+}
 
-/* FAQ */
+/* ========================================
+   FAQ
+======================================== */
 
-.faq-section { background: white; }
+.faq-section {
+  background: white;
+}
 
 .faq-layout {
   display: grid;
@@ -1195,7 +1389,9 @@ summary:focus-visible {
   gap: 60px;
 }
 
-.faq-layout > div:first-child > p { color: var(--muted); }
+.faq-layout > div:first-child > p {
+  color: var(--muted);
+}
 
 .faq-list details {
   padding: 21px 0;
@@ -1211,7 +1407,9 @@ summary:focus-visible {
   font-weight: 800;
 }
 
-.faq-list summary::-webkit-details-marker { display: none; }
+.faq-list summary::-webkit-details-marker {
+  display: none;
+}
 
 .faq-list summary::after {
   content: "+";
@@ -1222,7 +1420,9 @@ summary:focus-visible {
   font-size: 23px;
 }
 
-.faq-list details[open] summary::after { content: "−"; }
+.faq-list details[open] summary::after {
+  content: "−";
+}
 
 .faq-list details p {
   margin: 15px 0 0;
@@ -1230,7 +1430,9 @@ summary:focus-visible {
   font-size: 14px;
 }
 
-/* FINAL CTA */
+/* ========================================
+   FINAL CTA
+======================================== */
 
 .final-cta {
   background: linear-gradient(125deg,#082b50,#063c72);
@@ -1255,7 +1457,9 @@ summary:focus-visible {
   margin-top: 38px;
 }
 
-/* FOOTER */
+/* ========================================
+   FOOTER — FIVE LOGOS
+======================================== */
 
 .footer {
   padding: 65px 0 25px;
@@ -1270,21 +1474,53 @@ summary:focus-visible {
   gap: 30px;
 }
 
-.footer-top h3 { font-size: clamp(27px,4vw,45px); }
+.footer-top h3 {
+  font-size: clamp(27px,4vw,45px);
+}
 
-.footer-top p { color: #b7c9d9; }
+.footer-top p {
+  color: #b7c9d9;
+}
 
 .footer-logos {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 18px;
 }
 
 .footer-logos img {
-  max-width: 115px;
+  width: auto;
+  height: auto;
   max-height: 50px;
   object-fit: contain;
+}
+
+.footer-firstbank {
+  max-width: 115px;
+}
+
+.footer-okhma {
+  max-width: 130px;
+}
+
+.footer-seeafrica {
+  max-width: 100px;
+}
+
+.footer-calabar-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-calabar {
+  max-width: 65px;
+}
+
+.footer-festival {
+  max-width: 55px;
 }
 
 .footer-disclaimer {
@@ -1311,9 +1547,13 @@ summary:focus-visible {
   gap: 17px;
 }
 
-.footer-bottom a:hover { color: var(--gold); }
+.footer-bottom a:hover {
+  color: var(--gold);
+}
 
-/* FULLSCREEN PHOTO VIEWER */
+/* ========================================
+   FULLSCREEN PHOTO VIEWER
+======================================== */
 
 .lightbox {
   position: fixed;
@@ -1326,7 +1566,9 @@ summary:focus-visible {
   background: #001020f5;
 }
 
-.lightbox[aria-hidden="false"] { display: flex; }
+.lightbox[aria-hidden="false"] {
+  display: flex;
+}
 
 .lightbox img {
   max-width: 92vw;
@@ -1347,9 +1589,20 @@ summary:focus-visible {
   font-size: 25px;
 }
 
-#lightboxClose { top: 15px; right: 18px; }
-#lightboxPrev { top: 50%; left: 12px; }
-#lightboxNext { top: 50%; right: 12px; }
+#lightboxClose {
+  top: 15px;
+  right: 18px;
+}
+
+#lightboxPrev {
+  top: 50%;
+  left: 12px;
+}
+
+#lightboxNext {
+  top: 50%;
+  right: 12px;
+}
 
 #lightboxCounter {
   position: absolute;
@@ -1358,31 +1611,76 @@ summary:focus-visible {
   font-size: 12px;
 }
 
-/* SCROLL REVEAL */
+/* ========================================
+   SCROLL REVEAL
+======================================== */
 
 .reveal {
+  opacity: 1;
+  transform: none;
+}
+
+.js-ready .reveal {
   opacity: 0;
   transform: translateY(28px);
   transition: opacity .7s ease,transform .7s ease;
 }
 
-.reveal.visible {
+.js-ready .reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* TABLET */
+/* ========================================
+   LAPTOP AND TABLET
+======================================== */
 
-@media (max-width: 1200px) {
-  .nav-links { gap: 11px; }
-  .nav-links a { font-size: 11px; }
-  .brand img { height: 32px; max-width: 87px; }
-  .firstbank-brand img { max-width: 100px; }
-  .package-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+@media (max-width: 1250px) {
+  .header .nav {
+    gap: 10px;
+  }
+
+  .brand-logos {
+    gap: 7px;
+  }
+
+  .brand img {
+    max-height: 30px;
+  }
+
+  .okhma-brand img {
+    width: 85px;
+    max-height: 33px;
+  }
+
+  .calabar-brand img {
+    max-width: 48px;
+  }
+
+  .festival-brand img {
+    max-width: 40px;
+    height: 35px;
+  }
 }
 
-@media (max-width: 980px) {
-  .menu-button { display: block; }
+@media (max-width: 1200px) {
+  .nav-links {
+    gap: 10px;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+  }
+
+  .package-grid {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+}
+
+@media (max-width: 1100px) {
+  .menu-button {
+    display: block;
+  }
 
   .nav-links {
     display: none;
@@ -1390,44 +1688,76 @@ summary:focus-visible {
     top: 100%;
     left: 0;
     right: 0;
+    background: var(--deep);
     flex-direction: column;
     align-items: stretch;
-    gap: 0;
     padding: 18px 24px 28px;
-    background: var(--deep);
+    gap: 0;
     box-shadow: 0 15px 35px #0015295c;
     max-height: calc(100svh - 82px);
     overflow-y: auto;
   }
 
-  .nav-links.open { display: flex; }
-
-  .nav-links a {
-    padding: 15px 0;
-    border-bottom: 1px solid #ffffff1f;
-    font-size: 14px;
+  .nav-links.open {
+    display: flex;
   }
 
-  .story-row,
-  .journey-layout,
-  .faq-layout { grid-template-columns: 1fr; }
-
-  .story-row.reverse .story-images { order: initial; }
-  .story-row { margin-bottom: 85px; }
-
-  .logistics-grid { grid-template-columns: repeat(2,1fr); }
-  .booking-layout { grid-template-columns: 1fr; }
-  .booking-summary { position: static; }
-  .artist-layout { grid-template-columns: 1.3fr .7fr; }
+  .nav-links a {
+    padding: 14px 0;
+    border-bottom: 1px solid #ffffff20;
+    font-size: 14px;
+  }
 }
 
-/* MOBILE AND IPHONE */
+@media (max-width: 980px) {
+  .story-row,
+  .journey-layout,
+  .faq-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .story-row.reverse .story-images {
+    order: initial;
+  }
+
+  .story-row {
+    margin-bottom: 85px;
+  }
+
+  .logistics-grid {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .booking-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-summary {
+    position: static;
+  }
+
+  .artist-layout {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+}
+
+/* ========================================
+   MOBILE AND IPHONE
+======================================== */
 
 @media (max-width: 720px) {
-  html { scroll-padding-top: 76px; }
+  html {
+    scroll-padding-top: 76px;
+  }
 
-  .container { width: calc(100% - 32px); }
-  .section { padding: 72px 0; }
+  .container {
+    width: calc(100% - 32px);
+  }
+
+  .section {
+    padding: 72px 0;
+  }
 
   .sponsor-strip {
     flex-direction: column;
@@ -1436,34 +1766,84 @@ summary:focus-visible {
     font-size: 8px;
   }
 
-  .nav { min-height: 70px; gap: 8px; }
-  .brand-logos { gap: 6px; }
+  .header .nav {
+    min-height: 75px;
+    gap: 8px;
+  }
+
+  .brand-logos {
+    gap: 4px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .brand-divider {
+    height: 19px;
+    margin: 0 2px;
+  }
 
   .brand img {
-    height: 26px;
-    max-width: 64px;
+    max-height: 24px;
+    max-width: 47px;
   }
 
-  .firstbank-brand img { max-width: 78px; }
-  .brand-divider { height: 24px; }
-  .brand small { font-size: 7px; }
+  .firstbank-brand img {
+    max-width: 55px;
+  }
+
+  .brand small {
+    font-size: 5px;
+    letter-spacing: 0;
+  }
+
+  .okhma-brand img {
+    width: 54px;
+    max-height: 24px;
+  }
+
+  .seeafrica-brand img {
+    max-width: 42px;
+  }
+
+  .calabar-logo-group {
+    gap: 3px;
+  }
+
+  .calabar-brand img {
+    max-width: 31px;
+  }
+
+  .festival-brand img {
+    max-width: 29px;
+    height: 29px;
+  }
 
   .nav-book {
-    min-height: 36px;
-    padding: 10px 8px;
-    font-size: 10px;
+    padding: 8px 7px;
+    min-height: 33px;
+    font-size: 9px;
   }
 
-  .menu-button { font-size: 22px; }
+  .menu-button {
+    padding: 0;
+    font-size: 22px;
+  }
 
-  .hero { min-height: calc(100svh - 70px); }
-  .hero-content { padding-block: 105px 48px; }
+  .hero {
+    min-height: calc(100svh - 75px);
+  }
+
+  .hero-content {
+    padding-block: 105px 48px;
+  }
 
   .hero h1 {
     font-size: clamp(3.15rem,13vw,5.3rem);
   }
 
-  .hero-content > p { font-size: 15px; }
+  .hero-content > p {
+    font-size: 15px;
+  }
 
   .hero-bottom {
     margin-top: 50px;
@@ -1471,65 +1851,176 @@ summary:focus-visible {
     letter-spacing: .04em;
   }
 
-  .button-row .btn { width: 100%; }
+  .button-row .btn {
+    width: 100%;
+  }
 
   .split,
   .attraction-grid,
-  .international-grid { grid-template-columns: 1fr; }
-
-  .photo-frame { min-height: 330px; }
-  .story-row { gap: 35px; }
-  .story-images { gap: 8px; }
-  .story-images img:nth-child(2) { transform: translateY(17px); }
-
-  .package-grid { grid-template-columns: 1fr; }
-  .package-image { height: 240px; }
-  .journey-feature { min-height: 430px; }
-  .journey-feature-content { padding: 25px; }
-  .journey-ornament { top: 5%; }
-
-  .gallery-track { grid-auto-columns: 78%; }
-  .form-grid { grid-template-columns: 1fr; }
-  .form-grid .full-field { grid-column: auto; }
-  .upgrade-list > div { font-size: 12px; }
-  .artist-layout { grid-template-columns: 1fr; }
-
-  .artist-decoration {
-    width: 100%;
-    max-width: 320px;
-    margin-inline: auto;
+  .international-grid {
+    grid-template-columns: 1fr;
   }
 
-  .footer-top { flex-direction: column; }
-  .footer-logos img { max-width: 85px; max-height: 42px; }
+  .photo-frame {
+    min-height: 330px;
+  }
+
+  .story-row {
+    gap: 35px;
+  }
+
+  .story-images {
+    gap: 8px;
+  }
+
+  .story-images img:nth-child(2) {
+    transform: translateY(17px);
+  }
+
+  .package-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .package-image {
+    height: 240px;
+  }
+
+  .journey-feature {
+    min-height: 430px;
+  }
+
+  .journey-feature-content {
+    padding: 25px;
+  }
+
+  .journey-ornament {
+    top: 5%;
+  }
+
+  .gallery-track {
+    grid-auto-columns: 78%;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-grid .full-field {
+    grid-column: auto;
+  }
+
+  .upgrade-list > div {
+    font-size: 12px;
+  }
+
+  .artist-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .artist-name {
+    font-size: clamp(62px,17vw,100px);
+  }
+
+  .artist-image-wrap {
+    min-height: 330px;
+  }
+
+  .davido-image {
+    max-height: 400px;
+  }
+
+  .footer-top {
+    flex-direction: column;
+  }
+
+  .footer-logos {
+    justify-content: flex-start;
+    gap: 12px;
+  }
+
+  .footer-logos img {
+    max-height: 42px;
+  }
+
+  .footer-firstbank {
+    max-width: 85px;
+  }
+
+  .footer-okhma {
+    max-width: 100px;
+  }
+
+  .footer-seeafrica {
+    max-width: 75px;
+  }
+
+  .footer-calabar {
+    max-width: 45px;
+  }
+
+  .footer-festival {
+    max-width: 40px;
+  }
 }
 
-@media (max-width: 370px) {
-  .brand img { height: 23px; max-width: 51px; }
-  .firstbank-brand img { max-width: 60px; }
-  .brand small { font-size: 6px; }
-  .nav-book { padding: 8px; font-size: 9px; }
-  .hero h1 { font-size: 2.9rem; }
+@media (max-width: 390px) {
+  .brand-logos {
+    gap: 2px;
+  }
+
+  .brand-divider {
+    margin: 0 1px;
+  }
+
+  .firstbank-brand img {
+    max-width: 42px;
+  }
+
+  .okhma-brand img {
+    width: 43px;
+  }
+
+  .seeafrica-brand img {
+    max-width: 34px;
+  }
+
+  .calabar-brand img,
+  .festival-brand img {
+    max-width: 24px;
+    max-height: 24px;
+  }
+
+  .nav-book {
+    font-size: 9px;
+    padding: 8px 6px;
+  }
+
+  .hero h1 {
+    font-size: 2.9rem;
+  }
 
   .upgrade-list > div {
     flex-direction: column;
     gap: 4px;
   }
 
-  .upgrade-list strong { text-align: left; }
+  .upgrade-list strong {
+    text-align: left;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
+  html {
+    scroll-behavior: auto;
+  }
 
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: .01ms !important;
     transition-duration: .01ms !important;
   }
 
-  .reveal {
+  .js-ready .reveal {
     opacity: 1;
     transform: none;
   }
