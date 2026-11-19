@@ -1,0 +1,39 @@
+name: Optimize Calabar website images
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install image converter
+        run: python -m pip install "Pillow>=11,<13"
+
+      - name: Create optimized assets and update webpage links
+        run: python scripts/optimize_calabar_images.py
+
+      - name: Commit optimized website
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add calabar.html calabar.css calabar.js images/
+          if git diff --cached --quiet; then
+            echo "No assets required optimization."
+          else
+            git commit -m "Optimize Calabar page images as WebP"
+            git push
+          fi
