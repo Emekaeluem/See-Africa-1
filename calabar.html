@@ -3,46 +3,75 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#071e3b">
-  <meta name="description" content="Experience Carnival Calabar 2026 with See Africa. Discover festival hospitality, Tinapa, Kwa Falls, hotels and travel packages.">
+  <meta name="description" content="Experience Carnival Calabar 2026 with See Africa and FirstBank. Explore festival hospitality, hotels, Tinapa, Kwa Falls, flights and travel packages.">
+
   <title>Calabar Carnival 2026 | See Africa × FirstBank</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="calabar.css">
   <script src="calabar.js" defer></script>
 </head>
 
 <body>
+
 <a href="#main" class="skip-link">Skip to content</a>
 
-<!-- SPONSOR BAR -->
+<!-- ==============================
+     OFFICIAL SPONSOR STRIP
+============================== -->
+
 <div class="sponsor-strip">
   <span>CARNIVAL CALABAR & FESTIVALS 2026</span>
   <strong>OFFICIAL SPONSOR · FIRSTBANK</strong>
 </div>
 
-<!-- HEADER -->
+<!-- ==============================
+     HEADER — FIVE LOGOS
+============================== -->
+
 <header class="header" id="header">
   <div class="container nav">
+
     <div class="brand-logos">
-      <a href="#home" class="brand firstbank-brand">
+
+      <!-- 1. FIRSTBANK -->
+      <a href="#home" class="brand firstbank-brand" aria-label="FirstBank Official Sponsor">
         <img src="images/firstbank.png" alt="FirstBank">
         <small>OFFICIAL SPONSOR</small>
       </a>
 
       <span class="brand-divider"></span>
 
-      <a href="#home" class="brand">
+      <!-- 2. OKHMA -->
+      <a href="#home" class="brand okhma-brand" aria-label="Okhma">
+        <img src="images/okhma_light_logo.png" alt="Okhma">
+      </a>
+
+      <span class="brand-divider"></span>
+
+      <!-- 3. SEE AFRICA -->
+      <a href="#home" class="brand seeafrica-brand" aria-label="See Africa">
         <img src="images/seeafricalogo.png" alt="See Africa">
       </a>
 
       <span class="brand-divider"></span>
 
-      <a href="#home" class="brand">
-        <img src="images/calabarlogo.png" alt="Calabar Carnival">
-      </a>
+      <!-- 4. CALABAR + 5. FESTIVAL -->
+      <div class="calabar-logo-group">
+        <a href="#home" class="brand calabar-brand" aria-label="Calabar Carnival">
+          <img src="images/calabarlogo.png" alt="Calabar Carnival">
+        </a>
+
+        <a href="#home" class="brand festival-brand" aria-label="Calabar Festival">
+          <img src="images/Festival-logo.png" alt="Calabar Festival">
+        </a>
+      </div>
+
     </div>
 
     <nav id="navLinks" class="nav-links" aria-label="Main navigation">
@@ -57,19 +86,40 @@
 
     <div class="nav-actions">
       <a href="#booking" class="btn btn-gold nav-book">Book Now</a>
-      <button class="menu-button" type="button" id="menuButton" aria-controls="navLinks" aria-expanded="false" aria-label="Open navigation">☰</button>
+
+      <button
+        class="menu-button"
+        type="button"
+        id="menuButton"
+        aria-controls="navLinks"
+        aria-expanded="false"
+        aria-label="Open navigation">☰</button>
     </div>
+
   </div>
 </header>
 
 <main id="main">
 
-<!-- HERO: ORIGINAL VIDEO ONLY -->
+<!-- ==============================
+     HERO — ORIGINAL VIDEO ONLY
+     NO NEW CALABAR IMAGE
+============================== -->
+
 <section class="hero" id="home">
+
   <div class="hero-media">
-    <video id="heroVideo" autoplay muted loop playsinline preload="metadata" poster="images/calabar-media-1.webp">
+    <video
+      id="heroVideo"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      poster="images/calabar-media-1.webp">
       <source src="images/calabar-carnival.mp4" type="video/mp4">
     </video>
+
     <div class="hero-overlay"></div>
   </div>
 
@@ -91,110 +141,206 @@
 
     <div class="hero-bottom">
       <span>CALABAR · CROSS RIVER · NIGERIA</span>
-      <button id="soundToggle" type="button" class="sound-button" aria-pressed="false">♫ Enable Sound</button>
+
+      <button
+        id="soundToggle"
+        class="sound-button"
+        type="button"
+        aria-pressed="false">♫ Enable Sound</button>
     </div>
   </div>
+
 </section>
 
-<!-- IMAGE 12: THEME -->
+<!-- ==============================
+     IMAGE 12 — 2026 THEME
+============================== -->
+
 <section class="section theme-section" id="theme">
   <div class="container split">
+
     <div class="section-copy reveal">
       <span class="eyebrow">THE 2026 THEME</span>
+
       <h2>Rethinking Our<br><em>Collective Destiny.</em></h2>
+
       <p>Carnival Calabar & Festivals celebrates unity, diversity and the creative power of people coming together.</p>
+
       <p class="emphasis">Different voices. Different cultures. One shared rhythm.</p>
+
       <a href="#story" class="text-link">Discover the Spirit of Calabar ↗</a>
     </div>
 
     <figure class="photo-frame reveal">
-      <img src="images/new-calabar12.png" alt="Carnival Calabar festival celebration" loading="lazy" decoding="async">
+      <img
+        src="images/new-calabar12.png"
+        alt="Carnival Calabar cultural celebration"
+        loading="lazy"
+        decoding="async">
       <figcaption>CULTURE · UNITY · CELEBRATION</figcaption>
     </figure>
+
   </div>
 </section>
 
-<!-- IMAGES 13 TO 18: STORY -->
+<!-- ==============================
+     IMAGES 13–18 — STORYLINE
+============================== -->
+
 <section class="section story-section" id="story">
   <div class="container">
+
     <div class="section-heading reveal">
       <span class="eyebrow gold">THE CALABAR STORY</span>
       <h2>More than a carnival.<br><em>A world of memories.</em></h2>
-      <p>Explore the culture, the energy and the people behind one of Africa's most colourful celebrations.</p>
+      <p>Explore the culture, the energy and the people who bring Carnival Calabar to life.</p>
     </div>
 
+    <!-- CHAPTER ONE -->
     <article class="story-row reveal">
+
       <div class="story-images">
-        <img src="images/new-calabar13.png" alt="Calabar Carnival cultural moment" loading="lazy" decoding="async">
-        <img src="images/new-calabar14.png" alt="Calabar Carnival performers" loading="lazy" decoding="async">
+        <img
+          src="images/new-calabar13.png"
+          alt="Calabar cultural performance"
+          loading="lazy"
+          decoding="async">
+
+        <img
+          src="images/new-calabar14.png"
+          alt="Carnival performers in costume"
+          loading="lazy"
+          decoding="async">
       </div>
 
       <div class="story-copy">
         <span class="chapter-label">CHAPTER 01 / THE CULTURE</span>
+
         <h3>Every costume tells a story.</h3>
+
         <p>From intricate designs to expressive performances, Carnival Calabar brings culture, imagination and heritage into one extraordinary celebration.</p>
+
         <a href="#gallery" class="text-link">Explore the Moments ↗</a>
       </div>
+
     </article>
 
+    <!-- CHAPTER TWO -->
     <article class="story-row reverse reveal">
+
       <div class="story-images">
-        <img src="images/new-calabar15.png" alt="Festival moment in Calabar" loading="lazy" decoding="async">
-        <img src="images/new-calabar16.png" alt="Carnival Calabar parade experience" loading="lazy" decoding="async">
+        <img
+          src="images/new-calabar15.png"
+          alt="Carnival street celebration"
+          loading="lazy"
+          decoding="async">
+
+        <img
+          src="images/new-calabar16.png"
+          alt="Calabar festival parade"
+          loading="lazy"
+          decoding="async">
       </div>
 
       <div class="story-copy">
         <span class="chapter-label">CHAPTER 02 / THE ENERGY</span>
+
         <h3>When the streets come alive.</h3>
+
         <p>The music rises, the dancers move and the whole city becomes part of the performance. Every moment reveals something worth remembering.</p>
+
         <a href="#packages" class="text-link">Join the Celebration ↗</a>
       </div>
+
     </article>
 
+    <!-- CHAPTER THREE -->
     <article class="story-row reveal">
+
       <div class="story-images">
-        <img src="images/new-calabar17.png" alt="People celebrating Carnival Calabar" loading="lazy" decoding="async">
-        <img src="images/new-calabar18.png" alt="Festival audience and celebration" loading="lazy" decoding="async">
+        <img
+          src="images/new-calabar17.png"
+          alt="Carnival celebration and performers"
+          loading="lazy"
+          decoding="async">
+
+        <img
+          src="images/new-calabar18.png"
+          alt="Calabar festival audience"
+          loading="lazy"
+          decoding="async">
       </div>
 
       <div class="story-copy">
         <span class="chapter-label">CHAPTER 03 / THE PEOPLE</span>
+
         <h3>One rhythm. Many voices.</h3>
+
         <p>It is the smiles, the excitement, the shared celebrations and the connections that make Calabar unforgettable.</p>
+
         <a href="#booking" class="text-link">Be Part of the Story ↗</a>
       </div>
+
     </article>
+
   </div>
 </section>
 
-<!-- IMAGE 19: FIRSTBANK -->
+<!-- ==============================
+     IMAGE 19 — FIRSTBANK SPONSORSHIP
+============================== -->
+
 <section class="section sponsor-section" id="sponsor">
   <div class="container split">
+
     <div class="section-copy reveal">
       <span class="eyebrow">CELEBRATING OUR OFFICIAL SPONSOR</span>
-      <img class="sponsor-logo" src="images/firstbank.png" alt="FirstBank logo">
+
+      <img
+        class="sponsor-logo"
+        src="images/firstbank.png"
+        alt="FirstBank">
+
       <h2>Supporting the Spirit<br>of Calabar.</h2>
+
       <p>FirstBank is recognised as an official sponsor of the festival experience, joining in the celebration of culture, creativity, community and shared moments.</p>
+
       <a href="#gallery" class="btn btn-navy">Explore Festival Moments ↗</a>
     </div>
 
     <figure class="photo-frame reveal">
-      <img src="images/new-calabar19.png" alt="Carnival Calabar festival atmosphere" loading="lazy" decoding="async">
+      <img
+        src="images/new-calabar19.png"
+        alt="Calabar Carnival festival atmosphere"
+        loading="lazy"
+        decoding="async">
+
       <figcaption>FIRSTBANK × CALABAR CARNIVAL</figcaption>
     </figure>
+
   </div>
 </section>
 
-<!-- IMAGE 1: HOSPITALITY -->
+<!-- ==============================
+     IMAGE 1 — HOSPITALITY
+============================== -->
+
 <section class="section hospitality-section" id="hospitality">
   <div class="container split">
+
     <figure class="photo-frame reveal">
-      <img src="images/new-calabar1.png" alt="Calabar Carnival hospitality experience" loading="lazy" decoding="async">
+      <img
+        src="images/new-calabar1.png"
+        alt="Calabar Carnival hospitality experience"
+        loading="lazy"
+        decoding="async">
     </figure>
 
     <div class="section-copy reveal">
       <span class="eyebrow">OUR HOSPITALITY PROMISE</span>
+
       <h2>Your seat is only<br><em>the beginning.</em></h2>
+
       <p>Your Carnival hospitality experience is designed to make the event easier to enjoy.</p>
 
       <ul class="check-list">
@@ -207,14 +353,20 @@
       </ul>
 
       <p class="small-note">Hospitality benefits, seating position and venue facilities are subject to final event layout and organiser specifications.</p>
+
       <a href="#booking" class="btn btn-navy">Secure Your Experience ↗</a>
     </div>
+
   </div>
 </section>
 
-<!-- IMAGES 2 TO 5: PACKAGES -->
+<!-- ==============================
+     IMAGES 2–5 — FOUR PACKAGES
+============================== -->
+
 <section class="section packages-section" id="packages">
   <div class="container">
+
     <div class="section-heading reveal">
       <span class="eyebrow">CHOOSE YOUR EXPERIENCE</span>
       <h2>Four ways to<br><em>answer the beat.</em></h2>
@@ -222,125 +374,182 @@
     </div>
 
     <div class="package-grid">
+
+      <!-- SEAT -->
       <article class="package-card reveal">
         <div class="package-image">
-          <img src="images/new-calabar2.png" alt="Carnival hospitality seating experience" loading="lazy" decoding="async">
+          <img
+            src="images/new-calabar2.png"
+            alt="Calabar Carnival hospitality package"
+            loading="lazy"
+            decoding="async">
           <span>01 / SEAT</span>
         </div>
+
         <div class="package-content">
           <span class="eyebrow">ENTRY EXPERIENCE</span>
           <h3>Seat Only</h3>
+
           <p>Enjoy verified hospitality access for your selected event day.</p>
+
           <div class="price">₦150,000 <small>/ person</small></div>
+
           <ul>
             <li>Verified hospitality seat</li>
             <li>Meal and non-alcoholic refreshments</li>
             <li>Guest check-in and guidance</li>
             <li>Event-day support</li>
           </ul>
+
           <button type="button" class="btn btn-navy choose-package" data-package="seat">Choose Seat ↗</button>
         </div>
       </article>
 
+      <!-- STAY -->
       <article class="package-card reveal">
         <div class="package-image">
-          <img src="images/new-calabar3.png" alt="Calabar Carnival stay package experience" loading="lazy" decoding="async">
+          <img
+            src="images/new-calabar3.png"
+            alt="Calabar Carnival stay package"
+            loading="lazy"
+            decoding="async">
           <span>02 / STAY</span>
         </div>
+
         <div class="package-content">
           <span class="eyebrow">HOTEL EXPERIENCE</span>
           <h3>Stay</h3>
+
           <p>Add selected hotel accommodation and Carnival-day transfers.</p>
+
           <div class="price">₦500,000 <small>/ person from</small></div>
+
           <ul>
             <li>Hospitality access</li>
             <li>Selected hotel with breakfast</li>
             <li>Two hotel nights</li>
             <li>Carnival-day return transfer</li>
           </ul>
+
           <button type="button" class="btn btn-navy choose-package" data-package="stay">Choose Stay ↗</button>
         </div>
       </article>
 
+      <!-- EXPLORE -->
       <article class="package-card reveal">
         <div class="package-image">
-          <img src="images/new-calabar4.png" alt="Calabar explore travel experience" loading="lazy" decoding="async">
+          <img
+            src="images/new-calabar4.png"
+            alt="Calabar discovery experience"
+            loading="lazy"
+            decoding="async">
           <span>03 / EXPLORE</span>
         </div>
+
         <div class="package-content">
           <span class="eyebrow">DISCOVERY EXPERIENCE</span>
           <h3>Explore</h3>
+
           <p>Extend the celebration into a hosted discovery journey.</p>
+
           <div class="price">₦620,000 <small>/ person from</small></div>
+
           <ul>
             <li>Hospitality, hotel and breakfast</li>
             <li>Tinapa Free Zone & Resort</li>
             <li>Kwa Falls</li>
             <li>Scheduled vehicle and guide allowance</li>
           </ul>
+
           <button type="button" class="btn btn-navy choose-package" data-package="explore">Choose Explore ↗</button>
         </div>
       </article>
 
+      <!-- FLY -->
       <article class="package-card reveal">
         <div class="package-image">
-          <img src="images/new-calabar5.png" alt="Fly and Explore Carnival package" loading="lazy" decoding="async">
+          <img
+            src="images/new-calabar5.png"
+            alt="Calabar flight and exploration package"
+            loading="lazy"
+            decoding="async">
           <span>04 / FLY & EXPLORE</span>
         </div>
+
         <div class="package-content">
           <span class="eyebrow">FLIGHT EXPERIENCE</span>
           <h3>Fly & Explore</h3>
-          <p>Plan the Carnival journey from your departure airport.</p>
+
+          <p>Plan your Carnival journey from your departure airport.</p>
+
           <div class="price">₦920,000 <small>/ person from</small></div>
+
           <ul>
             <li>Return domestic flight, subject to fares</li>
             <li>Hospitality and accommodation</li>
             <li>Two attractions</li>
             <li>Airport and local transport</li>
           </ul>
+
           <button type="button" class="btn btn-navy choose-package" data-package="fly">Build Package ↗</button>
         </div>
       </article>
+
     </div>
 
-    <p class="small-note center">Package rates are indicative starting figures, not guaranteed live prices. Seat allocation, rooms, flights and suppliers require confirmation.</p>
+    <p class="small-note center">Package rates are indicative starting figures, not guaranteed live prices. Seat allocation, hotel rooms, flights and supplier availability require confirmation.</p>
+
   </div>
 </section>
 
-<!-- INTERACTIVE PACKAGE JOURNEY: NO PHOTOS -->
+<!-- ==============================
+     FIVE-STEP PACKAGE JOURNEY
+     NO PHOTO REPEATED
+============================== -->
+
 <section class="section journey-section" id="journey">
   <div class="container">
+
     <div class="section-heading reveal">
       <span class="eyebrow gold">YOUR PACKAGE JOURNEY</span>
+
       <h2>Five simple steps.<br><em>One unforgettable experience.</em></h2>
     </div>
 
     <div class="journey-layout">
+
       <div class="journey-steps">
+
         <button type="button" class="journey-step active" data-step="0" aria-pressed="true">
-          <span>01</span><strong>Choose your seat</strong>
+          <span>01</span>
+          <strong>Choose your seat</strong>
           <small>Secure verified hospitality access.</small>
         </button>
 
         <button type="button" class="journey-step" data-step="1" aria-pressed="false">
-          <span>02</span><strong>Add your stay</strong>
+          <span>02</span>
+          <strong>Add your stay</strong>
           <small>Choose hotel class and nights.</small>
         </button>
 
         <button type="button" class="journey-step" data-step="2" aria-pressed="false">
-          <span>03</span><strong>Add your discovery</strong>
+          <span>03</span>
+          <strong>Add your discovery</strong>
           <small>Explore Tinapa and Kwa Falls.</small>
         </button>
 
         <button type="button" class="journey-step" data-step="3" aria-pressed="false">
-          <span>04</span><strong>Add your flight</strong>
-          <small>Select your origin airport.</small>
+          <span>04</span>
+          <strong>Add your flight</strong>
+          <small>Select your departure airport.</small>
         </button>
 
         <button type="button" class="journey-step" data-step="4" aria-pressed="false">
-          <span>05</span><strong>Answer the beat</strong>
+          <span>05</span>
+          <strong>Answer the beat</strong>
           <small>Arrive with your itinerary and guidance.</small>
         </button>
+
       </div>
 
       <div class="journey-feature">
@@ -348,32 +557,45 @@
           <span>CALABAR</span>
           <strong>2026</strong>
         </div>
+
         <div class="journey-feature-content" aria-live="polite">
           <span id="journeyNumber">STEP 01 / 05</span>
+
           <h3 id="journeyTitle">Choose your seat</h3>
-          <p id="journeyDescription">Secure your verified hospitality access for the selected event day.</p>
+
+          <p id="journeyDescription">Secure your verified hospitality access for the selected Carnival event day.</p>
+
           <button type="button" id="nextJourney" class="btn btn-gold">Next Step →</button>
         </div>
       </div>
+
     </div>
   </div>
 </section>
 
-<!-- TWO ATTRACTIONS: NO REUSED PHOTOS -->
+<!-- ==============================
+     TWO ATTRACTIONS
+============================== -->
+
 <section class="section attractions-section" id="attractions">
   <div class="container">
+
     <div class="section-heading reveal">
       <span class="eyebrow">BEYOND THE PARADE</span>
+
       <h2>The two-attraction<br><em>experience.</em></h2>
+
       <p>Discover two distinctive destinations during your Calabar journey.</p>
     </div>
 
     <div class="attraction-grid">
+
       <article class="attraction-card reveal">
         <div class="attraction-cover tinapa-cover">
           <span>DESTINATION 01</span>
           <h3>Tinapa Free Zone<br>& Resort</h3>
         </div>
+
         <div class="attraction-body">
           <p>A structured leisure and entertainment stop north of Calabar. Depending on operating status on your selected date, the experience may include resort scenery, leisure facilities, food, retail and photography opportunities.</p>
         </div>
@@ -384,42 +606,80 @@
           <span>DESTINATION 02</span>
           <h3>Kwa Falls</h3>
         </div>
+
         <div class="attraction-body">
-          <p>A green nature escape inside the Cross River National Park area. Expect scenic surroundings, a nature experience and an active walk to the falls. The approach includes substantial stairs and uneven ground.</p>
+          <p>A green nature escape inside the Cross River National Park area. Expect scenic surroundings, photography and an active walk to the falls. The approach involves substantial stairs and uneven ground.</p>
         </div>
       </article>
+
     </div>
 
     <div class="info-panel">
       <h3>Our attraction promise</h3>
-      <p>The standard Explore route includes exactly two attractions: Tinapa and Kwa Falls. Opening status, access, roads, guides, weather and fees are reconfirmed before departure.</p>
+
+      <p>The standard Explore route includes exactly two attractions: Tinapa and Kwa Falls. Opening status, access, roads, guides, weather and entrance fees are reconfirmed before departure.</p>
+
       <button type="button" class="btn btn-navy choose-package" data-package="explore">Add Tinapa + Kwa Falls ↗</button>
     </div>
+
   </div>
 </section>
 
-<!-- IMAGE 6: LOGISTICS -->
+<!-- ==============================
+     IMAGE 6 — LOGISTICS
+============================== -->
+
 <section class="section logistics-section" id="logistics">
   <div class="container">
+
     <div class="logistics-intro split">
       <div class="section-copy reveal">
         <span class="eyebrow">YOUR MOVEMENT, PLANNED</span>
+
         <h2>Arrive with a plan.<br><em>Move with confidence.</em></h2>
+
         <p>From airport pickup to hotel transfers, tour transport and Carnival-day movement, we help coordinate the important details around your experience.</p>
       </div>
+
       <figure class="photo-frame reveal">
-        <img src="images/new-calabar6.png" alt="Carnival Calabar event atmosphere" loading="lazy" decoding="async">
+        <img
+          src="images/new-calabar6.png"
+          alt="Calabar Carnival celebration"
+          loading="lazy"
+          decoding="async">
       </figure>
     </div>
 
     <div class="logistics-grid">
-      <article><span>01</span><h3>Seat</h3><p>Event check-in and hospitality seat guidance.</p></article>
-      <article><span>02</span><h3>Stay</h3><p>Hotel-to-event and return transport on Carnival day.</p></article>
-      <article><span>03</span><h3>Explore</h3><p>Local vehicle, attraction transport, driver, fuel, parking and guide or host allowance.</p></article>
-      <article><span>04</span><h3>Fly & Explore</h3><p>Return flight, airport assistance where specified, scheduled transfers and attraction transport.</p></article>
+
+      <article>
+        <span>01</span>
+        <h3>Seat</h3>
+        <p>Event check-in and hospitality seat guidance.</p>
+      </article>
+
+      <article>
+        <span>02</span>
+        <h3>Stay</h3>
+        <p>Hotel-to-event and return transport on Carnival day.</p>
+      </article>
+
+      <article>
+        <span>03</span>
+        <h3>Explore</h3>
+        <p>Local vehicle, attraction transport, driver, fuel, parking and host or guide allowance.</p>
+      </article>
+
+      <article>
+        <span>04</span>
+        <h3>Fly & Explore</h3>
+        <p>Return flight, airport assistance where specified, scheduled transfers and attraction transport.</p>
+      </article>
+
     </div>
 
     <h3 class="subheading">Optional logistics upgrades</h3>
+
     <div class="upgrade-list">
       <div><span>Shared airport transfer</span><strong>₦50,000 / person</strong></div>
       <div><span>Private return airport transfer (up to 3 guests)</span><strong>₦120,000 / vehicle</strong></div>
@@ -428,73 +688,118 @@
     </div>
 
     <p class="small-note">Seat Only excludes airport pickup, accommodation and personal transportation. Domestic Stay and Explore guests arriving by air should add an appropriate airport transfer.</p>
+
   </div>
 </section>
 
-<!-- IMAGE 7: INTERNATIONAL -->
+<!-- ==============================
+     IMAGE 7 — INTERNATIONAL
+============================== -->
+
 <section class="section international-section" id="international">
   <div class="container">
+
     <div class="international-intro split">
+
       <div class="section-copy reveal">
         <span class="eyebrow">WELCOME TO CALABAR</span>
+
         <h2>From across Africa.<br><em>From around the world.</em></h2>
+
         <p>Wherever your journey begins, discover a hosted experience designed to help you enjoy the rhythm of Calabar.</p>
       </div>
+
       <figure class="photo-frame reveal">
-        <img src="images/new-calabar7.png" alt="Carnival Calabar cultural celebration" loading="lazy" decoding="async">
+        <img
+          src="images/new-calabar7.png"
+          alt="Carnival Calabar cultural celebration"
+          loading="lazy"
+          decoding="async">
       </figure>
+
     </div>
 
     <div class="international-grid">
+
       <article>
         <span class="eyebrow">FOR AFRICAN VISITORS</span>
+
         <h3>Coming from another African country?</h3>
+
         <p>Choose a hosted Nigerian holiday with accommodation, airport meet-and-greet, breakfast, local movement, Tinapa, Kwa Falls and Carnival hospitality. Add your return flight after choosing your departure city.</p>
+
         <button type="button" class="btn btn-gold regional-booking" data-origin="africa">Plan My Pan-African Experience ↗</button>
       </article>
 
       <article>
         <span class="eyebrow gold">FOR GLOBAL VISITORS</span>
+
         <h3>Coming from outside Africa?</h3>
+
         <p>Plan a hosted Calabar journey with accommodation, breakfast, local transport, attractions and guest assistance. International airfares, visas and insurance are quoted based on your origin and dates.</p>
+
         <button type="button" class="btn btn-outline regional-booking" data-origin="international">Plan My International Experience ↗</button>
       </article>
+
     </div>
+
   </div>
 </section>
 
-<!-- ARTIST: TEXT-BASED, NO REPEATED PHOTOS -->
+<!-- ==============================
+     DAVIDO — STAR ARTIST FEATURE
+     REPLACES MUSIC × CULTURE GRAPHIC
+============================== -->
+
 <section class="section artist-section" id="artist">
   <div class="container artist-layout">
-    <div>
+
+    <div class="artist-content reveal">
       <span class="eyebrow gold">STAR ARTIST FEATURE · SUBJECT TO CONFIRMATION</span>
+
       <h2>When the night gets louder,<br><em>the fire gets bigger.</em></h2>
+
       <div class="artist-name">DAVIDO</div>
+
       <p>Major performances and headline entertainment are part of the festival experience. Davido is identified as the star artist in the supplied event brief, subject to final event billing and approved promotional materials.</p>
+
       <p class="small-note">A live performance must not be advertised as confirmed without formal organiser approval.</p>
     </div>
-    <div class="artist-decoration" aria-hidden="true">
-      <span>THE ENERGY OF THE NIGHT</span>
-      <strong>MUSIC<br>× CULTURE</strong>
+
+    <div class="artist-image-wrap reveal">
+      <img
+        src="images/davido.png"
+        alt="Davido — Star Artist"
+        class="davido-image"
+        loading="lazy"
+        decoding="async">
     </div>
+
   </div>
 </section>
 
-<!-- IMAGES 9, 10, 11: EXCLUSIVE GALLERY -->
+<!-- ==============================
+     IMAGES 9–11 — GALLERY
+============================== -->
+
 <section class="section gallery-section" id="gallery">
   <div class="container">
+
     <div class="gallery-heading">
       <div>
         <span class="eyebrow">REAL MOMENTS · REAL MEMORIES</span>
+
         <h2>The Carnival<br><em>in pictures.</em></h2>
       </div>
+
       <div class="gallery-controls">
         <button type="button" id="galleryPrev" aria-label="Previous photograph">←</button>
         <button type="button" id="galleryNext" aria-label="Next photograph">→</button>
       </div>
     </div>
 
-    <div class="gallery-track" id="galleryTrack" aria-label="Calabar Carnival gallery">
+    <div id="galleryTrack" class="gallery-track" aria-label="Calabar Carnival gallery">
+
       <button type="button" class="gallery-card" data-gallery="0" aria-label="View Carnival photograph 9">
         <img src="images/new-calabar9.png" alt="Calabar Carnival photograph nine" loading="lazy" decoding="async">
         <span>01 / THE CELEBRATION</span>
@@ -509,24 +814,35 @@
         <img src="images/new-calabar11.png" alt="Calabar Carnival photograph eleven" loading="lazy" decoding="async">
         <span>03 / THE MEMORIES</span>
       </button>
+
     </div>
 
-    <p class="small-note">Select any photograph to open our fullscreen viewer. Every Carnival photograph on the page is unique.</p>
+    <p class="small-note">Select a photograph for fullscreen viewing. Each Carnival photograph has its own position on the website.</p>
+
   </div>
 </section>
 
-<!-- BOOKING FORM -->
+<!-- ==============================
+     BOOKING CALCULATOR
+============================== -->
+
 <section class="section booking-section" id="booking">
   <div class="container">
+
     <div class="section-heading reveal">
       <span class="eyebrow">PLAN YOUR EXPERIENCE</span>
+
       <h2>Build your<br><em>Calabar experience.</em></h2>
-      <p>Choose your travel preferences and see an indicative starting total. Final supplier availability and pricing are confirmed separately.</p>
+
+      <p>Choose your travel preferences and view an indicative starting total. Final supplier availability and pricing are confirmed separately.</p>
     </div>
 
     <div class="booking-layout">
+
       <form class="booking-form" id="bookingForm">
+
         <div class="form-grid">
+
           <label>Where are you travelling from?
             <select id="originRegion" required>
               <option value="nigeria">Nigeria</option>
@@ -613,125 +929,265 @@
           <label class="full-field">Email address
             <input id="email" type="email" autocomplete="email" required>
           </label>
+
         </div>
 
         <div class="button-row form-actions">
-          <button class="btn btn-gold" type="submit">Calculate My Total ↗</button>
-          <a class="btn btn-outline-dark" href="#contact">Speak to a Booking Adviser</a>
+          <button type="submit" class="btn btn-gold">Calculate My Total ↗</button>
+
+          <a href="#contact" class="btn btn-outline-dark">Speak to a Booking Adviser</a>
         </div>
 
-        <p class="small-note">This calculator prepares an indicative estimate in your browser. It does not submit a booking, verify inventory or process payment.</p>
+        <p class="small-note">This calculator prepares an indicative estimate in your browser. It does not submit a reservation, verify inventory or process payment.</p>
+
       </form>
 
       <aside class="booking-summary" id="bookingSummary">
         <span class="eyebrow gold">YOUR EXPERIENCE SUMMARY</span>
+
         <h3>Designed around you.</h3>
+
         <div class="summary-amount" id="summaryAmount">₦150,000</div>
+
         <p id="summaryType">Seat Only · 1 guest</p>
+
         <div class="summary-details" id="summaryDetails"></div>
+
         <p class="small-note">Final inclusions, exclusions, deposit, payment deadline and cancellation conditions must be confirmed before checkout.</p>
+
         <button type="button" class="btn btn-outline" id="copyEnquiry" disabled>Copy Booking Enquiry</button>
+
         <p id="copyStatus" class="small-note" role="status"></p>
       </aside>
+
     </div>
+
   </div>
 </section>
 
-<!-- IMAGE 8: URGENCY -->
+<!-- ==============================
+     IMAGE 8 — URGENCY
+============================== -->
+
 <section class="section urgency-section" id="reserve">
   <div class="container split">
+
     <div class="section-copy reveal">
       <span class="eyebrow gold">DON'T MISS YOUR MOMENT</span>
+
       <h2>The beat will not<br><em>wait forever.</em></h2>
+
       <p>Hospitality allocation is limited. Secure your seat first, then add accommodation, attractions, transfers and flights while inventory is available.</p>
+
       <a href="#booking" class="btn btn-gold">Reserve My Seat ↗</a>
+
       <p class="small-note">Seat availability, hotel rooms and flight fares are subject to confirmation.</p>
     </div>
+
     <figure class="photo-frame reveal">
-      <img src="images/new-calabar8.png" alt="Carnival Calabar festival celebration" loading="lazy" decoding="async">
+      <img
+        src="images/new-calabar8.png"
+        alt="Carnival Calabar festival celebration"
+        loading="lazy"
+        decoding="async">
     </figure>
+
   </div>
 </section>
 
-<!-- FAQ -->
+<!-- ==============================
+     FREQUENTLY ASKED QUESTIONS
+============================== -->
+
 <section class="section faq-section" id="faq">
   <div class="container faq-layout">
+
     <div class="reveal">
       <span class="eyebrow">GOOD TO KNOW</span>
+
       <h2>Your questions,<br><em>answered.</em></h2>
+
       <p>Useful details before planning your Calabar experience.</p>
     </div>
 
     <div class="faq-list">
-      <details><summary>What is included in Seat Only?</summary><p>A verified hospitality seat, event-day meal, bottled water, non-alcoholic refreshment, guest check-in, seat guidance and event-day WhatsApp support. Hotels, airport pickup, flights and attractions are excluded.</p></details>
-      <details><summary>How much is Seat Only?</summary><p>₦150,000 per person, subject to confirmation of the hospitality allocation.</p></details>
-      <details><summary>Can I add accommodation after buying a seat?</summary><p>Yes, subject to availability. Your package will be recalculated for your selected hotel and dates.</p></details>
-      <details><summary>Which attractions are included?</summary><p>The standard Explore route includes exactly two attractions: Tinapa Free Zone & Resort and Kwa Falls.</p></details>
-      <details><summary>How long is the Explore package?</summary><p>Domestic Explore packages are designed for approximately three to five days, with two, three or four hotel nights depending on the itinerary.</p></details>
-      <details><summary>Does every package include flights?</summary><p>No. Seat, Stay and Explore exclude flights. Fly & Explore is flight-inclusive, with final airfare subject to origin, route, dates and availability.</p></details>
-      <details><summary>Are airport transfers included?</summary><p>They are included where specifically stated in Fly & Explore and hosted international packages. Domestic Stay and Explore guests may add a transfer.</p></details>
-      <details><summary>Is my hotel named before payment?</summary><p>A hotel class may be displayed initially. The specific hotel and room arrangements must be confirmed according to supplier availability and terms.</p></details>
-      <details><summary>Can I book for a group?</summary><p>Yes. Couples, families, companies, associations and diaspora groups can request coordinated seats, rooms and transportation.</p></details>
-      <details><summary>Is Davido confirmed to perform?</summary><p>Davido's star-artist billing is subject to formal event confirmation and approved publicity materials.</p></details>
-      <details><summary>What happens after I book?</summary><p>After a real reservation and payment are confirmed, guests should receive a booking reference, itinerary, pickup details, guest instructions, attraction schedule and support contacts.</p></details>
-      <details><summary>Are prices refundable?</summary><p>Refunds depend on the applicable hospitality, hotel, airline and transport supplier terms. Conditions and deadlines must be provided before payment.</p></details>
+
+      <details>
+        <summary>What is included in Seat Only?</summary>
+        <p>A verified hospitality seat, event-day meal, bottled water, non-alcoholic refreshment, guest check-in, seat guidance and event-day WhatsApp support. Hotels, airport pickup, flights and attractions are excluded.</p>
+      </details>
+
+      <details>
+        <summary>How much is Seat Only?</summary>
+        <p>₦150,000 per person, subject to confirmation of hospitality allocation.</p>
+      </details>
+
+      <details>
+        <summary>Can I add accommodation after buying a seat?</summary>
+        <p>Yes, subject to availability. Your package can be recalculated for your selected hotel and dates.</p>
+      </details>
+
+      <details>
+        <summary>Which attractions are included?</summary>
+        <p>The standard Explore route includes exactly two attractions: Tinapa Free Zone & Resort and Kwa Falls.</p>
+      </details>
+
+      <details>
+        <summary>How long is the Explore package?</summary>
+        <p>Domestic Explore packages are designed for approximately three to five days, with two, three or four hotel nights depending on the itinerary.</p>
+      </details>
+
+      <details>
+        <summary>Does every package include flights?</summary>
+        <p>No. Seat, Stay and Explore exclude flights. Fly & Explore is flight-inclusive, with final airfare subject to origin, route, dates and availability.</p>
+      </details>
+
+      <details>
+        <summary>Are airport transfers included?</summary>
+        <p>They are included where specifically stated in Fly & Explore and hosted international packages. Domestic Stay and Explore guests may add a transfer.</p>
+      </details>
+
+      <details>
+        <summary>Is my hotel named before payment?</summary>
+        <p>A hotel class may be displayed initially. The specific hotel and room arrangements must be confirmed according to supplier availability and terms.</p>
+      </details>
+
+      <details>
+        <summary>Can I book for a group?</summary>
+        <p>Yes. Couples, families, companies, associations and diaspora groups can request coordinated seats, rooms and transportation.</p>
+      </details>
+
+      <details>
+        <summary>Is Davido confirmed to perform?</summary>
+        <p>Davido's star-artist billing is subject to formal event confirmation and approved promotional materials.</p>
+      </details>
+
+      <details>
+        <summary>What happens after I book?</summary>
+        <p>After a real reservation and payment are confirmed, guests should receive a booking reference, itinerary, pickup details, guest instructions, attraction schedule and support contacts.</p>
+      </details>
+
+      <details>
+        <summary>Are prices refundable?</summary>
+        <p>Refunds depend on the applicable hospitality, hotel, airline and transport supplier terms. Conditions and deadlines must be provided before payment.</p>
+      </details>
+
     </div>
+
   </div>
 </section>
 
-<!-- FINAL CALL TO ACTION -->
+<!-- ==============================
+     FINAL CALL TO ACTION
+============================== -->
+
 <section class="section final-cta" id="contact">
   <div class="container">
+
     <span class="eyebrow gold">YOUR NEXT MEMORY STARTS HERE</span>
+
     <h2>Calabar is calling.</h2>
+
     <p>Come for the colour. Stay for the culture. Leave with a memory you can feel. The beat is calling. Answer it.</p>
 
     <div class="button-row centered">
       <a href="#booking" class="btn btn-gold">Book Your Calabar Experience ↗</a>
+
       <button type="button" class="btn btn-outline choose-package" data-package="seat">Reserve Seat Only — ₦150,000</button>
     </div>
 
     <p class="contact-line">Questions before booking? Phone: <strong>[PHONE NUMBER]</strong> · WhatsApp: <strong>[WHATSAPP NUMBER]</strong></p>
+
   </div>
 </section>
 
 </main>
 
-<!-- FOOTER -->
+<!-- ==============================
+     FOOTER — FIVE LOGOS
+============================== -->
+
 <footer class="footer">
   <div class="container">
+
     <div class="footer-top">
+
       <div>
         <h3>The Beat Calls.<br>Answer It.</h3>
         <p>Experience Calabar Carnival 2026 with See Africa.</p>
       </div>
 
       <div class="footer-logos">
-        <img src="images/firstbank.png" alt="FirstBank">
-        <img src="images/seeafricalogo.png" alt="See Africa">
-        <img src="images/calabarlogo.png" alt="Calabar Carnival">
+
+        <!-- FIRSTBANK -->
+        <img
+          src="images/firstbank.png"
+          alt="FirstBank — Official Sponsor"
+          class="footer-firstbank">
+
+        <!-- OKHMA -->
+        <img
+          src="images/okhma_light_logo.png"
+          alt="Okhma"
+          class="footer-okhma">
+
+        <!-- SEE AFRICA -->
+        <img
+          src="images/seeafricalogo.png"
+          alt="See Africa"
+          class="footer-seeafrica">
+
+        <!-- CALABAR AND FESTIVAL TOGETHER -->
+        <div class="footer-calabar-group">
+          <img
+            src="images/calabarlogo.png"
+            alt="Calabar Carnival"
+            class="footer-calabar">
+
+          <img
+            src="images/Festival-logo.png"
+            alt="Calabar Festival"
+            class="footer-festival">
+        </div>
+
       </div>
+
     </div>
 
     <p class="footer-disclaimer">Carnival dates, hospitality allocation, event access, hotel arrangements, attractions, flight schedules, transport and supplier availability are subject to confirmation. Flight-inclusive fares may change. Kwa Falls involves uneven terrain and stairs. Visa approval, insurance outcomes, airline disruptions and medical outcomes are not guaranteed. Full payment, cancellation and substitution conditions must be confirmed before purchase.</p>
 
     <div class="footer-bottom">
       <span>© 2026 See Africa · Calabar Carnival</span>
+
       <div>
         <a href="privacy.html">Privacy</a>
         <a href="terms.html">Terms</a>
         <a href="cancellation.html">Cancellation</a>
       </div>
     </div>
+
   </div>
 </footer>
 
-<!-- FULLSCREEN PHOTO VIEWER -->
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Calabar Carnival photo gallery">
+<!-- ==============================
+     FULLSCREEN PHOTO VIEWER
+============================== -->
+
+<div
+  class="lightbox"
+  id="lightbox"
+  role="dialog"
+  aria-modal="true"
+  aria-hidden="true"
+  aria-label="Calabar Carnival photo gallery">
+
   <button type="button" id="lightboxClose" aria-label="Close gallery">×</button>
   <button type="button" id="lightboxPrev" aria-label="Previous photo">‹</button>
+
   <img id="lightboxImage" alt="Calabar Carnival photograph">
+
   <button type="button" id="lightboxNext" aria-label="Next photo">›</button>
+
   <span id="lightboxCounter"></span>
 </div>
 
