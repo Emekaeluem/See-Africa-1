@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const actualImages = carnivalImages.map(image => {
     const match = (
       image.getAttribute("src") || ""
-    ).match(/new-calabar(\d+)\.png$/);
+    ).match(/new-calabar(\d+)\.(?:png|webp)$/);
 
     return match ? Number(match[1]) : null;
   });
