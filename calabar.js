@@ -2,20 +2,16 @@
 document.addEventListener("DOMContentLoaded", () => {
   "use strict";
 
-  // ======================================
-  // GLOBAL HELPERS
-  // ======================================
+  // ========================================
+  // SEE AFRICA × FIRSTBANK
+  // CALABAR CARNIVAL 2026
+  // ========================================
 
   const $ = selector =>
     document.querySelector(selector);
 
   const $$ = selector =>
     [...document.querySelectorAll(selector)];
-
-  // Only the eight NEW images are used
-  // outside the hero.
-  const imagePath = number =>
-    `images/new-calabar${number}.png`;
 
   const money = amount =>
     new Intl.NumberFormat("en-NG", {
@@ -28,51 +24,103 @@ document.addEventListener("DOMContentLoaded", () => {
     "(prefers-reduced-motion: reduce)"
   ).matches;
 
-  const scrollToBooking = () => {
+  const smooth = reduceMotion ? "auto" : "smooth";
+
+  function scrollToBooking() {
     $("#booking")?.scrollIntoView({
-      behavior: reduceMotion ? "auto" : "smooth"
+      behavior: smooth,
+      block: "start"
     });
-  };
+  }
 
-  // ======================================
-  // IMAGE ERROR HANDLING
-  // ======================================
+  // ========================================
+  // IMAGE VALIDATION
+  // ========================================
 
-  function installImageErrorHandler(image) {
+  // Carnival photographs are assigned once
+  // each in HTML.
+  //
+  // 12–19, then 1–11.
+  //
+  // The hero uses the original video/poster.
+  // Logos are intentionally repeated for
+  // branding, not treated as gallery images.
+
+  const expectedOrder = [
+    12, 13, 14, 15, 16, 17, 18, 19,
+    1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 8
+  ];
+
+  const festivalImages = $$(
+    'img[src*="new-calabar"]'
+  );
+
+  const actualNumbers = festivalImages.map(image => {
+    const match = image.getAttribute("src")
+      .match(/new-calabar(\d+)\.png$/);
+
+    return match ? Number(match[1]) : null;
+  });
+
+  const allUnique =
+    actualNumbers.length === 19 &&
+    new Set(actualNumbers).size === 19 &&
+    expectedOrder.every(number =>
+      actualNumbers.includes(number)
+    );
+
+  if (!allUnique) {
+    console.warn(
+      "Carnival photo check: verify all 19 unique images are present.",
+      actualNumbers
+    );
+  } else {
+    console.info(
+      "Calabar Carnival: all 19 unique images configured."
+    );
+  }
+
+  // Error handler for all website images.
+
+  $$("img").forEach(image => {
     image.addEventListener("error", () => {
-      if (image.dataset.failed === "true") return;
+      if (image.dataset.failed === "true") {
+        return;
+      }
 
       image.dataset.failed = "true";
+
+      console.warn(
+        "Image could not load:",
+        image.src
+      );
 
       if (
         image.closest(".brand-logos") ||
         image.closest(".footer-logos")
       ) {
-        const label = document.createElement("strong");
-        label.textContent = image.alt || "Logo";
-        label.style.color = "white";
-        label.style.fontSize = "11px";
+        const replacement =
+          document.createElement("strong");
 
-        image.replaceWith(label);
+        replacement.textContent =
+          image.alt || "Brand Logo";
+
+        replacement.style.color = "white";
+        replacement.style.fontSize = "11px";
+
+        image.replaceWith(replacement);
         return;
       }
 
-      // Keep layout in place when an image fails.
-      image.style.opacity = "0.2";
-      image.title = `Image unavailable: ${image.src}`;
-
-      console.warn(
-        "Calabar image could not load:",
-        image.src
-      );
+      image.style.opacity = ".3";
+      image.title =
+        `Image unavailable: ${image.src}`;
     });
-  }
+  });
 
-  $$("img").forEach(installImageErrorHandler);
-
-  // ======================================
+  // ========================================
   // MOBILE NAVIGATION
-  // ======================================
+  // ========================================
 
   const menuButton = $("#menuButton");
   const navLinks = $("#navLinks");
@@ -98,7 +146,8 @@ document.addEventListener("DOMContentLoaded", () => {
   menuButton?.addEventListener("click", () => {
     if (!navLinks) return;
 
-    const isOpen = navLinks.classList.toggle("open");
+    const isOpen =
+      navLinks.classList.toggle("open");
 
     menuButton.setAttribute(
       "aria-expanded",
@@ -107,10 +156,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     menuButton.setAttribute(
       "aria-label",
-      isOpen ? "Close navigation" : "Open navigation"
+      isOpen
+        ? "Close navigation"
+        : "Open navigation"
     );
 
-    menuButton.textContent = isOpen ? "×" : "☰";
+    menuButton.textContent =
+      isOpen ? "×" : "☰";
   });
 
   $$("#navLinks a").forEach(link => {
@@ -128,9 +180,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // ======================================
-  // ORIGINAL HERO VIDEO
-  // ======================================
+  // ========================================
+  // HERO VIDEO
+  // ========================================
 
   const heroVideo = $("#heroVideo");
   const soundToggle = $("#soundToggle");
@@ -139,8 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
     heroVideo.muted = true;
 
     heroVideo.play().catch(() => {
-      // The original hero poster remains visible
-      // when automatic video playback is blocked.
+      // Original poster stays behind video.
     });
 
     heroVideo.addEventListener("error", () => {
@@ -153,15 +204,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     heroVideo.muted = !heroVideo.muted;
 
-    const soundEnabled = !heroVideo.muted;
+    const soundOn = !heroVideo.muted;
 
-    soundToggle.textContent = soundEnabled
+    soundToggle.textContent = soundOn
       ? "♫ Mute Sound"
       : "♫ Enable Sound";
 
     soundToggle.setAttribute(
       "aria-pressed",
-      String(soundEnabled)
+      String(soundOn)
     );
 
     if (heroVideo.paused) {
@@ -169,179 +220,180 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // ======================================
-  // INTERACTIVE PACKAGE JOURNEY
-  // ======================================
+  // ========================================
+  // SCROLL REVEAL ANIMATIONS
+  // ========================================
+
+  const revealItems = $$(".reveal");
+
+  if (
+    "IntersectionObserver" in window &&
+    !reduceMotion
+  ) {
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(
+              "visible"
+            );
+
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.08,
+        rootMargin: "0px 0px -30px 0px"
+      }
+    );
+
+    revealItems.forEach(item => {
+      observer.observe(item);
+    });
+  } else {
+    revealItems.forEach(item => {
+      item.classList.add("visible");
+    });
+  }
+
+  // ========================================
+  // FIVE STEP PACKAGE JOURNEY
+  // ========================================
+
+  // Journey deliberately uses no photographs.
+  // This avoids repeating festival images.
 
   const journey = [
     {
       title: "Choose your seat",
       description:
-        "Secure your verified hospitality access.",
-      image: 1
+        "Secure your verified hospitality access for the selected Carnival event day."
     },
     {
       title: "Add your stay",
       description:
-        "Choose your hotel class and number of nights.",
-      image: 2
+        "Choose your selected hotel class, room preference and the number of nights that suit your itinerary."
     },
     {
       title: "Add your discovery",
       description:
-        "Explore Tinapa and Kwa Falls with scheduled transport and a host or guide allowance.",
-      image: 3
+        "Explore Tinapa and Kwa Falls with scheduled transport and a host or guide allowance."
     },
     {
       title: "Add your flight",
       description:
-        "Select your origin airport and request a flight-inclusive total.",
-      image: 4
+        "Choose your departure city or airport and request a current flight-inclusive total."
     },
     {
       title: "Arrive and answer the beat",
       description:
-        "Your itinerary, guest support and event-day guidance are arranged around you.",
-      image: 5
+        "Your itinerary, guest support, transport details and event-day guidance are arranged around your experience."
     }
   ];
 
   let journeyIndex = 0;
 
-  const journeyImage = $("#journeyImage");
-  const journeyTitle = $("#journeyTitle");
-  const journeyDescription = $("#journeyDescription");
-  const journeyNumber = $("#journeyNumber");
-
   function renderJourney(index) {
     journeyIndex =
-      (index + journey.length) % journey.length;
+      (index + journey.length) %
+      journey.length;
 
     const current = journey[journeyIndex];
 
-    if (journeyImage) {
-      journeyImage.src = imagePath(current.image);
-
-      journeyImage.alt =
-        `Calabar journey: ${current.title}`;
-
-      journeyImage.dataset.failed = "false";
-      journeyImage.style.opacity = "";
+    if ($("#journeyTitle")) {
+      $("#journeyTitle").textContent =
+        current.title;
     }
 
-    if (journeyTitle) {
-      journeyTitle.textContent = current.title;
-    }
-
-    if (journeyDescription) {
-      journeyDescription.textContent =
+    if ($("#journeyDescription")) {
+      $("#journeyDescription").textContent =
         current.description;
     }
 
-    if (journeyNumber) {
-      journeyNumber.textContent =
+    if ($("#journeyNumber")) {
+      $("#journeyNumber").textContent =
         `STEP ${String(journeyIndex + 1).padStart(2, "0")} / 05`;
     }
 
-    $$(".journey-step").forEach((button, i) => {
-      const active = i === journeyIndex;
+    $$(".journey-step").forEach(
+      (button, index) => {
+        const active =
+          index === journeyIndex;
 
-      button.classList.toggle("active", active);
+        button.classList.toggle(
+          "active",
+          active
+        );
 
-      button.setAttribute(
-        "aria-pressed",
-        String(active)
-      );
-    });
+        button.setAttribute(
+          "aria-pressed",
+          String(active)
+        );
+      }
+    );
   }
 
   $$(".journey-step").forEach(button => {
     button.addEventListener("click", () => {
-      renderJourney(Number(button.dataset.step));
+      renderJourney(
+        Number(button.dataset.step)
+      );
     });
   });
 
-  $("#nextJourney")?.addEventListener("click", () => {
-    renderJourney(journeyIndex + 1);
-  });
+  $("#nextJourney")?.addEventListener(
+    "click",
+    () => {
+      renderJourney(journeyIndex + 1);
+    }
+  );
 
-  // ======================================
-  // ALL EIGHT CARNIVAL PHOTOS
-  // ======================================
+  // ========================================
+  // GALLERY
+  // ========================================
+
+  // Use the 3 images already displayed
+  // in the HTML: 9, 10 and 11.
+  // Do not generate any duplicate cards.
 
   const galleryTrack = $("#galleryTrack");
 
-  const galleryTitles = [
-    "Carnival Moment 01",
-    "Carnival Moment 02",
-    "Carnival Moment 03",
-    "Carnival Moment 04",
-    "Carnival Moment 05",
-    "Carnival Moment 06",
-    "Carnival Moment 07",
-    "Carnival Moment 08"
-  ];
+  const galleryCards = $$(".gallery-card");
 
-  for (let i = 1; i <= 8; i++) {
-    if (!galleryTrack) break;
+  const galleryItems = galleryCards.map(card => {
+    const image = card.querySelector("img");
 
-    const button = document.createElement("button");
-
-    button.type = "button";
-    button.className = "gallery-card";
-
-    button.setAttribute(
-      "aria-label",
-      `View photograph ${i}`
-    );
-
-    const image = document.createElement("img");
-
-    image.src = imagePath(i);
-    image.alt = `Calabar Carnival photograph ${i}`;
-    image.loading = "lazy";
-    image.decoding = "async";
-
-    installImageErrorHandler(image);
-
-    const caption = document.createElement("span");
-
-    caption.textContent =
-      `${String(i).padStart(2, "0")} / ${galleryTitles[i - 1]}`;
-
-    button.append(image, caption);
-
-    button.addEventListener("click", () => {
-      openLightbox(i - 1, button);
-    });
-
-    galleryTrack.append(button);
-  }
-
-  // ======================================
-  // GALLERY SCROLL BUTTONS
-  // ======================================
+    return {
+      src: image?.getAttribute("src") || "",
+      alt: image?.alt || "Carnival photograph"
+    };
+  });
 
   function scrollGallery(direction) {
     if (!galleryTrack) return;
 
     galleryTrack.scrollBy({
-      left: direction * galleryTrack.clientWidth * 0.8,
-      behavior: reduceMotion ? "auto" : "smooth"
+      left:
+        direction *
+        galleryTrack.clientWidth * .8,
+      behavior: smooth
     });
   }
 
-  $("#galleryPrev")?.addEventListener("click", () => {
-    scrollGallery(-1);
-  });
+  $("#galleryPrev")?.addEventListener(
+    "click",
+    () => scrollGallery(-1)
+  );
 
-  $("#galleryNext")?.addEventListener("click", () => {
-    scrollGallery(1);
-  });
+  $("#galleryNext")?.addEventListener(
+    "click",
+    () => scrollGallery(1)
+  );
 
-  // ======================================
-  // FULLSCREEN IMAGE VIEWER
-  // ======================================
+  // ========================================
+  // FULLSCREEN PHOTO VIEWER
+  // ========================================
 
   const lightbox = $("#lightbox");
   const lightboxImage = $("#lightboxImage");
@@ -351,19 +403,17 @@ document.addEventListener("DOMContentLoaded", () => {
   let previousFocus = null;
 
   function showLightboxImage() {
-    if (!lightboxImage) return;
+    const item =
+      galleryItems[selectedImage];
 
-    lightboxImage.src = imagePath(selectedImage + 1);
+    if (!item || !lightboxImage) return;
 
-    lightboxImage.alt =
-      `Calabar Carnival photograph ${selectedImage + 1}`;
-
-    lightboxImage.dataset.failed = "false";
-    lightboxImage.style.opacity = "";
+    lightboxImage.src = item.src;
+    lightboxImage.alt = item.alt;
 
     if (lightboxCounter) {
       lightboxCounter.textContent =
-        `${selectedImage + 1} / 8`;
+        `${selectedImage + 1} / ${galleryItems.length}`;
     }
   }
 
@@ -375,9 +425,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     showLightboxImage();
 
-    lightbox.setAttribute("aria-hidden", "false");
+    lightbox.setAttribute(
+      "aria-hidden",
+      "false"
+    );
 
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow =
+      "hidden";
 
     $("#lightboxClose")?.focus();
   }
@@ -385,32 +439,49 @@ document.addEventListener("DOMContentLoaded", () => {
   function closeLightbox() {
     if (!lightbox) return;
 
-    lightbox.setAttribute("aria-hidden", "true");
+    lightbox.setAttribute(
+      "aria-hidden",
+      "true"
+    );
 
     document.body.style.overflow = "";
 
     previousFocus?.focus();
   }
 
-  function changeLightboxImage(direction) {
+  function changeLightbox(direction) {
+    if (!galleryItems.length) return;
+
     selectedImage =
-      (selectedImage + direction + 8) % 8;
+      (
+        selectedImage +
+        direction +
+        galleryItems.length
+      ) % galleryItems.length;
 
     showLightboxImage();
   }
+
+  galleryCards.forEach((card, index) => {
+    card.addEventListener("click", () => {
+      openLightbox(index, card);
+    });
+  });
 
   $("#lightboxClose")?.addEventListener(
     "click",
     closeLightbox
   );
 
-  $("#lightboxPrev")?.addEventListener("click", () => {
-    changeLightboxImage(-1);
-  });
+  $("#lightboxPrev")?.addEventListener(
+    "click",
+    () => changeLightbox(-1)
+  );
 
-  $("#lightboxNext")?.addEventListener("click", () => {
-    changeLightboxImage(1);
-  });
+  $("#lightboxNext")?.addEventListener(
+    "click",
+    () => changeLightbox(1)
+  );
 
   lightbox?.addEventListener("click", event => {
     if (event.target === lightbox) {
@@ -418,53 +489,66 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  document.addEventListener("keydown", event => {
-    if (
-      !lightbox ||
-      lightbox.getAttribute("aria-hidden") === "true"
-    ) return;
+  document.addEventListener(
+    "keydown",
+    event => {
+      if (
+        !lightbox ||
+        lightbox.getAttribute("aria-hidden") ===
+          "true"
+      ) return;
 
-    if (event.key === "Escape") {
-      closeLightbox();
-      return;
+      if (event.key === "Escape") {
+        closeLightbox();
+        return;
+      }
+
+      if (event.key === "ArrowLeft") {
+        changeLightbox(-1);
+        return;
+      }
+
+      if (event.key === "ArrowRight") {
+        changeLightbox(1);
+        return;
+      }
+
+      if (event.key === "Tab") {
+        const controls = [
+          $("#lightboxClose"),
+          $("#lightboxPrev"),
+          $("#lightboxNext")
+        ].filter(Boolean);
+
+        const index = controls.indexOf(
+          document.activeElement
+        );
+
+        if (index === -1) {
+          event.preventDefault();
+          controls[0]?.focus();
+          return;
+        }
+
+        const direction =
+          event.shiftKey ? -1 : 1;
+
+        const next =
+          (
+            index +
+            direction +
+            controls.length
+          ) % controls.length;
+
+        event.preventDefault();
+        controls[next]?.focus();
+      }
     }
+  );
 
-    if (event.key === "ArrowLeft") {
-      changeLightboxImage(-1);
-      return;
-    }
-
-    if (event.key === "ArrowRight") {
-      changeLightboxImage(1);
-      return;
-    }
-
-    // Keep keyboard navigation inside the dialog.
-    if (event.key === "Tab") {
-      const controls = [
-        $("#lightboxClose"),
-        $("#lightboxPrev"),
-        $("#lightboxNext")
-      ].filter(Boolean);
-
-      const index = controls.indexOf(
-        document.activeElement
-      );
-
-      const direction = event.shiftKey ? -1 : 1;
-
-      const next =
-        (index + direction + controls.length)
-        % controls.length;
-
-      event.preventDefault();
-      controls[next]?.focus();
-    }
-  });
-
-  // ======================================
-  // PACKAGE SELECTION
-  // ======================================
+  // ========================================
+  // PACKAGE SELECTOR
+  // ========================================
 
   const packageSelect = $("#packageType");
   const regionSelect = $("#originRegion");
@@ -480,23 +564,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   $$(".choose-package").forEach(button => {
     button.addEventListener("click", () => {
-      choosePackage(button.dataset.package || "seat");
+      choosePackage(
+        button.dataset.package || "seat"
+      );
     });
   });
 
   $$(".regional-booking").forEach(button => {
     button.addEventListener("click", () => {
       if (regionSelect) {
-        regionSelect.value = button.dataset.origin;
+        regionSelect.value =
+          button.dataset.origin;
       }
 
       choosePackage("fly");
     });
   });
 
-  // ======================================
+  // ========================================
   // BOOKING CALCULATOR
-  // ======================================
+  // ========================================
+
+  // These are indicative starting prices.
+  // No invented hotel/flight supplements.
 
   const basePrices = {
     seat: 150000,
@@ -514,28 +604,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const inclusions = {
     seat: [
-      "Verified hospitality access",
+      "Hospitality access",
       "Event-day meal and refreshments",
       "Guest check-in and seat guidance",
-      "Event-day support"
+      "Event-day guest support"
     ],
     stay: [
       "Hospitality access",
-      "Selected hotel with breakfast",
+      "Selected hotel and breakfast",
       "Two hotel nights",
       "Carnival-day return transfer"
     ],
     explore: [
-      "Hospitality access and selected hotel",
+      "Hospitality and selected hotel",
       "Tinapa Free Zone & Resort",
       "Kwa Falls",
-      "Scheduled transport and guide allowance"
+      "Scheduled local vehicle and guide allowance"
     ],
     fly: [
       "Hospitality and selected hotel",
       "Tinapa and Kwa Falls",
       "Specified airport and local transfers",
-      "Return flight subject to supplier quotation"
+      "Flight-inclusive package subject to live fare confirmation"
     ]
   };
 
@@ -549,8 +639,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updateSummary() {
-    const type = value("packageType") || "seat";
-    const region = value("originRegion") || "nigeria";
+    const type =
+      value("packageType") || "seat";
+
+    const region =
+      value("originRegion") || "nigeria";
 
     const guests = Math.max(
       1,
@@ -562,25 +655,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const hotel = value("hotelClass");
     const room = value("roomPreference");
-    const nights = Number(value("hotelNights")) || 2;
+    const nights =
+      Number(value("hotelNights")) || 2;
     const transfer = value("transfer");
 
-    const startingRate = basePrices[type] || 150000;
+    const startingRate =
+      basePrices[type] || 150000;
 
     let extraTransport = 0;
 
-    // Calculate only published transport prices.
-
     if (transfer === "shared") {
       extraTransport = 50000 * guests;
-    }
-
-    if (transfer === "private") {
+    } else if (transfer === "private") {
       extraTransport =
         120000 * Math.ceil(guests / 3);
-    }
-
-    if (transfer === "tour") {
+    } else if (transfer === "tour") {
       extraTransport = 180000;
     }
 
@@ -592,17 +681,32 @@ document.addEventListener("DOMContentLoaded", () => {
     const needsQuotation =
       type === "fly" ||
       region !== "nigeria" ||
-      (hotelIncluded && hotel !== "3star") ||
-      (hotelIncluded && room !== "sharing") ||
-      (hotelIncluded && nights !== 2) ||
+      (
+        hotelIncluded &&
+        hotel !== "3star"
+      ) ||
+      (
+        hotelIncluded &&
+        room !== "sharing"
+      ) ||
+      (
+        hotelIncluded &&
+        nights !== 2
+      ) ||
       transfer === "road";
 
-    const amountElement = $("#summaryAmount");
-    const typeElement = $("#summaryType");
-    const detailsElement = $("#summaryDetails");
+    const amountElement =
+      $("#summaryAmount");
+
+    const typeElement =
+      $("#summaryType");
+
+    const detailsElement =
+      $("#summaryDetails");
 
     if (amountElement) {
-      amountElement.textContent = money(total);
+      amountElement.textContent =
+        money(total);
     }
 
     if (typeElement) {
@@ -610,39 +714,77 @@ document.addEventListener("DOMContentLoaded", () => {
         `${packageNames[type]} · ${guests} guest${guests > 1 ? "s" : ""}`;
     }
 
-    const items = inclusions[type]
-      .map(item => `<li>${item}</li>`)
-      .join("");
+    // Use safe DOM creation.
+    // Do not inject untrusted user input
+    // through innerHTML.
 
     if (detailsElement) {
-      detailsElement.innerHTML = `
-        <p>
-          <strong>Starting package:</strong>
-          ${money(startingRate)} × ${guests}
-        </p>
+      detailsElement.replaceChildren();
 
-        <p>
-          <strong>Optional transport:</strong>
-          ${money(extraTransport)}
-        </p>
+      function addDetail(label, content) {
+        const paragraph =
+          document.createElement("p");
 
-        <p>
-          <strong>Hotel nights:</strong>
-          ${hotelIncluded ? nights : "Not included"}
-        </p>
+        const strong =
+          document.createElement("strong");
 
-        <p><strong>Package inclusions:</strong></p>
+        strong.textContent =
+          `${label}: `;
 
-        <ul>${items}</ul>
+        paragraph.append(
+          strong,
+          document.createTextNode(content)
+        );
 
-        <p>
-          ${
-            needsQuotation
-              ? "Additional supplier quotation required. This amount is not a confirmed final price."
-              : "Indicative starting total, subject to inventory and confirmation."
-          }
-        </p>
-      `;
+        detailsElement.append(paragraph);
+      }
+
+      addDetail(
+        "Starting package",
+        `${money(startingRate)} × ${guests}`
+      );
+
+      addDetail(
+        "Optional transport",
+        money(extraTransport)
+      );
+
+      addDetail(
+        "Hotel nights",
+        hotelIncluded
+          ? String(nights)
+          : "Not included"
+      );
+
+      const heading =
+        document.createElement("p");
+
+      heading.textContent =
+        "Package inclusions:";
+
+      detailsElement.append(heading);
+
+      const list =
+        document.createElement("ul");
+
+      inclusions[type].forEach(item => {
+        const li =
+          document.createElement("li");
+
+        li.textContent = item;
+        list.append(li);
+      });
+
+      detailsElement.append(list);
+
+      const message =
+        document.createElement("p");
+
+      message.textContent = needsQuotation
+        ? "Additional supplier quotation is required. This amount is not a confirmed final price."
+        : "Indicative starting total, subject to availability and confirmation.";
+
+      detailsElement.append(message);
     }
 
     enquiryText = [
@@ -653,158 +795,196 @@ document.addEventListener("DOMContentLoaded", () => {
       `Email: ${value("email")}`,
       `Travelling from: ${region}`,
       `Package: ${packageNames[type]}`,
-      `Preferred Carnival date: ${value("carnivalDate")}`,
-      `Departure airport/city: ${value("departureAirport") || "Not supplied"}`,
+      `Carnival date: ${value("carnivalDate")}`,
+      `Departure city/airport: ${value("departureAirport") || "Not supplied"}`,
       `Number of guests: ${guests}`,
-      `Hotel preference: ${hotelIncluded ? hotel : "Not included"}`,
-      `Room preference: ${hotelIncluded ? room : "Not included"}`,
+      `Hotel: ${hotelIncluded ? hotel : "Not included"}`,
+      `Room: ${hotelIncluded ? room : "Not included"}`,
       `Hotel nights: ${hotelIncluded ? nights : "Not included"}`,
       `Arrival date: ${value("arrivalDate") || "Not supplied"}`,
       `Departure date: ${value("departureDate") || "Not supplied"}`,
-      `Dietary requirements: ${value("dietary") || "None supplied"}`,
+      `Dietary needs: ${value("dietary") || "None supplied"}`,
       `Optional transport: ${transfer}`,
       "",
       `Indicative starting total: ${money(total)}`,
       needsQuotation
-        ? "Further supplier quotation required."
+        ? "Additional supplier quotation required."
         : "Subject to final availability and confirmation.",
       "",
-      "This is an enquiry, not a confirmed reservation."
+      "This is an enquiry, not a confirmed booking."
     ].join("\n");
+
+    if (copyButton) {
+      copyButton.disabled = true;
+    }
+
+    const copyStatus = $("#copyStatus");
+    if (copyStatus) {
+      copyStatus.textContent = "";
+    }
 
     return total;
   }
 
-  // ======================================
-  // LIVE FORM CALCULATION
-  // ======================================
+  // ========================================
+  // LIVE CALCULATION
+  // ========================================
 
   bookingForm
     ?.querySelectorAll("input,select")
     .forEach(field => {
       field.addEventListener(
-        "change",
+        "input",
         updateSummary
       );
 
       field.addEventListener(
-        "input",
+        "change",
         updateSummary
       );
     });
 
-  // ======================================
-  // FORM VALIDATION AND RESULTS
-  // ======================================
+  // ========================================
+  // FORM VALIDATION
+  // ========================================
 
-  bookingForm?.addEventListener("submit", event => {
-    event.preventDefault();
+  bookingForm?.addEventListener(
+    "submit",
+    event => {
+      event.preventDefault();
 
-    if (!bookingForm.reportValidity()) {
-      return;
-    }
-
-    const arrival = value("arrivalDate");
-    const departure = value("departureDate");
-
-    if (
-      arrival &&
-      departure &&
-      departure <= arrival
-    ) {
-      alert(
-        "Your departure date must be after your arrival date."
-      );
-
-      return;
-    }
-
-    // Validate flight origin when a flight is needed.
-
-    if (
-      (
-        value("packageType") === "fly" ||
-        value("originRegion") !== "nigeria"
-      ) &&
-      !value("departureAirport")
-    ) {
-      alert(
-        "Please enter your departure city or airport."
-      );
-
-      $("#departureAirport")?.focus();
-      return;
-    }
-
-    updateSummary();
-
-    if (copyButton) {
-      copyButton.disabled = false;
-    }
-
-    const status = $("#copyStatus");
-
-    if (status) {
-      status.textContent =
-        "Your estimate is ready. Copy your booking enquiry to share with the booking team.";
-    }
-
-    $("#bookingSummary")?.scrollIntoView({
-      behavior: reduceMotion ? "auto" : "smooth",
-      block: "center"
-    });
-  });
-
-  // ======================================
-  // COPY BOOKING ENQUIRY
-  // ======================================
-
-  copyButton?.addEventListener("click", async () => {
-    if (!enquiryText) return;
-
-    const status = $("#copyStatus");
-
-    try {
-      await navigator.clipboard.writeText(enquiryText);
-
-      if (status) {
-        status.textContent =
-          "Booking enquiry copied successfully.";
+      if (!bookingForm.reportValidity()) {
+        return;
       }
-    } catch (error) {
-      // Fallback for browsers without clipboard API.
 
-      const textarea = document.createElement("textarea");
+      const arrival = value("arrivalDate");
+      const departure = value("departureDate");
+      const carnivalDate = value("carnivalDate");
 
-      textarea.value = enquiryText;
+      if (
+        arrival &&
+        departure &&
+        departure <= arrival
+      ) {
+        alert(
+          "Your departure date must be after your arrival date."
+        );
 
-      textarea.style.position = "fixed";
-      textarea.style.opacity = "0";
+        return;
+      }
 
-      document.body.append(textarea);
-      textarea.select();
+      if (
+        arrival &&
+        carnivalDate &&
+        carnivalDate < arrival
+      ) {
+        alert(
+          "Your selected Carnival date must not be before your arrival date."
+        );
 
-      let copied = false;
+        return;
+      }
+
+      if (
+        departure &&
+        carnivalDate &&
+        carnivalDate >= departure
+      ) {
+        alert(
+          "Your selected Carnival date must be before your departure date."
+        );
+
+        return;
+      }
+
+      const flightRequired =
+        value("packageType") === "fly" ||
+        value("originRegion") !== "nigeria";
+
+      if (
+        flightRequired &&
+        !value("departureAirport")
+      ) {
+        alert(
+          "Please enter your departure airport or city."
+        );
+
+        $("#departureAirport")?.focus();
+        return;
+      }
+
+      updateSummary();
+
+      if (copyButton) {
+        copyButton.disabled = false;
+      }
+
+      if ($("#copyStatus")) {
+        $("#copyStatus").textContent =
+          "Your indicative estimate is ready. Copy your enquiry to share with the booking team.";
+      }
+
+      $("#bookingSummary")?.scrollIntoView({
+        behavior: smooth,
+        block: "center"
+      });
+    }
+  );
+
+  // ========================================
+  // COPY BOOKING ENQUIRY
+  // ========================================
+
+  copyButton?.addEventListener(
+    "click",
+    async () => {
+      if (!enquiryText) return;
+
+      const status = $("#copyStatus");
 
       try {
-        copied = document.execCommand("copy");
+        await navigator.clipboard.writeText(
+          enquiryText
+        );
+
+        if (status) {
+          status.textContent =
+            "Booking enquiry copied successfully.";
+        }
       } catch {
-        copied = false;
-      }
+        const textarea =
+          document.createElement("textarea");
 
-      textarea.remove();
+        textarea.value = enquiryText;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
 
-      if (status) {
-        status.textContent = copied
-          ? "Booking enquiry copied."
-          : "Copying was unsuccessful. Please try using HTTPS.";
+        document.body.append(textarea);
+        textarea.select();
+
+        let copied = false;
+
+        try {
+          copied =
+            document.execCommand("copy");
+        } catch {
+          copied = false;
+        }
+
+        textarea.remove();
+
+        if (status) {
+          status.textContent = copied
+            ? "Booking enquiry copied."
+            : "Copying was unsuccessful. Please use HTTPS.";
+        }
       }
     }
-  });
+  );
 
-  // ======================================
+  // ========================================
   // INITIALIZE
-  // ======================================
+  // ========================================
 
   renderJourney(0);
   updateSummary();
