@@ -1,1031 +1,393 @@
 
-document.addEventListener("DOMContentLoaded", () => {
-  "use strict";
+document.addEventListener('DOMContentLoaded', () => {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ========================================
-  // SEE AFRICA × FIRSTBANK
-  // CALABAR CARNIVAL 2026
-  // 19 UNIQUE FESTIVAL IMAGES
-  // ========================================
-
-  const $ = selector =>
-    document.querySelector(selector);
-
-  const $$ = selector =>
-    [...document.querySelectorAll(selector)];
-
-  const imagePath = number =>
-    `images/new-calabar${number}.png`;
-
-  const money = amount =>
-    new Intl.NumberFormat("en-NG", {
-      style: "currency",
-      currency: "NGN",
-      maximumFractionDigits: 0
-    }).format(amount);
-
-  const reduceMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  ).matches;
-
-  const smooth = reduceMotion ? "auto" : "smooth";
-
-  function scrollToBooking() {
-    $("#booking")?.scrollIntoView({
-      behavior: smooth,
-      block: "start"
-    });
+  /* ---------- Preloader ---------- */
+  // Gate this on a short fixed timer, not window.load — window.load would wait for
+  // every video on the page (hero + explore + up to 10 country-carousel videos),
+  // which is slow on mobile networks and made the loading screen drag on.
+  const preloader = document.getElementById('preloader');
+  if (preloader) {
+    setTimeout(() => preloader.classList.add('done'), 650);
   }
 
-  // ========================================
-  // UNIQUE IMAGE REGISTRY
-  // ========================================
+  /* ---------- Lenis smooth scroll ---------- */
+  let lenis;
+  if (window.Lenis && !reduceMotion) {
+    lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+    function raf(time){ lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    lenis.on('scroll', () => window.ScrollTrigger && ScrollTrigger.update());
+  }
 
-  // All 19 photos are assigned exactly once.
-  // The gallery uses only photos 15–19.
-  // The hero retains its original media.
+  /* ---------- Lucide icons ---------- */
+  if (window.lucide) lucide.createIcons();
 
-  const imageAssignments = [
-    {
-      selector: ".theme-section .photo-frame img",
-      number: 1,
-      alt: "Calabar Carnival cultural celebration"
-    },
-    {
-      selector: ".story-row:nth-of-type(1) .story-images img:nth-child(1)",
-      number: 2,
-      alt: "The culture of Carnival Calabar"
-    },
-    {
-      selector: ".story-row:nth-of-type(1) .story-images img:nth-child(2)",
-      number: 3,
-      alt: "Calabar Carnival performers"
-    },
-    {
-      selector: ".story-row:nth-of-type(2) .story-images img:nth-child(1)",
-      number: 4,
-      alt: "Carnival street celebration"
-    },
-    {
-      selector: ".story-row:nth-of-type(2) .story-images img:nth-child(2)",
-      number: 5,
-      alt: "The energy of Carnival Calabar"
-    },
-    {
-      selector: ".story-row:nth-of-type(3) .story-images img:nth-child(1)",
-      number: 6,
-      alt: "Carnival performers and celebration"
-    },
-    {
-      selector: ".story-row:nth-of-type(3) .story-images img:nth-child(2)",
-      number: 7,
-      alt: "The people of Calabar Carnival"
-    },
-    {
-      selector: ".sponsor-section .sponsor-photo img",
-      number: 8,
-      alt: "FirstBank sponsored Carnival experience"
-    },
-    {
-      selector: ".hospitality-section .photo-frame img",
-      number: 9,
-      alt: "Calabar hospitality atmosphere"
-    },
-    {
-      selector: ".package-card:nth-child(1) .package-image img",
-      number: 10,
-      alt: "Seat Only Carnival experience"
-    },
-    {
-      selector: ".package-card:nth-child(2) .package-image img",
-      number: 11,
-      alt: "Calabar Carnival Stay package"
-    },
-    {
-      selector: ".package-card:nth-child(3) .package-image img",
-      number: 12,
-      alt: "Calabar Explore package"
-    },
-    {
-      selector: ".package-card:nth-child(4) .package-image img",
-      number: 13,
-      alt: "Fly and Explore Calabar package"
-    },
-    {
-      selector: ".urgency-section .photo-frame img",
-      number: 14,
-      alt: "Calabar Carnival unforgettable experience"
-    }
+  /* ---------- Country Cards carousel ---------- */
+  const COUNTRY_VIDEO_BASE = 'https://raw.githubusercontent.com/Emekaeluem/See-Africa-1/main/images/';
+  const COUNTRIES = [
+    { flag:'🇷🇼', name:`Rwanda`, tagline:`Land of a Thousand Hills`, highlight:`Volcanoes National Park`, quote:`Where the mist never fully lifts — and neither does the memory.`, desc:`Trek through cloud forest to meet mountain gorillas face to face. Rwanda doesn't just show you nature — it stays with you.`, cta:`Explore Rwanda`, video:`rwanda.mp4` },
+    { flag:'🇰🇪', name:`Kenya`, tagline:`Where the Earth Still Breathes`, highlight:`Maasai Mara National Reserve`, quote:`Two million wildebeest cannot be wrong.`, desc:`The Great Migration thundering across golden grass. A Maasai warrior still against the wind. This is the Africa you always imagined — only louder.`, cta:`Explore Kenya`, video:`kenya.mp4` },
+    { flag:'🇹🇿', name:`Tanzania`, tagline:`Where Giants Roam and Islands Dream`, highlight:`Serengeti National Park & Zanzibar Archipelago`, quote:`From the roof of Africa to the edge of the Indian Ocean — all in one breath.`, desc:`Stand on the Ngorongoro crater rim. Watch elephants move like slow thunder across the Serengeti. Then lose yourself in Stone Town's spice-scented streets on Zanzibar. Africa, complete.`, cta:`Explore Tanzania`, video:`zanzibar.mp4` },
+    { flag:'🇳🇬', name:`Nigeria`, tagline:`The Heartbeat of Africa`, highlight:`Calabar Carnival & Lagos Waterfront`, quote:`The loudest silence in Africa is the moment before Lagos speaks.`, desc:`Two hundred million stories, one irresistible energy. From the thunder of Calabar Carnival — Africa's largest street party — to Lagos on New Year's Eve, Nigeria doesn't just celebrate. It erupts.`, cta:`Explore Nigeria`, video:`nigeria.mp4` },
+    { flag:'🇬🇭', name:`Ghana`, tagline:`The Gateway of the Ancestors`, highlight:`Cape Coast Castle & Kakum National Park`, quote:`Some journeys are not about where you're going. They're about where you came from.`, desc:`Walk the shores where history turned, inside Cape Coast Castle. Then climb 30 metres above the forest floor on Kakum's canopy walk — and remember: you're still here. That's extraordinary.`, cta:`Explore Ghana`, video:`ghana.mp4` },
+    { flag:'🇿🇦', name:`South Africa`, tagline:`The Rainbow at the Edge of the World`, highlight:`Cape Town & Kruger National Park`, quote:`Two oceans meet here. So do two worlds.`, desc:`Table Mountain rising through cloud. Penguins on Boulders Beach. The Big Five at dusk in Kruger. Golden, unhurried winelands in Stellenbosch. South Africa isn't one thing — it's everything, compressed.`, cta:`Explore South Africa`, video:null },
+    { flag:'🇿🇲', name:`Zambia`, tagline:`The Real Africa, Unfiltered`, highlight:`Victoria Falls (Mosi-oa-Tunya)`, quote:`The smoke that thunders. You will hear it before you see it.`, desc:`One of the seven natural wonders of the world — and on the Zambia side, you feel every bit of it. Walk the knife-edge bridge. Swim in Devil's Pool. Let the spray drench you.`, cta:`Explore Zambia`, video:`zambia.mp4` },
+    { flag:'🇬🇲', name:`The Gambia`, tagline:`Africa in Miniature`, highlight:`Kachikally Crocodile Pool & River Gambia National Park`, quote:`Small country. Infinite soul.`, desc:`The Gambia River cuts through lush forest like a silver thread. Chimpanzees, sacred crocodile pools, birdlife to rival any continent — and a warmth that'll make you question everything you thought you were chasing.`, cta:`Explore The Gambia`, video:`gambia.mp4` },
+    { flag:'🇨🇲', name:`Cameroon`, tagline:`Africa in One Country`, highlight:`Mount Cameroon & Waza National Park`, quote:`They say Cameroon is Africa in miniature. They are not wrong.`, desc:`An active volcano you can climb. Rainforest gorillas. Sahel in the north, Atlantic coast in the south. Desert, forest, mountain, ocean — all inside one border.`, cta:`Explore Cameroon`, video:`cameroon.mp4` },
+    { flag:'🇧🇼', name:`Botswana`, tagline:`Silence Is a Luxury Here`, highlight:`Okavango Delta & Chobe National Park`, quote:`The world's largest inland delta. And almost no one there.`, desc:`The Okavango Delta floods every year — an ancient miracle that turns desert into waterway, waterway into paradise. Mokoro canoes. Elephant crossings. Lions at dusk. True, uninterrupted wilderness.`, cta:`Explore Botswana`, video:`botswana.mp4` }
   ];
 
-  // ========================================
-  // IMAGE ERROR HANDLING
-  // ========================================
+  const renderCountrySlide = (c, i) => `
+    <div class="country-slide" data-index="${i}">
+      <div class="country-slide-media">
+        ${c.video ? `<video autoplay muted loop playsinline preload="metadata" aria-hidden="true"><source src="${COUNTRY_VIDEO_BASE}${c.video}" type="video/mp4" /></video>` : ''}
+        <div class="country-slide-media-overlay"></div>
+      </div>
+      <div class="country-slide-content">
+        <span class="country-slide-number" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
+        <h2 class="country-slide-name"><span class="country-slide-flag">${c.flag}</span>${c.name}</h2>
+        <p class="country-slide-tagline">${c.tagline}</p>
+        <p class="country-slide-highlight">Location Highlight: ${c.highlight}</p>
+        <p class="country-slide-quote">"${c.quote}"</p>
+        <p class="country-slide-desc">${c.desc}</p>
+        <a href="#" class="country-slide-cta"><span>${c.cta}</span><i data-lucide="arrow-right"></i></a>
+      </div>
+    </div>
+  `;
 
-  function installImageHandler(image) {
-    if (!image || image.dataset.handlerInstalled) {
-      return;
-    }
+  const carousel = document.getElementById('countryCarousel');
+  if (carousel) {
+    const AUTOPLAY_MS = 6500;
+    carousel.style.setProperty('--autoplay-ms', AUTOPLAY_MS + 'ms');
 
-    image.dataset.handlerInstalled = "true";
+    carousel.insertAdjacentHTML('afterbegin', COUNTRIES.map(renderCountrySlide).join(''));
 
-    image.addEventListener("error", () => {
-      if (image.dataset.failed === "true") return;
+    const progressEl = document.getElementById('countryProgress');
+    progressEl.innerHTML = COUNTRIES.map(() => `<div class="country-progress-seg"><div class="fill"></div></div>`).join('');
 
-      image.dataset.failed = "true";
+    if (window.lucide) lucide.createIcons();
 
-      console.warn(
-        "Image failed to load:",
-        image.src
-      );
+    const slides = Array.from(carousel.querySelectorAll('.country-slide'));
+    const segs = Array.from(progressEl.querySelectorAll('.country-progress-seg'));
+    const prevBtn = carousel.querySelector('.country-arrow.prev');
+    const nextBtn = carousel.querySelector('.country-arrow.next');
+    const controlsBar = carousel.querySelector('.country-controls-bar');
+    const total = slides.length;
+    let current = 0;
+    let timer = null;
 
-      if (
-        image.closest(".brand-logos") ||
-        image.closest(".footer-logos")
-      ) {
-        const replacement = document.createElement(
-          "strong"
-        );
-
-        replacement.textContent =
-          image.alt || "Brand Logo";
-
-        replacement.style.color = "#ffffff";
-        replacement.style.fontSize = "11px";
-
-        image.replaceWith(replacement);
-        return;
+    // On mobile the arrows/progress bar move into the active slide's content flow,
+    // right after the CTA button, so they sit close to it instead of pinned far below.
+    const isMobileControls = () => window.matchMedia('(max-width: 860px)').matches;
+    const placeControlsBar = () => {
+      const content = slides[current].querySelector('.country-slide-content');
+      if (isMobileControls()) {
+        if (controlsBar.parentElement !== content) content.appendChild(controlsBar);
+      } else if (controlsBar.parentElement !== carousel) {
+        carousel.appendChild(controlsBar);
       }
-
-      image.style.opacity = "0.25";
-      image.title = `Image unavailable: ${image.src}`;
-    });
-  }
-
-  $$("img").forEach(installImageHandler);
-
-  // ========================================
-  // APPLY ALL UNIQUE STATIC IMAGES
-  // ========================================
-
-  // Locate storyline images by actual row order.
-  // This avoids relying on complex nth-of-type
-  // selectors when sections contain other tags.
-
-  const storyRows = $$(".story-row");
-
-  const storyNumbers = [
-    [2, 3],
-    [4, 5],
-    [6, 7]
-  ];
-
-  storyRows.forEach((row, rowIndex) => {
-    if (rowIndex >= storyNumbers.length) return;
-
-    const images = $$(".story-row")[rowIndex]
-      .querySelectorAll(".story-images img");
-
-    images.forEach((image, imageIndex) => {
-      const number =
-        storyNumbers[rowIndex][imageIndex];
-
-      if (!number) return;
-
-      image.src = imagePath(number);
-      image.alt =
-        `Calabar Carnival moment ${number}`;
-      image.loading = "lazy";
-      image.decoding = "async";
-      image.dataset.failed = "false";
-      image.style.opacity = "";
-    });
-  });
-
-  // Apply every image outside the story rows.
-
-  imageAssignments
-    .filter(item => !item.selector.includes(".story-row"))
-    .forEach(item => {
-      const image = $(item.selector);
-
-      if (!image) {
-        console.warn(
-          "Section image not found:",
-          item.selector
-        );
-        return;
-      }
-
-      image.src = imagePath(item.number);
-      image.alt = item.alt;
-      image.loading = "lazy";
-      image.decoding = "async";
-      image.dataset.failed = "false";
-      image.style.opacity = "";
-    });
-
-  // ========================================
-  // INTERACTIVE JOURNEY — NO REPEATED IMAGE
-  // ========================================
-
-  const journeyFeature = $(".journey-feature");
-  const journeyImage = $("#journeyImage");
-
-  // A visual gradient replaces the old changing
-  // journey picture. This prevents photo reuse.
-
-  if (journeyImage) {
-    journeyImage.remove();
-  }
-
-  if (journeyFeature) {
-    journeyFeature.style.background = `
-      radial-gradient(
-        circle at 80% 20%,
-        rgba(241,197,65,0.23),
-        transparent 42%
-      ),
-      linear-gradient(
-        135deg,
-        #0c407b,
-        #041a33 75%
-      )
-    `;
-  }
-
-  const journey = [
-    {
-      title: "Choose your seat",
-      description:
-        "Secure your verified hospitality access."
-    },
-    {
-      title: "Add your stay",
-      description:
-        "Choose your hotel class and number of nights."
-    },
-    {
-      title: "Add your discovery",
-      description:
-        "Explore Tinapa and Kwa Falls with scheduled transport and a host or guide allowance."
-    },
-    {
-      title: "Add your flight",
-      description:
-        "Select your origin airport and request a flight-inclusive total."
-    },
-    {
-      title: "Arrive and answer the beat",
-      description:
-        "Your itinerary, guest support and event-day guidance are arranged around you."
-    }
-  ];
-
-  let journeyIndex = 0;
-
-  function renderJourney(index) {
-    journeyIndex =
-      (index + journey.length) % journey.length;
-
-    const current = journey[journeyIndex];
-
-    if ($("#journeyTitle")) {
-      $("#journeyTitle").textContent =
-        current.title;
-    }
-
-    if ($("#journeyDescription")) {
-      $("#journeyDescription").textContent =
-        current.description;
-    }
-
-    if ($("#journeyNumber")) {
-      $("#journeyNumber").textContent =
-        `STEP ${String(journeyIndex + 1).padStart(2, "0")} / 05`;
-    }
-
-    $$(".journey-step").forEach((button, i) => {
-      const active = i === journeyIndex;
-
-      button.classList.toggle("active", active);
-      button.setAttribute(
-        "aria-pressed",
-        String(active)
-      );
-    });
-  }
-
-  $$(".journey-step").forEach((button, index) => {
-    button.addEventListener("click", () => {
-      renderJourney(index);
-    });
-  });
-
-  $("#nextJourney")?.addEventListener("click", () => {
-    renderJourney(journeyIndex + 1);
-  });
-
-  // ========================================
-  // MOBILE MENU
-  // ========================================
-
-  const menuButton = $("#menuButton");
-  const navLinks = $("#navLinks");
-
-  function closeMenu() {
-    if (!menuButton || !navLinks) return;
-
-    navLinks.classList.remove("open");
-    menuButton.setAttribute(
-      "aria-expanded",
-      "false"
-    );
-    menuButton.textContent = "☰";
-  }
-
-  menuButton?.addEventListener("click", () => {
-    if (!navLinks) return;
-
-    const open = navLinks.classList.toggle("open");
-
-    menuButton.setAttribute(
-      "aria-expanded",
-      String(open)
-    );
-
-    menuButton.textContent = open ? "×" : "☰";
-  });
-
-  $$("#navLinks a").forEach(link => {
-    link.addEventListener("click", closeMenu);
-  });
-
-  document.addEventListener("click", event => {
-    if (
-      navLinks &&
-      menuButton &&
-      !event.target.closest(".nav") &&
-      navLinks.classList.contains("open")
-    ) {
-      closeMenu();
-    }
-  });
-
-  // ========================================
-  // HERO VIDEO — REMAINS UNCHANGED
-  // ========================================
-
-  const heroVideo = $("#heroVideo");
-  const soundToggle = $("#soundToggle");
-
-  if (heroVideo) {
-    heroVideo.muted = true;
-
-    heroVideo.play().catch(() => {
-      // Existing hero poster stays visible.
-    });
-
-    heroVideo.addEventListener("error", () => {
-      heroVideo.style.display = "none";
-    });
-  }
-
-  soundToggle?.addEventListener("click", () => {
-    if (!heroVideo) return;
-
-    heroVideo.muted = !heroVideo.muted;
-
-    const soundOn = !heroVideo.muted;
-
-    soundToggle.textContent = soundOn
-      ? "♫ Mute Sound"
-      : "♫ Enable Sound";
-
-    soundToggle.setAttribute(
-      "aria-pressed",
-      String(soundOn)
-    );
-
-    if (heroVideo.paused) {
-      heroVideo.play().catch(() => {});
-    }
-  });
-
-  // ========================================
-  // GALLERY — ONLY IMAGES 15 TO 19
-  // ========================================
-
-  const galleryTrack = $("#galleryTrack");
-
-  const galleryImages = [
-    {
-      number: 15,
-      title: "THE CELEBRATION"
-    },
-    {
-      number: 16,
-      title: "THE COLOUR"
-    },
-    {
-      number: 17,
-      title: "THE ENERGY"
-    },
-    {
-      number: 18,
-      title: "THE PEOPLE"
-    },
-    {
-      number: 19,
-      title: "THE MEMORIES"
-    }
-  ];
-
-  if (galleryTrack) {
-    galleryTrack.innerHTML = "";
-
-    galleryImages.forEach((item, index) => {
-      const button = document.createElement(
-        "button"
-      );
-
-      button.type = "button";
-      button.className = "gallery-card";
-
-      button.setAttribute(
-        "aria-label",
-        `View Carnival photograph ${item.number}`
-      );
-
-      const image = document.createElement("img");
-
-      image.src = imagePath(item.number);
-      image.alt =
-        `Calabar Carnival photograph ${item.number}`;
-      image.loading = "lazy";
-      image.decoding = "async";
-
-      installImageHandler(image);
-
-      const caption = document.createElement("span");
-
-      caption.textContent =
-        `${String(index + 1).padStart(2, "0")} / ${item.title}`;
-
-      button.append(image, caption);
-
-      button.addEventListener("click", () => {
-        openLightbox(index, button);
-      });
-
-      galleryTrack.append(button);
-    });
-  }
-
-  // ========================================
-  // GALLERY NAVIGATION
-  // ========================================
-
-  function scrollGallery(direction) {
-    if (!galleryTrack) return;
-
-    galleryTrack.scrollBy({
-      left:
-        direction * galleryTrack.clientWidth * 0.8,
-      behavior: smooth
-    });
-  }
-
-  $("#galleryPrev")?.addEventListener(
-    "click",
-    () => scrollGallery(-1)
-  );
-
-  $("#galleryNext")?.addEventListener(
-    "click",
-    () => scrollGallery(1)
-  );
-
-  // ========================================
-  // FULLSCREEN GALLERY VIEWER
-  // ========================================
-
-  const lightbox = $("#lightbox");
-  const lightboxImage = $("#lightboxImage");
-  const lightboxCounter = $("#lightboxCounter");
-
-  let selectedImage = 0;
-  let previousFocus = null;
-
-  function showLightboxImage() {
-    const item = galleryImages[selectedImage];
-
-    if (!item || !lightboxImage) return;
-
-    lightboxImage.src = imagePath(item.number);
-    lightboxImage.alt =
-      `Calabar Carnival photograph ${item.number}`;
-
-    lightboxImage.dataset.failed = "false";
-    lightboxImage.style.opacity = "";
-
-    if (lightboxCounter) {
-      lightboxCounter.textContent =
-        `${selectedImage + 1} / ${galleryImages.length}`;
-    }
-  }
-
-  function openLightbox(index, button) {
-    if (!lightbox) return;
-
-    selectedImage = index;
-    previousFocus = button;
-
-    showLightboxImage();
-
-    lightbox.setAttribute(
-      "aria-hidden",
-      "false"
-    );
-
-    document.body.style.overflow = "hidden";
-
-    $("#lightboxClose")?.focus();
-  }
-
-  function closeLightbox() {
-    if (!lightbox) return;
-
-    lightbox.setAttribute(
-      "aria-hidden",
-      "true"
-    );
-
-    document.body.style.overflow = "";
-
-    previousFocus?.focus();
-  }
-
-  function changeLightbox(direction) {
-    selectedImage =
-      (
-        selectedImage +
-        direction +
-        galleryImages.length
-      ) % galleryImages.length;
-
-    showLightboxImage();
-  }
-
-  $("#lightboxClose")?.addEventListener(
-    "click",
-    closeLightbox
-  );
-
-  $("#lightboxPrev")?.addEventListener(
-    "click",
-    () => changeLightbox(-1)
-  );
-
-  $("#lightboxNext")?.addEventListener(
-    "click",
-    () => changeLightbox(1)
-  );
-
-  lightbox?.addEventListener("click", event => {
-    if (event.target === lightbox) {
-      closeLightbox();
-    }
-  });
-
-  document.addEventListener("keydown", event => {
-    if (
-      !lightbox ||
-      lightbox.getAttribute("aria-hidden") === "true"
-    ) {
-      return;
-    }
-
-    if (event.key === "Escape") {
-      closeLightbox();
-      return;
-    }
-
-    if (event.key === "ArrowLeft") {
-      changeLightbox(-1);
-      return;
-    }
-
-    if (event.key === "ArrowRight") {
-      changeLightbox(1);
-      return;
-    }
-
-    if (event.key === "Tab") {
-      const controls = [
-        $("#lightboxClose"),
-        $("#lightboxPrev"),
-        $("#lightboxNext")
-      ].filter(Boolean);
-
-      const index = controls.indexOf(
-        document.activeElement
-      );
-
-      if (index === -1) {
-        event.preventDefault();
-        controls[0]?.focus();
-        return;
-      }
-
-      const direction = event.shiftKey ? -1 : 1;
-
-      const next =
-        (index + direction + controls.length)
-        % controls.length;
-
-      event.preventDefault();
-      controls[next]?.focus();
-    }
-  });
-
-  // ========================================
-  // PACKAGE SELECTION
-  // ========================================
-
-  const packageSelect = $("#packageType");
-  const regionSelect = $("#originRegion");
-
-  function choosePackage(type) {
-    if (packageSelect) {
-      packageSelect.value = type;
-    }
-
-    updateSummary();
-    scrollToBooking();
-  }
-
-  $$(".choose-package").forEach(button => {
-    button.addEventListener("click", () => {
-      choosePackage(
-        button.dataset.package || "seat"
-      );
-    });
-  });
-
-  $$(".regional-booking").forEach(button => {
-    button.addEventListener("click", () => {
-      if (regionSelect) {
-        regionSelect.value =
-          button.dataset.origin;
-      }
-
-      choosePackage("fly");
-    });
-  });
-
-  // ========================================
-  // BOOKING CALCULATOR
-  // ========================================
-
-  const basePrices = {
-    seat: 150000,
-    stay: 500000,
-    explore: 620000,
-    fly: 920000
-  };
-
-  const packageNames = {
-    seat: "Seat Only",
-    stay: "Stay",
-    explore: "Explore",
-    fly: "Fly & Explore"
-  };
-
-  const inclusions = {
-    seat: [
-      "Verified hospitality access",
-      "Event-day meal and refreshments",
-      "Guest check-in and seat guidance",
-      "Event-day support"
-    ],
-
-    stay: [
-      "Hospitality access",
-      "Selected hotel with breakfast",
-      "Two hotel nights",
-      "Carnival-day return transfer"
-    ],
-
-    explore: [
-      "Hospitality access and selected hotel",
-      "Tinapa Free Zone & Resort",
-      "Kwa Falls",
-      "Scheduled transport and guide allowance"
-    ],
-
-    fly: [
-      "Hospitality and selected hotel",
-      "Tinapa and Kwa Falls",
-      "Specified airport and local transfers",
-      "Return flight subject to supplier quotation"
-    ]
-  };
-
-  const bookingForm = $("#bookingForm");
-  const copyButton = $("#copyEnquiry");
-
-  let enquiryText = "";
-
-  function value(id) {
-    return $(`#${id}`)?.value?.trim() || "";
-  }
-
-  function updateSummary() {
-    const type = value("packageType") || "seat";
-    const region = value("originRegion") || "nigeria";
-
-    const guests = Math.max(
-      1,
-      Math.min(
-        50,
-        Number(value("guestCount")) || 1
-      )
-    );
-
-    const hotel = value("hotelClass");
-    const room = value("roomPreference");
-
-    const nights =
-      Number(value("hotelNights")) || 2;
-
-    const transfer = value("transfer");
-
-    const startingRate =
-      basePrices[type] || 150000;
-
-    let extraTransport = 0;
-
-    if (transfer === "shared") {
-      extraTransport = 50000 * guests;
-    }
-
-    if (transfer === "private") {
-      extraTransport =
-        120000 * Math.ceil(guests / 3);
-    }
-
-    if (transfer === "tour") {
-      extraTransport = 180000;
-    }
-
-    const total =
-      startingRate * guests + extraTransport;
-
-    const hotelIncluded = type !== "seat";
-
-    const needsQuotation =
-      type === "fly" ||
-      region !== "nigeria" ||
-      (hotelIncluded && hotel !== "3star") ||
-      (hotelIncluded && room !== "sharing") ||
-      (hotelIncluded && nights !== 2) ||
-      transfer === "road";
-
-    if ($("#summaryAmount")) {
-      $("#summaryAmount").textContent =
-        money(total);
-    }
-
-    if ($("#summaryType")) {
-      $("#summaryType").textContent =
-        `${packageNames[type]} · ${guests} guest${guests > 1 ? "s" : ""}`;
-    }
-
-    const details = $("#summaryDetails");
-
-    if (details) {
-      details.replaceChildren();
-
-      const addParagraph = (label, answer) => {
-        const paragraph = document.createElement("p");
-        const strong = document.createElement("strong");
-
-        strong.textContent = `${label}: `;
-        paragraph.append(strong, answer);
-        details.append(paragraph);
-      };
-
-      addParagraph(
-        "Starting package",
-        `${money(startingRate)} × ${guests}`
-      );
-
-      addParagraph(
-        "Optional transport",
-        money(extraTransport)
-      );
-
-      addParagraph(
-        "Hotel nights",
-        hotelIncluded ? String(nights) : "Not included"
-      );
-
-      const heading = document.createElement("p");
-      heading.textContent = "Package inclusions:";
-      details.append(heading);
-
-      const list = document.createElement("ul");
-
-      inclusions[type].forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = item;
-        list.append(li);
-      });
-
-      details.append(list);
-
-      const message = document.createElement("p");
-
-      message.textContent = needsQuotation
-        ? "Additional supplier quotation is required. This is not a confirmed final price."
-        : "Indicative starting total, subject to availability and confirmation.";
-
-      details.append(message);
-    }
-
-    enquiryText = [
-      "SEE AFRICA — CALABAR BOOKING ENQUIRY",
-      "",
-      `Name: ${value("fullName")}`,
-      `Phone: ${value("phone")}`,
-      `Email: ${value("email")}`,
-      `Travelling from: ${region}`,
-      `Package: ${packageNames[type]}`,
-      `Preferred Carnival date: ${value("carnivalDate")}`,
-      `Departure airport/city: ${value("departureAirport") || "Not supplied"}`,
-      `Number of guests: ${guests}`,
-      `Hotel preference: ${hotelIncluded ? hotel : "Not included"}`,
-      `Room preference: ${hotelIncluded ? room : "Not included"}`,
-      `Hotel nights: ${hotelIncluded ? nights : "Not included"}`,
-      `Arrival date: ${value("arrivalDate") || "Not supplied"}`,
-      `Departure date: ${value("departureDate") || "Not supplied"}`,
-      `Dietary requirements: ${value("dietary") || "None supplied"}`,
-      `Optional transport: ${transfer}`,
-      "",
-      `Indicative starting total: ${money(total)}`,
-      needsQuotation
-        ? "Additional supplier quotation required."
-        : "Subject to final availability and confirmation.",
-      "",
-      "This is an enquiry, not a confirmed reservation."
-    ].join("\n");
-
-    // Recalculate before allowing a new copy.
-    if (copyButton) {
-      copyButton.disabled = true;
-    }
-
-    return total;
-  }
-
-  // ========================================
-  // LIVE CALCULATIONS
-  // ========================================
-
-  bookingForm
-    ?.querySelectorAll("input,select")
-    .forEach(field => {
-      field.addEventListener(
-        "change",
-        updateSummary
-      );
-
-      field.addEventListener(
-        "input",
-        updateSummary
-      );
-    });
-
-  // ========================================
-  // FORM VALIDATION
-  // ========================================
-
-  bookingForm?.addEventListener(
-    "submit",
-    event => {
-      event.preventDefault();
-
-      if (!bookingForm.reportValidity()) {
-        return;
-      }
-
-      const arrival = value("arrivalDate");
-      const departure = value("departureDate");
-
-      if (
-        arrival &&
-        departure &&
-        departure <= arrival
-      ) {
-        alert(
-          "Your departure date must be after your arrival date."
-        );
-        return;
-      }
-
-      const flightNeeded =
-        value("packageType") === "fly" ||
-        value("originRegion") !== "nigeria";
-
-      if (
-        flightNeeded &&
-        !value("departureAirport")
-      ) {
-        alert(
-          "Please enter your departure airport or city."
-        );
-
-        $("#departureAirport")?.focus();
-        return;
-      }
-
-      updateSummary();
-
-      if (copyButton) {
-        copyButton.disabled = false;
-      }
-
-      if ($("#copyStatus")) {
-        $("#copyStatus").textContent =
-          "Your estimate is ready. Copy your enquiry to share with the booking team.";
-      }
-
-      $("#bookingSummary")?.scrollIntoView({
-        behavior: smooth,
-        block: "center"
-      });
-    }
-  );
-
-  // ========================================
-  // COPY ENQUIRY
-  // ========================================
-
-  copyButton?.addEventListener(
-    "click",
-    async () => {
-      if (!enquiryText) return;
-
-      const status = $("#copyStatus");
-
-      try {
-        await navigator.clipboard.writeText(
-          enquiryText
-        );
-
-        if (status) {
-          status.textContent =
-            "Booking enquiry copied successfully.";
+    };
+
+    const animateSlideText = (slide) => {
+      if (!window.gsap) return;
+      const els = slide.querySelectorAll('.country-slide-flag, .country-slide-name, .country-slide-tagline, .country-slide-highlight, .country-slide-quote, .country-slide-desc, .country-slide-cta');
+      gsap.fromTo(els, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.07, delay: 0.2 });
+    };
+
+    const goTo = (index) => {
+      current = (index + total) % total;
+      slides.forEach((s, i) => s.classList.toggle('active', i === current));
+      segs.forEach((seg, i) => {
+        seg.classList.toggle('done', i < current);
+        seg.classList.toggle('active', i === current);
+        // Restart the CSS fill animation cleanly on the newly active segment
+        if (i === current) {
+          const fill = seg.querySelector('.fill');
+          fill.style.animation = 'none';
+          void fill.offsetWidth;
+          fill.style.animation = '';
         }
-      } catch {
-        const textarea =
-          document.createElement("textarea");
+      });
+      placeControlsBar();
+      animateSlideText(slides[current]);
+    };
 
-        textarea.value = enquiryText;
-        textarea.style.position = "fixed";
-        textarea.style.opacity = "0";
+    const startAutoplay = () => {
+      if (reduceMotion) return;
+      clearInterval(timer);
+      timer = setInterval(() => goTo(current + 1), AUTOPLAY_MS);
+    };
+    const restartAutoplay = () => { startAutoplay(); };
 
-        document.body.append(textarea);
-        textarea.select();
+    prevBtn.addEventListener('click', () => { goTo(current - 1); restartAutoplay(); });
+    nextBtn.addEventListener('click', () => { goTo(current + 1); restartAutoplay(); });
+    carousel.addEventListener('mouseenter', () => clearInterval(timer));
+    carousel.addEventListener('mouseleave', () => startAutoplay());
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(placeControlsBar, 150);
+    });
 
-        let copied = false;
+    goTo(0);
+    startAutoplay();
+  }
 
-        try {
-          copied = document.execCommand("copy");
-        } catch {
-          copied = false;
-        }
+  /* ---------- Experiences panels ---------- */
+  const EXPERIENCE_IMG_BASE = 'https://raw.githubusercontent.com/Emekaeluem/See-Africa-1/main/images/';
+  const EXPERIENCES = [
+    { icon:'binoculars', name:`Safari`, image:`safari.jpeg`, quote:`Before you see the lion, you feel it.`, desc:`Private game drives. Fly-in camps. Luxury lodges where the bush begins at your bedroom door. Our safari experiences are not packaged — they are curated for people who have seen enough of ordinary.` },
+    { icon:'landmark', name:`Culture`, image:`culture.jpeg`, quote:`A continent that has never stopped dancing.`, desc:`Traditional ceremonies. Living museums. Markets that have been running for centuries. We take you behind the postcard — into the homes, the kitchens, the festivals, the stories that never make the brochure.` },
+    { icon:'briefcase', name:`Business`, image:`business.jpeg`, quote:`The next great economy is not rising. It is already here.`, desc:`Africa is not the future. Africa is the present — for those with the vision to see it. Our business experiences connect you with founders, investors, innovators, and institutions across the continent's fastest-growing economies.` },
+    { icon:'utensils', name:`Cuisine`, image:`cusine.jpeg`, quote:`Every dish is a geography lesson.`, desc:`Injera in Addis. Jollof in Lagos. Nyama choma in Nairobi. Bobotie in Cape Town. African cuisine is a continent-wide conversation about soil, history, memory, and love. We set the table. You bring the appetite.` },
+    { icon:'mountain', name:`Adventure`, image:`adventure.jpeg`, quote:`The summit of Kilimanjaro is 5,895 metres above sea level. The view is worth every step.`, desc:`Gorilla trekking. White-water rafting on the Zambezi. Camel trails through the Sahara. Skydiving over the Namib. African adventure is not thrill-seeking — it is the deliberate choice to feel fully, utterly alive.` }
+  ];
 
-        textarea.remove();
+  const panelsWrap = document.getElementById('experiencePanels');
+  let expandFirstExperiencePanel = () => {};
+  let experiencePanelsReady = false;
+  if (panelsWrap) {
+    panelsWrap.innerHTML = EXPERIENCES.map((e) => `
+      <div class="experience-panel" tabindex="0" role="button" aria-expanded="false" aria-label="${e.name}">
+        <div class="experience-panel-media">
+          <img src="${EXPERIENCE_IMG_BASE}${e.image}" alt="${e.name}" loading="lazy" />
+        </div>
+        <div class="experience-panel-overlay"></div>
+        <div class="experience-collapsed-label">
+          <i class="experience-icon" data-lucide="${e.icon}"></i>
+          <span class="experience-name-vertical">${e.name}</span>
+        </div>
+        <div class="experience-expanded-content">
+          <i class="experience-icon" data-lucide="${e.icon}"></i>
+          <h3 class="experience-name">${e.name}</h3>
+          <p class="experience-quote">"${e.quote}"</p>
+          <p class="experience-desc">${e.desc}</p>
+        </div>
+      </div>
+    `).join('');
+    if (window.lucide) lucide.createIcons();
 
-        if (status) {
-          status.textContent = copied
-            ? "Booking enquiry copied."
-            : "Copying failed. Please use HTTPS.";
-        }
-      }
+    const panels = Array.from(panelsWrap.querySelectorAll('.experience-panel'));
+    const expandPanel = (panel) => {
+      panels.forEach((p) => {
+        const isActive = p === panel;
+        p.classList.toggle('expanded', isActive);
+        p.setAttribute('aria-expanded', String(isActive));
+      });
+    };
+    panels.forEach((panel) => {
+      panel.addEventListener('click', () => expandPanel(panel));
+      panel.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); expandPanel(panel); }
+      });
+    });
+    // Only bind hover-expand on devices that actually have a mouse — avoids fighting tap on touchscreens
+    if (window.matchMedia('(hover: hover)').matches) {
+      panels.forEach((panel) => panel.addEventListener('mouseenter', () => expandPanel(panel)));
     }
-  );
+    // Panels start closed (all equal). The first one opens later, once the section is
+    // scrolled into view, so the open itself animates and shows people how it works.
+    expandFirstExperiencePanel = () => expandPanel(panels[0]);
+    experiencePanelsReady = true;
+  }
 
-  // ========================================
-  // INITIALIZE
-  // ========================================
+  /* ---------- Voices From the Journey ---------- */
+  const VOICE_IMG_BASE = 'https://raw.githubusercontent.com/Emekaeluem/See-Africa-1/main/images/';
+  const VOICES = [
+    { image:`david.jpeg`, quote:`I came to invest. I stayed because I felt something I had not felt in years.`, attribution:`David O., CEO, London`, text:`David arrived in Kigali for three days of meetings. He extended his stay to three weeks. He is now building a boutique hotel on the shores of Lake Kivu.` },
+    { image:`amara.jpeg`, quote:`The gorilla looked at me. Just looked. And something in me was never the same.`, attribution:`Amara J., Creative Director, New York`, text:`Amara booked the December Expedition on impulse. She returned six months later — this time with her daughter.` },
+    { image:`kofi.jpeg`, quote:`I thought I was going to see Africa. I did not expect Africa to see me.`, attribution:`Dr. Kofi A., Physician, Toronto`, text:`Three countries. Twelve days. One decision: to bring his entire family the following year.` }
+  ];
 
-  renderJourney(0);
-  updateSummary();
+  const voiceStoriesWrap = document.getElementById('voiceStories');
+  if (voiceStoriesWrap) {
+    voiceStoriesWrap.innerHTML = VOICES.map((v, i) => `
+      <div class="voice-story${i % 2 === 1 ? ' reverse' : ''}">
+        <div class="voice-portrait">
+          <img src="${VOICE_IMG_BASE}${v.image}" alt="${v.attribution}" loading="lazy" />
+        </div>
+        <div class="voice-content">
+          <span class="voice-quote-mark" aria-hidden="true">&ldquo;</span>
+          <p class="voice-label">Featured Story #${i + 1}</p>
+          <p class="voice-quote">"${v.quote}"</p>
+          <p class="voice-attribution">— ${v.attribution}</p>
+          <p class="voice-text">${v.text}</p>
+        </div>
+      </div>
+    `).join('');
+  }
 
-  console.info(
-    "See Africa Calabar: 19 unique festival photos configured."
-  );
+  /* ---------- Nav scroll state ---------- */
+  const nav = document.getElementById('siteNav');
+  const onScroll = () => {
+    if (window.scrollY > 40) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  };
+  window.addEventListener('scroll', onScroll);
+  onScroll();
+
+  /* ---------- Mobile nav toggle ---------- */
+  const navToggle = document.querySelector('.nav-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  if (navToggle && navLinks) {
+    const setOpen = (open) => {
+      navLinks.classList.toggle('open', open);
+      navToggle.setAttribute('aria-expanded', String(open));
+      navToggle.innerHTML = open ? '<i data-lucide="x"></i>' : '<i data-lucide="menu"></i>';
+      if (window.lucide) lucide.createIcons();
+    };
+    navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.addEventListener('click', () => setOpen(!navLinks.classList.contains('open')));
+    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+  }
+
+  /* ---------- GSAP hero entrance ---------- */
+  if (window.gsap) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const tl = gsap.timeline({ delay: reduceMotion ? 0 : 1.5, defaults: { ease: 'power3.out' } });
+
+    tl.fromTo('.headline .line-inner', { y: '110%' }, { y: '0%', duration: 1.1, stagger: 0.12, ease: 'power4.out' }, 0)
+      .to('.hero-actions', { opacity: 1, duration: 0.8 }, 0.6)
+      .from('.hero-actions', { y: 16, duration: 0.8 }, 0.6)
+      .to('.scroll-cue', { opacity: 1, duration: 0.8 }, 0.9);
+
+    /* Subtle parallax + fade on scroll out of hero */
+    gsap.to('.hero-video', {
+      scale: 1.16,
+      ease: 'none',
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+    });
+    gsap.to('.hero-content, .scroll-cue', {
+      yPercent: -12,
+      opacity: 0.2,
+      ease: 'none',
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+    });
+
+    /* About section — glass card reveal */
+    gsap.set('.about-content .about-eyebrow, .about-content .about-heading, .about-content .about-quote, .about-content .about-body p, .about-content .about-punch', { opacity: 0, y: 22 });
+
+    gsap.timeline({
+      scrollTrigger: { trigger: '.about-section', start: 'top 75%', toggleActions: 'play none none none' }
+    })
+    .to('.about-card', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, 0)
+    .fromTo('.about-card', { y: 50 }, { y: 0, duration: 1, ease: 'power3.out' }, 0)
+    .to('.about-media img', { scale: 1, duration: 1.5, ease: 'power3.out' }, 0)
+    .to('.about-eyebrow', { opacity: 1, y: 0, duration: 0.7 }, 0.15)
+    .to('.about-heading', { opacity: 1, y: 0, duration: 0.8 }, 0.28)
+    .to('.about-quote', { opacity: 1, y: 0, duration: 0.8 }, 0.42)
+    .to('.about-body p', { opacity: 1, y: 0, duration: 0.8, stagger: 0.14 }, 0.55)
+    .to('.about-punch', { opacity: 1, y: 0, duration: 0.8 }, 0.8);
+
+    /* Subtle ambient parallax on the image as the section scrolls by */
+    gsap.to('.about-media img', {
+      yPercent: 8,
+      ease: 'none',
+      scrollTrigger: { trigger: '.about-section', start: 'top bottom', end: 'bottom top', scrub: true }
+    });
+
+    /* Belief & Promise section reveal */
+    gsap.set('.belief-eyebrow, .belief-heading, .belief-paragraph, .belief-actions', { opacity: 0, y: 24 });
+    gsap.set('.belief-card', { opacity: 0, y: 40 });
+    gsap.set('.belief-chip', { opacity: 0, y: 10 });
+
+    gsap.timeline({
+      scrollTrigger: { trigger: '.belief-section', start: 'top 70%', toggleActions: 'play none none none' }
+    })
+    .to('.belief-eyebrow, .belief-heading, .belief-paragraph, .belief-actions', { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.14 }, 0)
+    .to('.belief-card', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, 0.2)
+    .to('.belief-chip', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.1 }, 0.7);
+
+    /* Explore Africa section reveal */
+    gsap.set('.explore-eyebrow, .explore-heading, .explore-quote, .explore-caption, .explore-section .cta-btn', { opacity: 0, y: 22 });
+    gsap.set('.explore-visual', { opacity: 0, scale: 0.9 });
+    gsap.set('.explore-ring', { opacity: 0 });
+
+    gsap.timeline({
+      scrollTrigger: { trigger: '.explore-section', start: 'top 70%', toggleActions: 'play none none none' }
+    })
+    .to('.explore-eyebrow, .explore-heading, .explore-quote', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.15 }, 0)
+    .to('.explore-visual', { opacity: 1, scale: 1, duration: 1, ease: 'power3.out' }, 0.3)
+    .to('.explore-ring', { opacity: 1, duration: 1.2, ease: 'power2.out' }, 0.45)
+    .to('.explore-caption', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 0.9)
+    .to('.explore-section .cta-btn', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, 1.05);
+
+    /* Country Cards — controls bar reveal (slide text animates itself via goTo()) */
+    gsap.set('.country-controls-bar', { opacity: 0, y: 16 });
+    gsap.to('.country-controls-bar', {
+      opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+      scrollTrigger: { trigger: '.country-section', start: 'top 70%', toggleActions: 'play none none none' }
+    });
+
+    /* Experiences reveal */
+    gsap.set('.experiences-heading, .experiences-quote', { opacity: 0, y: 20 });
+    gsap.set('.experience-panel', { opacity: 0, y: 30 });
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: '.experiences-section', start: 'top 75%', toggleActions: 'play none none none',
+        onEnter: () => setTimeout(() => { if (experiencePanelsReady) expandFirstExperiencePanel(); }, 900)
+      }
+    })
+    .to('.experiences-heading, .experiences-quote', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.12 }, 0)
+    .to('.experience-panel', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.08 }, 0.2);
+
+    /* Voices From the Journey reveal */
+    gsap.set('.voices-heading, .voices-quote, .voices-subtext', { opacity: 0, y: 20 });
+    gsap.to('.voices-heading, .voices-quote, .voices-subtext', {
+      opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.1,
+      scrollTrigger: { trigger: '.voices-section', start: 'top 75%', toggleActions: 'play none none none' }
+    });
+
+    document.querySelectorAll('.voice-story').forEach((story) => {
+      const img = story.querySelector('.voice-portrait img');
+      const mark = story.querySelector('.voice-quote-mark');
+      const texts = story.querySelectorAll('.voice-label, .voice-quote, .voice-attribution, .voice-text');
+      gsap.set(img, { scale: 1.18 });
+      gsap.set(mark, { opacity: 0 });
+      gsap.set(texts, { opacity: 0, y: 22 });
+
+      gsap.timeline({
+        scrollTrigger: { trigger: story, start: 'top 78%', toggleActions: 'play none none none' }
+      })
+      .to(img, { scale: 1.1, duration: 1.3, ease: 'power3.out' }, 0)
+      .to(mark, { opacity: 1, duration: 1, ease: 'power2.out' }, 0.1)
+      .to(texts, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.1 }, 0.15);
+
+      gsap.to(img, {
+        yPercent: 6, ease: 'none',
+        scrollTrigger: { trigger: story, start: 'top bottom', end: 'bottom top', scrub: true }
+      });
+    });
+
+    gsap.set('.voices-cta p, .voices-cta-actions', { opacity: 0, y: 20 });
+    gsap.to('.voices-cta p, .voices-cta-actions', {
+      opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.12,
+      scrollTrigger: { trigger: '.voices-cta', start: 'top 85%', toggleActions: 'play none none none' }
+    });
+
+    /* Footer reveal */
+    gsap.set('.footer-invite, .footer-col, .footer-bottom', { opacity: 0, y: 16 });
+    gsap.to('.footer-invite, .footer-col, .footer-bottom', {
+      opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', stagger: 0.08,
+      scrollTrigger: { trigger: '.site-footer', start: 'top 90%', toggleActions: 'play none none none' }
+    });
+  }
+
+  /* ---------- Magnetic buttons ---------- */
+  if (window.gsap && !reduceMotion) {
+    document.querySelectorAll('.cta-btn').forEach((ctaBtn) => {
+      ctaBtn.addEventListener('mousemove', (e) => {
+        const r = ctaBtn.getBoundingClientRect();
+        const x = e.clientX - r.left - r.width / 2;
+        const y = e.clientY - r.top - r.height / 2;
+        gsap.to(ctaBtn, { x: x * 0.3, y: y * 0.5, duration: 0.4, ease: 'power3.out' });
+      });
+      ctaBtn.addEventListener('mouseleave', () => {
+        gsap.to(ctaBtn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1, 0.4)' });
+      });
+    });
+  }
+
 });
