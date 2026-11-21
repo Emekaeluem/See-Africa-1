@@ -889,7 +889,7 @@ document.addEventListener("DOMContentLoaded", () => {
           data.booking_reference +
           ". Our team must confirm availability and payment terms. No payment has been taken.";
       }
-      enquiryText += "\\nBooking reference: " + data.booking_reference;
+      enquiryText += "\nBooking reference: " + data.booking_reference;
       if (copyButton) copyButton.disabled = false;
       $("#bookingSummary")?.scrollIntoView({ behavior: scrollBehavior, block: "center" });
     } catch (error) {
