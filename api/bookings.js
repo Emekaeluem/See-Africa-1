@@ -34,9 +34,9 @@ module.exports=async (req,res)=>{
     await db('bookings',{method:'POST',body:{
       booking_reference:ref,customer_id:customer[0].id,package_type,number_of_guests:guests,
       origin_region,total_amount_kobo:total_kobo,currency:'NGN',
-      booking_status:quote?'awaiting_quote':'pending',special_requests:notes
+      booking_status:quote?'awaiting_quote':'awaiting_payment',special_requests:notes
     }});
-    return respond(res,201,{booking_reference:ref,status:quote?'awaiting_quote':'pending',
-      indicative_amount_ngn:total_kobo/100,message:'Your enquiry has been received. This is not a paid or confirmed reservation.'});
+    return respond(res,201,{booking_reference:ref,status:quote?'awaiting_quote':'awaiting_payment',
+      indicative_amount_ngn:total_kobo/100,message:quote?'Your enquiry requires a final quotation before payment.':'Please review your details carefully before proceeding to test payment.'});
   }catch(e){console.error('Booking submission failed:',e.message);return respond(res,500,{error:'Unable to save enquiry. Please try again.'});}
 };
