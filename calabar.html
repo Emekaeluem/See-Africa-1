@@ -734,9 +734,9 @@
 
         </div>
 
-        <button class="btn btn-gold form-submit" type="submit">Calculate My Total</button>
+        <button class="btn btn-gold form-submit" type="submit">Review Booking Details</button>
 
-        <p class="small-note">This is an indicative browser-based estimate, not a reservation or payment gateway.</p>
+        <p class="small-note">Next: review all your details and confirm. Eligible bookings go straight to Paystack Test Mode. Flights and customised packages require a final quote.</p>
       </form>
 
       <aside class="booking-summary" id="bookingSummary">
@@ -748,10 +748,11 @@
 
         <div id="summaryDetails" class="summary-details"></div>
 
-        <p class="small-note">Final inclusions, exclusions, payment terms, supplier availability and deadlines require written confirmation.</p>
+        <p class="small-note">Please check your booking details carefully. Payment is processed securely by Paystack. Package inclusions and availability follow the displayed terms; flights and custom requests require a quotation.</p>
 
         <button class="btn btn-summary" type="button" id="copyEnquiry" disabled>Copy Booking Enquiry</button>
         <p class="small-note" id="copyStatus" role="status"></p>
+        <p class="small-note" id="paymentVerificationStatus" role="status" aria-live="polite"></p>
       </aside>
 
     </div>
@@ -902,6 +903,28 @@
     </div>
   </div>
 </footer>
+
+<!-- GUIDED BOOKING REVIEW: the user chooses exactly one clear next step -->
+<dialog id="bookingReviewDialog" aria-labelledby="reviewHeading" style="border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:0;max-width:min(92vw,550px);width:100%;background:#09254b;color:white;box-shadow:0 25px 90px rgba(0,0,0,.55)">
+  <div style="padding:clamp(18px,4vw,32px);display:grid;gap:18px">
+    <div>
+      <span style="font-size:11px;letter-spacing:.14em;color:#f4c541;font-weight:700">STEP 2 OF 2</span>
+      <h2 id="reviewHeading" style="font-size:clamp(23px,4vw,32px);margin:8px 0">Review your booking</h2>
+      <p style="opacity:.8;font-size:14px;margin:0">Please make sure every detail is correct before proceeding to payment.</p>
+    </div>
+    <div id="bookingReviewDetails" style="padding:18px;border:1px solid rgba(255,255,255,.18);border-radius:12px;font-size:14px;line-height:1.85;white-space:pre-line"></div>
+    <label style="display:flex;align-items:flex-start;gap:12px;font-size:13px;line-height:1.55">
+      <input id="reviewAgree" type="checkbox" style="margin-top:4px;accent-color:#f4c541">
+      <span>I have checked my details, dates, selected package and total and agree to proceed.</span>
+    </label>
+    <p id="bookingReviewStatus" role="status" aria-live="polite" style="margin:0;font-size:13px;color:#f4c541"></p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <button type="button" id="reviewEditButton" style="flex:1;padding:14px;border:1px solid rgba(255,255,255,.4);background:transparent;color:white;border-radius:8px;cursor:pointer">Edit Details</button>
+      <button type="button" id="reviewConfirmButton" disabled style="flex:2;padding:14px;border:0;background:#f4c541;color:#09254b;font-weight:800;border-radius:8px;cursor:pointer">Confirm & Pay</button>
+    </div>
+    <p style="font-size:12px;opacity:.7;margin:0">Secure checkout by Paystack. Test Mode: no real charge. Packages requiring a custom quote will be submitted as an enquiry instead.</p>
+  </div>
+</dialog>
 
 <!-- FULLSCREEN GALLERY VIEWER -->
 

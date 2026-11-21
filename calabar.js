@@ -801,83 +801,158 @@ document.addEventListener("DOMContentLoaded", () => {
   // BOOKING FORM VALIDATION
   // ========================================
 
+  // Customer completes one guided flow: form -> review -> Paystack (or quote).
+  const reviewDialog = $("#bookingReviewDialog");
+  const reviewDetails = $("#bookingReviewDetails");
+  const reviewAgree = $("#reviewAgree");
+  const reviewConfirm = $("#reviewConfirmButton");
+  const reviewEdit = $("#reviewEditButton");
+  const reviewStatus = $("#bookingReviewStatus");
+  let pendingReview = null;
+  let savedReviewBooking = null;
+
+  function requiresQuote(fields) {
+    const isHotel = fields.package_type !== "seat";
+    return fields.package_type === "fly" ||
+      fields.origin_region !== "nigeria" ||
+      fields.transfer === "road" ||
+      fields.hotel_class !== "3star" ||
+      fields.room_preference !== "sharing" ||
+      Number(fields.hotel_nights) !== 2;
+  }
+
+  function setReviewBusy(busy) {
+    if (reviewConfirm) reviewConfirm.disabled = busy || !reviewAgree?.checked;
+    if (reviewEdit) reviewEdit.disabled = busy || Boolean(savedReviewBooking);
+    if (reviewAgree) reviewAgree.disabled = busy;
+  }
+
   bookingForm?.addEventListener("submit", event => {
     event.preventDefault();
-
-    if (!bookingForm.reportValidity()) {
-      return;
-    }
+    if (!bookingForm.reportValidity()) return;
 
     const arrival = value("arrivalDate");
     const departure = value("departureDate");
     const carnival = value("carnivalDate");
-
-    if (
-      arrival &&
-      departure &&
-      departure <= arrival
-    ) {
-      alert(
-        "Departure date must be after arrival date."
-      );
+    if (arrival && departure && departure <= arrival) {
+      alert("Departure date must be after arrival date.");
       return;
     }
-
-    if (
-      arrival &&
-      carnival &&
-      carnival < arrival
-    ) {
-      alert(
-        "Your Carnival date cannot be before arrival."
-      );
+    if (arrival && carnival && carnival < arrival) {
+      alert("Your Carnival date cannot be before arrival.");
       return;
     }
-
-    if (
-      departure &&
-      carnival &&
-      carnival >= departure
-    ) {
-      alert(
-        "Your departure must be after the selected Carnival date."
-      );
+    if (departure && carnival && carnival >= departure) {
+      alert("Your departure must be after the selected Carnival date.");
       return;
     }
-
-    const flightRequired =
-      value("packageType") === "fly" ||
+    const flightRequired = value("packageType") === "fly" ||
       value("originRegion") !== "nigeria";
-
-    if (
-      flightRequired &&
-      !value("departureAirport")
-    ) {
-      alert(
-        "Please enter your departure city or airport."
-      );
-
+    if (flightRequired && !value("departureAirport")) {
+      alert("Please enter your departure city or airport.");
       $("#departureAirport")?.focus();
       return;
     }
 
     updateSummary();
-
-    if (copyButton) {
-      copyButton.disabled = false;
+    pendingReview = {
+      full_name: value("fullName"), email: value("email"), phone: value("phone"),
+      origin_region: value("originRegion"), package_type: value("packageType"),
+      carnival_date: value("carnivalDate"), departure_airport: value("departureAirport"),
+      number_of_guests: Number(value("guestCount")),
+      hotel_class: value("hotelClass"), room_preference: value("roomPreference"),
+      hotel_nights: Number(value("hotelNights")), arrival_date: value("arrivalDate"),
+      departure_date: value("departureDate"), transfer: value("transfer"),
+      dietary: value("dietary")
+    };
+    savedReviewBooking = null;
+    const quotation = requiresQuote(pendingReview);
+    const approximateAmount = $("#summaryAmount")?.textContent || "See your summary";
+    if (reviewDetails) {
+      reviewDetails.textContent = [
+        "Name: " + pendingReview.full_name,
+        "Email: " + pendingReview.email,
+        "Phone: " + pendingReview.phone,
+        "Package: " + (packageNames[pendingReview.package_type] || pendingReview.package_type),
+        "Guests: " + pendingReview.number_of_guests,
+        "Carnival date: " + pendingReview.carnival_date,
+        "Travelling from: " + pendingReview.origin_region,
+        "Arrival: " + (pendingReview.arrival_date || "Not provided"),
+        "Departure: " + (pendingReview.departure_date || "Not provided"),
+        "Hotel: " + (pendingReview.package_type === "seat" ? "Not included" :
+          pendingReview.hotel_class + " / " + pendingReview.room_preference +
+          " / " + pendingReview.hotel_nights + " nights"),
+        "Transport: " + pendingReview.transfer,
+        (quotation ? "Indicative total (quotation required): " : "Paystack checkout total: ") +
+          approximateAmount
+      ].join("\n");
     }
+    if (reviewAgree) reviewAgree.checked = false;
+    if (reviewEdit) reviewEdit.textContent = "Edit Details";
+    if (reviewStatus) reviewStatus.textContent = quotation
+      ? "This selection needs a final quote. Confirm to submit your enquiry; no payment will be taken."
+      : "Check every detail, tick the box and continue to secure Paystack Test Mode.";
+    if (reviewConfirm) reviewConfirm.textContent = quotation
+      ? "Confirm & Send Enquiry" : "Confirm & Pay";
+    setReviewBusy(false);
+    reviewDialog?.showModal();
+  });
 
-    const status = $("#copyStatus");
+  reviewAgree?.addEventListener("change", () => setReviewBusy(false));
+  reviewEdit?.addEventListener("click", () => reviewDialog?.close());
 
-    if (status) {
-      status.textContent =
-        "Your estimate is ready. Copy your enquiry to share with the booking team.";
+  reviewConfirm?.addEventListener("click", async () => {
+    if (!pendingReview || !reviewAgree?.checked) return;
+    setReviewBusy(true);
+    if (reviewStatus) reviewStatus.textContent = "Saving your booking securely...";
+    const quotation = requiresQuote(pendingReview);
+    try {
+      if (!savedReviewBooking) {
+        const response = await fetch("/api/bookings", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(pendingReview)
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(data.error || "Booking couldn't be saved.");
+        savedReviewBooking = data;
+        enquiryText += "\nBooking reference: " + data.booking_reference;
+        if (copyButton) copyButton.disabled = false;
+      }
+      if (quotation || savedReviewBooking.status === "awaiting_quote") {
+        if (reviewStatus) reviewStatus.textContent =
+          "Enquiry received. Your reference is " + savedReviewBooking.booking_reference +
+          ". Our team will contact you about the final quotation. No payment was taken.";
+        const status = $("#copyStatus");
+        if (status) status.textContent =
+          "Your quotation enquiry was saved. Booking reference: " +
+          savedReviewBooking.booking_reference;
+        reviewConfirm.disabled = true;
+        reviewEdit.disabled = false;
+        reviewEdit.textContent = "Close";
+        return;
+      }
+
+      if (reviewStatus) reviewStatus.textContent = "Connecting to secure Paystack checkout...";
+      const response = await fetch("/api/payments/initialize", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          booking_reference: savedReviewBooking.booking_reference,
+          email: pendingReview.email
+        })
+      });
+      const payment = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(payment.error || "Paystack checkout could not start.");
+      if (!/^https:\/\/[a-z0-9.-]*paystack\.com\//i.test(payment.authorization_url || "")) {
+        throw new Error("Unexpected payment gateway response.");
+      }
+      window.location.assign(payment.authorization_url);
+    } catch (err) {
+      if (reviewStatus) reviewStatus.textContent =
+        (err.message || "Something went wrong.") +
+        (savedReviewBooking ? " Your saved reference is " +
+          savedReviewBooking.booking_reference + ". You can retry checkout safely." : " Please try again.");
+      setReviewBusy(false);
     }
-
-    $("#bookingSummary")?.scrollIntoView({
-      behavior: scrollBehavior,
-      block: "center"
-    });
   });
 
   // ========================================
@@ -931,11 +1006,45 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
   // ========================================
+  // VERIFY PAYSTACK RETURN SERVER-SIDE
+  // ========================================
+  async function verifyPaymentReturn() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("payment") !== "return") return;
+    const reference = params.get("reference");
+    const notice = $("#paymentVerificationStatus");
+    if (!notice) return;
+    if (!reference || !/^SACAL-[A-F0-9]{32}$/.test(reference)) {
+      notice.textContent = "We could not find your payment reference. Please contact the See Africa team.";
+      return;
+    }
+    notice.textContent = "Checking the latest payment status with Paystack...";
+    $("#bookingSummary")?.scrollIntoView({ block: "center" });
+    try {
+      const response = await fetch("/api/payments/verify?reference=" +
+        encodeURIComponent(reference), { cache: "no-store" });
+      const outcome = await response.json();
+      if (!response.ok) throw new Error(outcome.message || "Payment verification is temporarily unavailable.");
+      const messages = {
+        success: "Payment successful and verified! Your booking payment is confirmed. Save your booking reference.",
+        pending: "Your payment is still pending. Please do not pay again until its status is confirmed.",
+        failed: "Payment unsuccessful or cancelled. You can try checkout again with your booking reference.",
+        mismatch: "Payment requires manual investigation. Contact the See Africa team.",
+        not_found: "We could not find this payment. Contact the See Africa team."
+      };
+      notice.textContent = messages[outcome.status] || "Your payment status is not yet available.";
+    } catch (error) {
+      notice.textContent = error.message || "Could not check payment status. Please try again.";
+    }
+  }
+
+  // ========================================
   // INITIALISE
   // ========================================
 
   renderJourney(0);
   updateSummary();
+  verifyPaymentReturn();
 
   console.info(
     "See Africa Calabar: mobile-first experience initialised."
