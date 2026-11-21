@@ -21,13 +21,6 @@ module.exports=async(req,res)=>{
     const result=await reconcile(reference);
     if(result.status==='mismatch') console.error('Paystack verification mismatch:',reference);
     return respond(res,200,{received:true});
-    await db('payments?id=eq.'+encodeURIComponent(payment.id),{method:'PATCH',body:{
-      payment_status:'success',paid_at:tx.paid_at||new Date().toISOString(),payment_channel:tx.channel||null
-    }});
-    await db('bookings?id=eq.'+encodeURIComponent(payment.booking_id)+'&booking_status=eq.awaiting_payment',{
-      method:'PATCH',body:{booking_status:'confirmed',updated_at:new Date().toISOString()}
-    });
-    return respond(res,200,{received:true});
   }catch(e){console.error('Webhook processing error:',e.message);return respond(res,500,{error:'Please retry notification'});}
 };
 
