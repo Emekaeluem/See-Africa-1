@@ -801,7 +801,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // BOOKING FORM VALIDATION
   // ========================================
 
-  bookingForm?.addEventListener("submit", event => {
+  bookingForm?.addEventListener("submit", async event => {
     event.preventDefault();
 
     if (!bookingForm.reportValidity()) {
@@ -862,22 +862,42 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     updateSummary();
-
-    if (copyButton) {
-      copyButton.disabled = false;
-    }
-
     const status = $("#copyStatus");
+    const submit = bookingForm.querySelector('[type="submit"]');
+    if (submit) submit.disabled = true;
+    if (status) status.textContent = "Saving your booking enquiry securely...";
 
-    if (status) {
-      status.textContent =
-        "Your estimate is ready. Copy your enquiry to share with the booking team.";
+    try {
+      const fields = {
+        full_name: value("fullName"), email: value("email"), phone: value("phone"),
+        origin_region: value("originRegion"), package_type: value("packageType"),
+        carnival_date: value("carnivalDate"), departure_airport: value("departureAirport"),
+        number_of_guests: Number(value("guestCount")),
+        hotel_class: value("hotelClass"), room_preference: value("roomPreference"),
+        hotel_nights: Number(value("hotelNights")), arrival_date: value("arrivalDate"),
+        departure_date: value("departureDate"), transfer: value("transfer"),
+        dietary: value("dietary")
+      };
+      const response = await fetch("/api/bookings", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(fields)
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Booking could not be saved.");
+      if (status) {
+        status.textContent = "Enquiry saved! Your reference: " +
+          data.booking_reference +
+          ". Our team must confirm availability and payment terms. No payment has been taken.";
+      }
+      enquiryText += "\\nBooking reference: " + data.booking_reference;
+      if (copyButton) copyButton.disabled = false;
+      $("#bookingSummary")?.scrollIntoView({ behavior: scrollBehavior, block: "center" });
+    } catch (error) {
+      if (status) status.textContent = error.message ||
+        "Unable to save your enquiry. Please try again.";
+    } finally {
+      if (submit) submit.disabled = false;
     }
-
-    $("#bookingSummary")?.scrollIntoView({
-      behavior: scrollBehavior,
-      block: "center"
-    });
   });
 
   // ========================================
