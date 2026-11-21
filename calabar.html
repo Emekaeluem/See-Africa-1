@@ -752,6 +752,20 @@
 
         <button class="btn btn-summary" type="button" id="copyEnquiry" disabled>Copy Booking Enquiry</button>
         <p class="small-note" id="copyStatus" role="status"></p>
+        <div class="approval-payment" style="margin-top:22px;padding-top:20px;border-top:1px solid rgba(255,255,255,.24)">
+          <h4 style="color:#fff;margin:0 0 8px">Already approved to pay?</h4>
+          <p class="small-note">Only bookings approved by our team can proceed to Paystack. An enquiry is not a confirmed reservation.</p>
+          <form id="approvedPaymentForm" style="display:grid;gap:12px;margin-top:14px">
+            <label style="color:#fff">Booking reference
+              <input id="approvedBookingReference" type="text" placeholder="SA-CAL-..." required autocomplete="off" maxlength="80" style="width:100%;padding:12px;border-radius:8px">
+            </label>
+            <label style="color:#fff">Email used for booking
+              <input id="approvedBookingEmail" type="email" placeholder="you@example.com" required autocomplete="email" style="width:100%;padding:12px;border-radius:8px">
+            </label>
+            <button type="submit" class="btn btn-summary" id="approvedPaymentButton" style="cursor:pointer;background:#f4c541;color:#09254b">Proceed to Paystack</button>
+            <p class="small-note" role="status" id="approvedPaymentStatus" aria-live="polite"></p>
+          </form>
+        </div>
       </aside>
 
     </div>
