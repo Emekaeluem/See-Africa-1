@@ -736,7 +736,7 @@
 
         <button class="btn btn-gold form-submit" type="submit">Submit Booking Enquiry</button>
 
-        <p class="small-note">Submitting saves an enquiry for team review. The displayed amount is indicative; no payment is collected until approval.</p>
+        <p class="small-note">Check your package, travel dates, number of guests, contact details and total carefully before paying. Fixed-price bookings can proceed to Paystack Test Mode; flights or custom arrangements require a final quotation.</p>
       </form>
 
       <aside class="booking-summary" id="bookingSummary">
@@ -748,13 +748,13 @@
 
         <div id="summaryDetails" class="summary-details"></div>
 
-        <p class="small-note">Final inclusions, exclusions, payment terms, supplier availability and deadlines require written confirmation.</p>
+        <p class="small-note">Please check your booking details carefully. Payment is processed securely by Paystack. Package inclusions and availability follow the displayed terms; flights and custom requests require a quotation.</p>
 
         <button class="btn btn-summary" type="button" id="copyEnquiry" disabled>Copy Booking Enquiry</button>
         <p class="small-note" id="copyStatus" role="status"></p>
         <div class="approval-payment" style="margin-top:22px;padding-top:20px;border-top:1px solid rgba(255,255,255,.24)">
-          <h4 style="color:#fff;margin:0 0 8px">Already approved to pay?</h4>
-          <p class="small-note">Only bookings approved by our team can proceed to Paystack. An enquiry is not a confirmed reservation.</p>
+          <h4 style="color:#fff;margin:0 0 8px">Review your details and pay</h4>
+          <p class="small-note">After submitting a fixed-price booking, use your reference and email to proceed directly to Paystack. No admin approval is required. Custom or flight packages require a final quotation.</p>
           <form id="approvedPaymentForm" style="display:grid;gap:12px;margin-top:14px">
             <label style="color:#fff">Booking reference
               <input id="approvedBookingReference" type="text" placeholder="SA-CAL-..." required autocomplete="off" maxlength="80" style="width:100%;padding:12px;border-radius:8px">
@@ -762,8 +762,10 @@
             <label style="color:#fff">Email used for booking
               <input id="approvedBookingEmail" type="email" placeholder="you@example.com" required autocomplete="email" style="width:100%;padding:12px;border-radius:8px">
             </label>
+            <label style="color:#fff;display:flex;gap:10px;align-items:flex-start;font-size:13px"><input id="confirmBookingDetails" type="checkbox" required style="margin-top:4px;accent-color:#f4c541"> I have checked my package, dates, guest count, email and total, and understand that submitting a payment does not guarantee supplier-dependent arrangements.</label>
             <button type="submit" class="btn btn-summary" id="approvedPaymentButton" style="cursor:pointer;background:#f4c541;color:#09254b">Proceed to Paystack</button>
             <p class="small-note" role="status" id="approvedPaymentStatus" aria-live="polite"></p>
+            <p class="small-note" id="paymentVerificationStatus" aria-live="polite"></p>
           </form>
         </div>
       </aside>
