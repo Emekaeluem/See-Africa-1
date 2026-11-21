@@ -1,3 +1,47 @@
+# See Africa Calabar — direct checkout (Paystack TEST MODE)
+
+This replaces the earlier proposed manual-approval flow for **eligible fixed-price** bookings. Admin approval is **not required** for these bookings. This is still a **Preview-only implementation** pending end-to-end testing. Previous instructions below describing mandatory admin approval are superseded by this section.
+
+## Customer flow
+1. Customer fills the booking form and checks package, travel dates, number of guests, email, transport and price.
+2. Server saves the booking in Supabase. Eligible fixed-price bookings get `awaiting_payment`; variable supplier packages remain `awaiting_quote`.
+3. Customer reviews the prefilled booking reference/email, checks the details-confirmation box and opens Paystack test checkout.
+4. Paystack initialisation records a pending payment; an email marked pending is sent only when the email sender is configured.
+5. On return, the site calls `/api/payments/verify?reference=...` and checks the transaction server-to-server. Success or definitive failure updates Supabase and sends the matching email; the signed Paystack success webhook independently verifies successful transactions.
+6. Only a verified successful payment changes the booking to `confirmed`. Failed and pending attempts never do.
+
+**Eligible for instant checkout:** packages `seat`, `stay`, `explore`, with Nigeria as travel origin, the standard 3-star hotel/shared room/two-night option and fixed-cost transport. **Not eligible:** `fly`, international origin, upgrades, extra nights, road pickup and all supplier-dependent quotations. This avoids charging a non-final flight or hotel price. Before going live, organisers must guarantee availability/capacity and approve pricing, package terms and refund policy for every instantly payable package.
+
+## Critical one-time Supabase migration
+Run `scripts/payment_notifications.sql` in the `see-africa-booking` SQL Editor. This creates a private, RLS-enabled `payment_notifications` table with unique payment/status notifications. Without it, emails cannot be deduplicated and may not send. No public grants or RLS policies.
+
+## Transactional email setup (required for real notifications)
+1. Set up a sending service at Resend and verify a domain controlled by the organiser.
+2. In the **same Vercel project as the booking Preview**, add:
+   - `RESEND_API_KEY` as a secret (not committed to GitHub)
+   - `EMAIL_FROM_ADDRESS` as the verified sender address, e.g. `bookings@your-verified-domain.example`
+3. Add both to Preview, redeploy Preview and test the three email types. Production requires distinct approved keys and formal go-live review.
+4. The app sends a **pending** email at checkout initiation (meaning *not paid*), a **success** email only after Paystack server-side verification, and a **failed** email only when Paystack confirms definitive failure/abandonment at verification.
+5. Paystack's standard transaction webhooks primarily report successes. A failure after someone closes their browser may not be detected until they revisit/return for verification. Add a scheduled reconciliation job to regularly check outstanding pending transactions before promising automatic failure/pending follow-up for users who never return. Delivery also depends on the verified sending domain and provider configuration.
+
+## Paystack webhook
+After a fresh Preview deployment and successful endpoint test, register its absolute `/api/paystack/webhook` URL as a **test** webhook without replacing an existing unrelated webhook. Confirm HMAC signature verification and idempotent delivery. Do not enable live keys or payments until all success, failure, pending, retry and duplicate-callback tests pass.
+
+## Testing requirements before merging
+- Run SQL migration.
+- Set Resend variables and verify the sender domain.
+- Submit an eligible fixed-price booking; confirm it saves as `awaiting_payment`.
+- Check details and initiate Paystack test checkout.
+- Verify pending email and payment record.
+- Run success test: Paystack verification, Supabase status, email exactly once, signed webhook processing.
+- Run fail/cancel test: failure status and email only when definitively verified.
+- Test quote-only selection blocks checkout.
+- Confirm repeated return/webhook doesn't send duplicate emails.
+- Confirm capacity controls, refund terms, privacy policy, rate limiting/spam controls, email failure monitoring and post-checkout customer support.
+- Keep all code on PR #2 and use Preview until verified.
+
+---
+
 # Calabar bookings — staged test integration
 
 This branch is a **test-mode implementation**, not a live payment launch.
