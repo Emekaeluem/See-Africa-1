@@ -888,6 +888,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ].join("\n");
     }
     if (reviewAgree) reviewAgree.checked = false;
+    if (reviewEdit) reviewEdit.textContent = "Edit Details";
     if (reviewStatus) reviewStatus.textContent = quotation
       ? "This selection needs a final quote. Confirm to submit your enquiry; no payment will be taken."
       : "Check every detail, tick the box and continue to secure Paystack Test Mode.";
