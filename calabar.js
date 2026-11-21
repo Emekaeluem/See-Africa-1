@@ -1012,7 +1012,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const outcome = await response.json();
       if (!response.ok) throw new Error(outcome.message || "Payment verification is temporarily unavailable.");
       const messages = {
-        success: "Payment successful and verified! A confirmation email will be sent if email notifications are configured.",
+        success: "Payment successful and verified! Your booking payment is confirmed. Save your booking reference.",
         pending: "Your payment is still pending. Please do not pay again until its status is confirmed.",
         failed: "Payment unsuccessful or cancelled. You can try checkout again with your booking reference.",
         mismatch: "Payment requires manual investigation. Contact the See Africa team.",
