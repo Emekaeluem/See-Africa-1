@@ -34,3 +34,6 @@ module.exports=async(req,res)=>{
     return respond(res,200,{received:true});
   }catch(e){console.error('Webhook processing error:',e.message);return respond(res,500,{error:'Please retry notification'});}
 };
+
+// Preserve raw request body when supported by the route runtime.
+module.exports.config = { api: { bodyParser: false } };
