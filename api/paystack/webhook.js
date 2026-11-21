@@ -17,14 +17,10 @@ module.exports=async(req,res)=>{
     if(event.event!=='charge.success')return respond(res,200,{received:true});
     const reference=event.data?.reference;
     if(typeof reference!=='string')return respond(res,200,{received:true});
-    const found=await db('payments?paystack_reference=eq.'+encodeURIComponent(reference)+'&select=id,booking_id,amount_kobo,currency,payment_status');
-    const payment=found[0];
-    if(!payment)return respond(res,200,{received:true});
-    if(payment.payment_status==='success')return respond(res,200,{received:true});
-    const tx=await paystack('/transaction/verify/'+encodeURIComponent(reference));
-    if(tx.status!=='success'||tx.reference!==reference||
-       Number(tx.amount)!==Number(payment.amount_kobo)||tx.currency!==payment.currency)
-      return respond(res,200,{received:true});
+    const {reconcile}=require('../_lib/payment-status');
+    const result=await reconcile(reference);
+    if(result.status==='mismatch') console.error('Paystack verification mismatch:',reference);
+    return respond(res,200,{received:true});
     await db('payments?id=eq.'+encodeURIComponent(payment.id),{method:'PATCH',body:{
       payment_status:'success',paid_at:tx.paid_at||new Date().toISOString(),payment_channel:tx.channel||null
     }});
