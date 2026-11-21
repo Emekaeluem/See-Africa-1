@@ -885,9 +885,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Booking could not be saved.");
       if (status) {
-        status.textContent = "Enquiry saved! Your reference: " +
-          data.booking_reference +
-          ". Our team must confirm availability and payment terms. No payment has been taken.";
+        status.textContent = (data.status === "awaiting_payment"
+          ? "Details saved! Check the package, dates, guest count and total carefully, then use the Paystack payment form below. "
+          : "Enquiry saved. This package needs a confirmed final quote before payment. ") +
+          "Your reference: " + data.booking_reference + ".";
       }
       enquiryText += "\nBooking reference: " + data.booking_reference;
       const referenceField = $("#approvedBookingReference");
@@ -991,11 +992,45 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ========================================
+  // VERIFY PAYSTACK RETURN SERVER-SIDE
+  // ========================================
+  async function verifyPaymentReturn() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("payment") !== "return") return;
+    const reference = params.get("reference");
+    const notice = $("#paymentVerificationStatus");
+    if (!notice) return;
+    if (!reference || !/^SACAL-[A-F0-9]{32}$/.test(reference)) {
+      notice.textContent = "We could not find your payment reference. Please contact the See Africa team.";
+      return;
+    }
+    notice.textContent = "Checking the latest payment status with Paystack...";
+    $("#bookingSummary")?.scrollIntoView({ block: "center" });
+    try {
+      const response = await fetch("/api/payments/verify?reference=" +
+        encodeURIComponent(reference), { cache: "no-store" });
+      const outcome = await response.json();
+      if (!response.ok) throw new Error(outcome.message || "Payment verification is temporarily unavailable.");
+      const messages = {
+        success: "Payment successful and verified! A confirmation email will be sent if email notifications are configured.",
+        pending: "Your payment is still pending. Please do not pay again until its status is confirmed.",
+        failed: "Payment unsuccessful or cancelled. You can try checkout again with your booking reference.",
+        mismatch: "Payment requires manual investigation. Contact the See Africa team.",
+        not_found: "We could not find this payment. Contact the See Africa team."
+      };
+      notice.textContent = messages[outcome.status] || "Your payment status is not yet available.";
+    } catch (error) {
+      notice.textContent = error.message || "Could not check payment status. Please try again.";
+    }
+  }
+
+  // ========================================
   // INITIALISE
   // ========================================
 
   renderJourney(0);
   updateSummary();
+  verifyPaymentReturn();
 
   console.info(
     "See Africa Calabar: mobile-first experience initialised."
