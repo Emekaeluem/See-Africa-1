@@ -33,6 +33,8 @@ const requiredQuote=(x)=>x.package_type==='fly'||x.origin_region!=='nigeria'||x.
 // Transactional emails require RESEND_API_KEY and a verified EMAIL_FROM_ADDRESS.
 // Claim one notification per payment/status, so repeated webhooks don't create duplicates.
 async function notifyPayment(payment,status) {
+  // Email delivery is explicitly opt-in. Preview payment tests work without Resend or notification tables.
+  if (process.env.ENABLE_PAYMENT_EMAILS !== 'true') return {configured:false,sent:false,disabled:true};
   const apiKey=process.env.RESEND_API_KEY;
   const from=process.env.EMAIL_FROM_ADDRESS;
   if(!apiKey || !from) return {configured:false,sent:false};
