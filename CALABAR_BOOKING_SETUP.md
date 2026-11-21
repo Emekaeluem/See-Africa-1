@@ -31,3 +31,17 @@ Requires the three tables previously created via SQL Editor: `customers`, `booki
 
 ## Important
 Do not mark the site as accepting confirmed bookings until the end-to-end test succeeds and business approval is given.
+
+## Admin approval workflow (manual first; no public admin endpoint)
+1. Staff reviews the enquiry in Supabase Table Editor: `customers` and `bookings`.
+2. Confirm availability, package inclusions, supplier quotes, refund conditions, guest count and correct amount with the organiser. Do not approve just because the page calculated an estimate.
+3. In Supabase Table Editor, find the exact `booking_reference`, correct `total_amount_kobo` if the approved price differs (e.g. ₦150,000 = 15,000,000 kobo), and change `booking_status` to `awaiting_payment`. Do not modify other bookings.
+4. Send the customer their exact booking reference and the Preview checkout URL. Customer enters the *same email address* used on the enquiry, then presses Proceed to Paystack.
+5. A booking that remains `pending` or `awaiting_quote` **cannot** start checkout; payment initiation returns HTTP 409. Do not approve travel packages until suppliers have confirmed availability.
+6. For test transactions only, add a dedicated Paystack **test** webhook that targets the **deployed Preview** hostname `/api/paystack/webhook`, and verify it is being called successfully before running a test charge. The existing legacy webhook may belong to another app; never overwrite it.
+7. Verify in Supabase: after a successful, verified webhook the `payments.payment_status` should be `success` and `bookings.booking_status` should be `confirmed`. Check failed, declined, pending, retry, and duplicate webhook cases too.
+
+**Important:** An admin dashboard with authenticated staff accounts, audit trails, price-approval records, transaction reconciliation, and booking confirmations must be added before production acceptance of real payments. Supabase Table Editor is an interim internal approval tool only. Do not expose the Supabase secret or the service-role credentials to browsers.
+
+## Checkout UI on Preview
+The `calabar.html` booking summary includes an "Already approved to pay?" form. This doesn't charge anybody when the enquiry is first submitted. Staff must explicitly approve a specific reservation before any Paystack checkout can be initiated.
