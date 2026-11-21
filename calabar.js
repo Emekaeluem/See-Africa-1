@@ -890,6 +890,10 @@ document.addEventListener("DOMContentLoaded", () => {
           ". Our team must confirm availability and payment terms. No payment has been taken.";
       }
       enquiryText += "\nBooking reference: " + data.booking_reference;
+      const referenceField = $("#approvedBookingReference");
+      const emailField = $("#approvedBookingEmail");
+      if (referenceField) referenceField.value = data.booking_reference;
+      if (emailField) emailField.value = fields.email;
       if (copyButton) copyButton.disabled = false;
       $("#bookingSummary")?.scrollIntoView({ behavior: scrollBehavior, block: "center" });
     } catch (error) {
@@ -949,6 +953,42 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   );
+
+  // ========================================
+  // CHECKOUT FOR ADMIN-APPROVED BOOKINGS ONLY
+  // ========================================
+  const approvedPaymentForm = $("#approvedPaymentForm");
+  approvedPaymentForm?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!approvedPaymentForm.reportValidity()) return;
+    const button = $("#approvedPaymentButton");
+    const status = $("#approvedPaymentStatus");
+    const booking_reference = $("#approvedBookingReference")?.value.trim() || "";
+    const email = $("#approvedBookingEmail")?.value.trim() || "";
+    if (button) button.disabled = true;
+    if (status) status.textContent = "Checking your booking approval...";
+    try {
+      const response = await fetch("/api/payments/initialize", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ booking_reference, email })
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        if (response.status === 409) {
+          throw new Error("Your booking is not yet approved for payment. Please contact the See Africa team.");
+        }
+        throw new Error(data.error || "Unable to start checkout.");
+      }
+      if (!/^https:\/\/[a-z0-9.-]*paystack\.com\//i.test(data.authorization_url || "")) {
+        throw new Error("Unexpected payment provider response.");
+      }
+      window.location.assign(data.authorization_url);
+    } catch (error) {
+      if (status) status.textContent = error.message || "Unable to start checkout.";
+      if (button) button.disabled = false;
+    }
+  });
 
   // ========================================
   // INITIALISE
