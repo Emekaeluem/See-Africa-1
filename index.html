@@ -22,6 +22,16 @@
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
 
 <link rel="stylesheet" href="style.css?v=homepage-restored-20261120">
+<style>
+#see-africa-promo{position:fixed;inset:0;margin:auto;padding:0;border:0;border-radius:12px;background:#fff;color:#101010;width:max-content;max-width:calc(100vw - 32px);max-height:calc(100dvh - 32px);overflow:visible;box-shadow:0 20px 80px #0007;z-index:2147483647}
+#see-africa-promo::backdrop{background:rgba(0,0,0,.7);backdrop-filter:blur(4px)}
+#see-africa-promo img{display:block;width:auto;height:auto;max-width:min(480px,calc(100vw - 32px));max-height:calc(100dvh - 48px);object-fit:contain;border-radius:12px}
+#see-africa-promo-close{position:absolute;top:8px;right:8px;z-index:2;width:40px;height:40px;border:1px solid #fff8;border-radius:50%;background:#171717e8;color:#fff;font:28px/1 Arial,sans-serif;cursor:pointer;display:grid;place-items:center}
+#see-africa-promo-close:focus-visible{outline:3px solid #dfac58}
+#see-africa-promo[open]{animation:seeAfricaPromoIn .25s ease-out}
+@keyframes seeAfricaPromoIn{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){#see-africa-promo[open]{animation:none}}
+</style>
 </head>
 <body>
 
@@ -265,5 +275,45 @@
 </footer>
 
 <script src="script.js?v=homepage-restored-20261120"></script>
+<dialog id="see-africa-promo" aria-label="See Africa announcement">
+  <button type="button" id="see-africa-promo-close" aria-label="Close announcement" autofocus>×</button>
+  <img id="see-africa-promo-image" alt="See Africa promotional announcement" decoding="async" />
+</dialog>
+<script>
+(function(){
+  const dialog=document.getElementById('see-africa-promo');
+  const image=document.getElementById('see-africa-promo-image');
+  const close=document.getElementById('see-africa-promo-close');
+  let previousOverflow='';
+  close.addEventListener('click',()=>dialog.close());
+  dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});
+  dialog.addEventListener('close',()=>{document.body.style.overflow=previousOverflow;});
+  const imageReady=new Promise(resolve=>{
+    image.onload=()=>resolve(true);
+    image.onerror=()=>resolve(false);
+    image.src='images/SeeAfrica-popup.webp';
+  });
+  function schedule(){
+    const preloader=document.getElementById('preloader');
+    let started=false;
+    const begin=()=>{
+      if(started)return;
+      started=true;
+      observer.disconnect();
+      setTimeout(async()=>{
+        if(!await imageReady || dialog.open || !dialog.showModal)return;
+        previousOverflow=document.body.style.overflow;
+        dialog.showModal();
+        document.body.style.overflow='hidden';
+      },2000);
+    };
+    const observer=new MutationObserver(()=>{if(preloader.classList.contains('done'))begin();});
+    if(!preloader || preloader.classList.contains('done'))begin();
+    else{observer.observe(preloader,{attributes:true,attributeFilter:['class']});setTimeout(begin,4000);}
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',schedule,{once:true});
+  else schedule();
+})();
+</script>
 </body>
 </html>
